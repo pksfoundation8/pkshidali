@@ -1,12 +1,13 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
+import { kvCommand, kvConfigured } from './kv';
 
 /**
  * Collective remembrance gestures — candles lit, flowers, doves, hearts.
  *
- * Production: Vercel KV / Upstash Redis over its REST API (no SDK needed),
- * selected automatically when KV_REST_API_URL + KV_REST_API_TOKEN are set.
- * Increments are atomic (INCR), so concurrent taps can't lose a count.
+ * Production: Vercel KV / Upstash Redis (see lib/kv.ts), selected
+ * automatically when configured. Increments are atomic (INCR), so
+ * concurrent taps cannot lose a count.
  *
  * Local/dev fallback: .data/gestures.json (gitignored). Vercel's filesystem
  * is read-only, so the file path is never used there — configure KV before
@@ -21,37 +22,21 @@ export type GestureCounts = Record<GestureKind, number>;
 
 const ZERO: GestureCounts = { candle: 0, flowers: 0, dove: 0, heart: 0 };
 
-// ── KV (Upstash REST) ─────────────────────────────────────────────────
-const KV_URL = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL;
-const KV_TOKEN = process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
-
 /** Which backend is active — surfaced so ops can confirm the deploy is sane. */
-export const gesturesStore: 'kv' | 'file' = KV_URL && KV_TOKEN ? 'kv' : 'file';
+export const gesturesStore: 'kv' | 'file' = kvConfigured ? 'kv' : 'file';
 
+// ── KV ────────────────────────────────────────────────────────────────
 const key = (k: GestureKind) => `pks:gesture:${k}`;
 
-async function kv<T = unknown>(command: (string | number)[]): Promise<T> {
-  const res = await fetch(KV_URL as string, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${KV_TOKEN}`, 'content-type': 'application/json' },
-    body: JSON.stringify(command),
-    cache: 'no-store',
-  });
-  if (!res.ok) throw new Error(`KV ${command[0]} failed: HTTP ${res.status}`);
-  const json = (await res.json()) as { result?: T; error?: string };
-  if (json.error) throw new Error(`KV ${command[0]} failed: ${json.error}`);
-  return json.result as T;
-}
-
 async function kvRead(): Promise<GestureCounts> {
-  const values = await kv<(string | null)[]>(['MGET', ...GESTURE_KINDS.map(key)]);
+  const values = await kvCommand<(string | null)[]>(['MGET', ...GESTURE_KINDS.map(key)]);
   const out = { ...ZERO };
   GESTURE_KINDS.forEach((k, i) => { out[k] = Number(values[i] ?? 0); });
   return out;
 }
 
 async function kvAdd(kind: GestureKind): Promise<GestureCounts> {
-  await kv<number>(['INCR', key(kind)]);
+  await kvCommand<number>(['INCR', key(kind)]);
   return kvRead();
 }
 

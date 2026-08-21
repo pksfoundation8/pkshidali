@@ -26,7 +26,7 @@ type Body = {
 };
 
 export async function POST(req: Request) {
-  const limit = rateLimit(`donate:${clientKey(req)}`, 12, 60 * 60 * 1000);
+  const limit = await rateLimit(`donate:${clientKey(req)}`, 12, 60 * 60 * 1000);
   if (!limit.ok) {
     return NextResponse.json(
       { error: 'Too many attempts. Please wait a few minutes and try again.' },

@@ -73,7 +73,7 @@ export async function POST(req: Request) {
   const ip = clientKey(req);
 
   // 1 ── rate limit
-  const limit = rateLimit(`tribute:${ip}`, MAX_PER_WINDOW, WINDOW_MS);
+  const limit = await rateLimit(`tribute:${ip}`, MAX_PER_WINDOW, WINDOW_MS);
   if (!limit.ok) {
     return NextResponse.json(
       { error: 'You have submitted several tributes recently. Please try again a little later.' },

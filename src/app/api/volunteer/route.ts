@@ -10,7 +10,7 @@ const str = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
 
 export async function POST(req: Request) {
   const ip = clientKey(req);
-  const limit = rateLimit(`volunteer:${ip}`, 5, 60 * 60 * 1000);
+  const limit = await rateLimit(`volunteer:${ip}`, 5, 60 * 60 * 1000);
   if (!limit.ok) {
     return NextResponse.json(
       { error: 'You have submitted several applications recently. Please try again later.' },

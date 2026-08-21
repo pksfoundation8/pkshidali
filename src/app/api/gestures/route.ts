@@ -15,7 +15,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   const ip = clientKey(req);
-  const limit = rateLimit(`gesture:${ip}`, 12, 60 * 60 * 1000);
+  const limit = await rateLimit(`gesture:${ip}`, 12, 60 * 60 * 1000);
   if (!limit.ok) {
     return NextResponse.json(
       { error: 'Too many gestures from this connection. Please try again later.' },
