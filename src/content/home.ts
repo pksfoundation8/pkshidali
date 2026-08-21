@@ -297,34 +297,15 @@ export const wallScripture = {
 };
 
 /**
- * Sample records, clearly badged. Placeholders showing how a card renders —
- * not testimony from real people. Replaced on the first real submission.
+ * Fallback tributes, used only when the CMS returns nothing.
+ *
+ * Deliberately empty. The badged sample records that lived here were cleared
+ * once real tributes existed in Sanity — fabricated testimony has no place on
+ * a memorial, and an empty state is more honest than a plausible invention.
+ * With this and the CMS both empty, /tributes renders its "Nothing here yet"
+ * state, which is correct.
  */
-export const featuredTributes: Tribute[] = [
-  {
-    id: 's1', sample: true, name: '[Sample] Former student', relationship: 'Former Student',
-    title: 'He taught us more than subjects', years: '1978 – 1982', taught: 'discipline',
-    featured: true,
-    body: 'Placeholder text showing how a tribute renders. A real entry would describe his classroom, the standard he held students to, and the moment years later when it mattered.',
-  },
-  {
-    id: 's2', sample: true, name: '[Sample] Church member', relationship: 'Church Member',
-    title: 'Prayers we never knew about', years: '1990s', taught: 'to pray',
-    featured: true, hasAudio: true,
-    body: 'Placeholder text. A real entry would come from someone he prayed for, describing a season they went through and what that intercession meant at the time.',
-  },
-  {
-    id: 's3', sample: true, name: '[Sample] Ministry colleague', relationship: 'Pastor or Minister',
-    title: 'Firm, and never unkind', years: '2000s', taught: 'to stand for truth',
-    hasVideo: true,
-    body: 'Placeholder text. A colleague might describe a disagreement, how he handled it, and what that revealed about holding conviction and courtesy at the same time.',
-  },
-  {
-    id: 's4', sample: true, name: '[Sample] Family', relationship: 'Family',
-    title: 'Our dad', years: 'A lifetime', taught: 'humility',
-    body: 'Placeholder text. Family entries anchor the archive. Each of the seven children is expected to contribute a reflection on what he taught them, alongside a portrait.',
-  },
-];
+export const featuredTributes: Tribute[] = [];
 
 export const relationships = [
   'Family', 'Former Student', 'Teacher or Colleague', 'Church Member',
