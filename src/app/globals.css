@@ -90,7 +90,7 @@
 @keyframes pkstw{0%,100%{opacity:.25}50%{opacity:.85}}
 /* photographic sky (public/hero-sky.jpg), rendered only when the file
    exists; the scrim above it keeps hero text at readable contrast */
-.pks .bd-sky{position:absolute;inset:0;background:url('/hero-sky.jpg') 50% 35%/cover no-repeat}
+.pks .bd-sky{position:absolute;inset:0;background:url('/hero-sky-v2.jpg') 50% 35%/cover no-repeat}
 .pks .bd-hor{position:absolute;left:0;right:0;bottom:0;height:45%;
   background:radial-gradient(80% 100% at 50% 100%,rgba(227,199,126,.30) 0%,transparent 70%)}
 .pks .bd-scrim{position:absolute;inset:0;
@@ -1563,3 +1563,12 @@
 @media(min-width:1024px){
   .pks .pwrap.rise{transform:translate(-46px,18px)}
 }
+
+/* ══════════ v25 — sizing for the supplied studio cutout ══════════
+   The replacement portrait is a professionally keyed bust crop: much wider
+   than tall (950x835, aspect 1.14) where the previous asset was a tall
+   full-length crop (aspect 0.62). At the old 300px width it rendered only
+   264px tall and collapsed the hero. Widened so his head carries the same
+   presence, and the base fade is baked into the asset rather than masked. */
+.pks .pwrap,.pks .pframe{max-width:430px}
+@media(max-width:1023px){.pks .pframe,.pks .pwrap{max-width:290px}}

@@ -51,7 +51,7 @@ export default async function HisLifePage() {
             </ul>
           </div>
           <div className="por">
-            <Image src="/portrait-v4.webp" unoptimized alt={site.subject.name} width={479} height={776}
+            <Image src="/portrait-v5.webp" unoptimized alt={site.subject.name} width={950} height={835}
               priority sizes="(max-width: 1023px) 230px, 250px" />
           </div>
         </Container>
