@@ -1451,7 +1451,7 @@
 .pks .pframe{
   -webkit-mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%);
           mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%)}
-.pks .pframe img{filter:saturate(.9) contrast(1.05) brightness(.94)}
+.pks .pframe img{filter:saturate(.92) contrast(1.04) brightness(1.04)}
 .pks .pframe::after{content:'';display:block;position:absolute;inset:0;border:0;border-radius:0;
   pointer-events:none;
   background:
@@ -1465,7 +1465,7 @@
 .pks .pburst{opacity:.11}
 
 /* tributes hero portrait — same treatment on its wrapper */
-.pks .thero .por img{filter:saturate(.9) contrast(1.05) brightness(.94);
+.pks .thero .por img{filter:saturate(.92) contrast(1.04) brightness(1.04);
   -webkit-mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%);
           mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%)}
 .pks .thero .por::after{content:'';position:absolute;inset:0;pointer-events:none;
