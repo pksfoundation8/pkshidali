@@ -15,13 +15,39 @@ npm run setup:sanity
 ```
 
 Restart the dev server and open `/studio`. On the production host, set the
-same four variables from `.env`.
+same five variables from `.env`.
 
 Then in Sanity Manage → API → Webhooks, point `create/update/delete` at
 `https://pkshidali.org/api/revalidate` with the secret from
 `SANITY_REVALIDATE_SECRET` (the setup script prints the exact URL and value).
 Publishing invalidates only that document type's cache tag, so a tribute going
 live does not rebuild the whole site.
+
+## The dataset is private
+
+Tribute documents hold **contributor email addresses**, so the dataset is
+provisioned with `aclMode: 'private'` rather than Sanity's usual public
+default. A public dataset would let anyone who learned the project id query
+those emails directly, regardless of how careful the site's own queries are.
+
+Consequences, all handled by the setup script:
+
+- Reads need a token too. `SANITY_API_READ_TOKEN` (Viewer role) is written to
+  `.env` alongside the Editor write token, and `getClient()` uses it. Every
+  read is server-side already (`import 'server-only'`), so no token reaches a
+  browser.
+- Authenticated reads skip Sanity's API CDN. That costs little here: every
+  query goes through `sanityFetch`, which Next caches for an hour by tag and
+  the revalidate webhook busts on publish.
+- Without the read token the site does not error — it silently serves the seed
+  content in `src/content/`. `getClient()` logs a warning once so that is
+  diagnosable rather than mysterious.
+
+One honest limit: in Sanity, **assets are not covered by the dataset ACL**.
+Uploaded tribute photos and audio stay reachable at their (unguessable)
+`cdn.sanity.io` URLs even on a private dataset. That is acceptable here —
+those files are submitted with explicit publication consent — but it is not a
+secrecy guarantee, and nothing confidential should be uploaded as an asset.
 
 ## The fallback is the point
 

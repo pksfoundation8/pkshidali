@@ -4,10 +4,11 @@
  *   1. npx sanity login          (opens the browser — the only manual step)
  *   2. npm run setup:sanity
  *
- * Creates the project, the production dataset, CORS entries for the studio,
- * an Editor API token for /api/tributes, generates the revalidate secret, and
- * writes everything into .env. Refuses to overwrite an existing project id
- * unless --force is passed.
+ * Creates the project, a PRIVATE production dataset (contributor emails live
+ * in it, so it must not be world-readable), CORS entries for the studio,
+ * Editor and Viewer API tokens, generates the revalidate secret, and writes
+ * everything into .env. Refuses to overwrite an existing project id unless
+ * --force is passed.
  *
  * After it runs: restart the dev server (or set the same variables on the
  * production host) and open /studio.
@@ -105,8 +106,8 @@ console.log('\n  Sanity provisioning\n  ─────────────�
 const project = await api('POST', '/projects', token, { displayName: PROJECT_NAME });
 console.log(`  ✓ project created            ${project.id}`);
 
-await api('PUT', `/projects/${project.id}/datasets/production`, token, { aclMode: 'public' });
-console.log('  ✓ dataset created            production');
+await api('PUT', `/projects/${project.id}/datasets/production`, token, { aclMode: 'private' });
+console.log('  ✓ dataset created            production (private)');
 
 for (const origin of CORS_ORIGINS) {
   try {
@@ -123,12 +124,19 @@ const writeToken = await api('POST', `/projects/${project.id}/tokens`, token, {
 });
 console.log('  ✓ editor API token created   site-write');
 
+const readToken = await api('POST', `/projects/${project.id}/tokens`, token, {
+  label: 'site-read',
+  roleName: 'viewer',
+});
+console.log('  ✓ viewer API token created   site-read');
+
 const revalidateSecret = randomBytes(24).toString('hex');
 
 writeEnv({
   NEXT_PUBLIC_SANITY_PROJECT_ID: project.id,
   NEXT_PUBLIC_SANITY_DATASET: 'production',
   SANITY_API_WRITE_TOKEN: writeToken.key,
+  SANITY_API_READ_TOKEN: readToken.key,
   SANITY_REVALIDATE_SECRET: revalidateSecret,
 });
 console.log('  ✓ .env written\n');
@@ -137,7 +145,9 @@ console.log(`  Next steps
   ──────────
   1. Restart the dev server, then open http://localhost:3000/studio
      and sign in — the tribute queue and all content types are ready.
-  2. On the production host, set the same four variables from .env.
+  2. On the production host, set the same five variables from .env.
+     The dataset is PRIVATE, so the read token is required for the site
+     to see CMS content at all.
   3. In https://www.sanity.io/manage/project/${project.id}/api
      add a webhook: URL  https://pkshidali.org/api/revalidate
                     secret  ${revalidateSecret}

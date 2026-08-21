@@ -9,14 +9,31 @@ import { projectId, dataset, apiVersion, isSanityConfigured } from './env';
  */
 
 let cached: SanityClient | null = null;
+let warned = false;
 
 /** Read client. Returns null when no project is configured. */
 export function getClient(): SanityClient | null {
   if (!isSanityConfigured) return null;
+
+  const readToken = process.env.SANITY_API_READ_TOKEN;
+  if (!readToken && !warned) {
+    warned = true;
+    console.warn(
+      '[sanity] SANITY_API_READ_TOKEN is not set. The dataset is provisioned ' +
+      'private (contributor emails live in it), so reads will fail and the ' +
+      'site will quietly serve seed content instead of CMS data.',
+    );
+  }
+
   cached ??= createClient({
     projectId, dataset, apiVersion,
-    useCdn: process.env.NODE_ENV === 'production',
     perspective: 'published',
+    // A token is required for a private dataset. Authenticated reads skip the
+    // API CDN — correctness over a cache layer Next already duplicates, since
+    // every query goes through sanityFetch and is cached for an hour by tag.
+    ...(readToken
+      ? { token: readToken, useCdn: false }
+      : { useCdn: process.env.NODE_ENV === 'production' }),
   });
   return cached;
 }
