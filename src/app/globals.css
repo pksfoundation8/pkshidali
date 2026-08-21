@@ -1086,8 +1086,8 @@
 /* ══════════════ v11 — compact hero, professional portrait blend ══════════════ */
 
 /* tighter vertical rhythm */
-.pks .hero2 .in{padding-top:80px;padding-bottom:20px;gap:22px}
-@media(min-width:1024px){.pks .hero2 .in{padding-top:80px;padding-bottom:20px;gap:28px}}
+.pks .hero2 .in{padding-top:86px;padding-bottom:24px;gap:24px}
+@media(min-width:1024px){.pks .hero2 .in{padding-top:96px;padding-bottom:30px;gap:32px}}
 
 /* the full name sets on one line, both color spans inline */
 .pks .hero2 h1{font-size:clamp(1.7rem,3.5vw,3rem)}
@@ -1107,7 +1107,7 @@
 .pks .pglow{width:130%;padding-bottom:130%;top:-8%}
 
 /* memorial plate: overlaps the portrait's faded base to keep the band short */
-.pks .pdates{margin-top:-26px;position:relative;z-index:1}
+.pks .pdates{margin-top:-10px;position:relative;z-index:1}
 .pks .pdates .k{color:var(--gold-300);text-shadow:0 1px 10px rgba(5,29,53,.95)}
 .pks .pdates .d{color:var(--ivory);text-shadow:0 1px 10px rgba(5,29,53,.95)}
 
@@ -1286,7 +1286,7 @@
 }
 
 /* hero plate: shallower overlap on the smaller mobile portrait */
-@media(max-width:1023px){.pks .pdates{margin-top:-16px}}
+@media(max-width:1023px){.pks .pdates{margin-top:-8px}}
 
 /* tributes hero centers on mobile, matching the homepage hero */
 @media(max-width:1023px){
@@ -1552,3 +1552,14 @@
 .pks .pburst,.pks .pglow{display:none}
 .pks .pframe{overflow:visible;border-radius:0}
 .pks .pwrap.rise{animation:none;opacity:1;transform:none}
+
+/* ══════════ v24 — clear the plate, nudge the portrait off the cross ══════════
+   The memorial plate overlapped 26px into his still-visible robe (the fade
+   zone is 110px of the crop's height; -26px landed well before it neared
+   full transparency). Reduced to just clip the fade's tail. The portrait
+   sat close to centre of its grid column, which put the cross (baked into
+   the sky photo) right behind his shoulder; nudged left and down at desktop
+   for daylight between them. Single-column mobile stack is unaffected. */
+@media(min-width:1024px){
+  .pks .pwrap.rise{transform:translate(-46px,18px)}
+}
