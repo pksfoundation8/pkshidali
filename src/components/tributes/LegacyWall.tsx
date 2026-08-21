@@ -18,12 +18,20 @@ export function LegacyWall() {
         </Link>
       </div>
 
-      {wallMessages.slice(0, 3).map((m) => (
-        <article key={m.id} className="wmsg">
-          <q>{m.body}</q>
-          <span className="nm">&mdash; {m.name}</span>
+      {wallMessages.length > 0 ? (
+        wallMessages.slice(0, 3).map((m) => (
+          <article key={m.id} className="wmsg">
+            <q>{m.body}</q>
+            <span className="nm">&mdash; {m.name}</span>
+          </article>
+        ))
+      ) : (
+        // Keeps the row balanced against the scripture tile, and invites the
+        // first real message rather than showing an empty cell.
+        <article className="wmsg none">
+          <p>No messages yet &mdash; yours would be the first.</p>
         </article>
-      ))}
+      )}
 
       <aside className="scrip">
         <span className="cross" aria-hidden="true"><Icon n="cross" s={92} /></span>

@@ -281,14 +281,13 @@ export type Tribute = {
  */
 export type WallMessage = { id: string; name: string; body: string; sample?: boolean };
 
-export const wallMessages: WallMessage[] = [
-  { id: 'w1', sample: true, name: '[Sample] Esther W.',
-    body: 'Placeholder text. Wall messages are one or two sentences — gratitude, remembrance, a line someone wants on the record.' },
-  { id: 'w2', sample: true, name: '[Sample] James M.',
-    body: 'Placeholder text. Shorter than a tribute, and easier to leave from a phone.' },
-  { id: 'w3', sample: true, name: '[Sample] Naomi K.',
-    body: 'Placeholder text. Still moderated, still consented to, still permanent.' },
-];
+/**
+ * Deliberately empty. The badged sample messages that lived here were cleared
+ * alongside the sample tributes: invented remembrance from invented people has
+ * no place on a memorial. The wall renders an invitation until real messages
+ * arrive through moderation.
+ */
+export const wallMessages: WallMessage[] = [];
 
 /** Public domain, so it reproduces without licensing. */
 export const wallScripture = {

@@ -1487,3 +1487,9 @@
 .pks .pbanner.sky .bd-hor{animation:pksdawn 11s ease-in-out infinite}
 /* banners are shorter than heroes: keep the cross in frame */
 .pks .pbanner.sky .bd-sky{background-position:50% 45%}
+
+/* legacy wall: invitation shown while no real messages exist */
+.pks .wmsg.none{align-items:center;justify-content:center;text-align:center;
+  min-height:104px}
+.pks .wmsg.none p{font-family:var(--display);font-style:italic;font-size:14px;
+  color:var(--ink-muted)}
