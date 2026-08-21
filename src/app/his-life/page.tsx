@@ -4,7 +4,7 @@ import { Container } from '@/components/layout/Container';
 import { SectionHeading } from '@/components/primitives/SectionHeading';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
-import { CelestialBackdrop, Hill } from '@/components/home/CelestialBackdrop';
+import { CelestialBackdrop, Hill, hasHeroSky } from '@/components/home/CelestialBackdrop';
 import { BiographyAccordion } from '@/components/life/BiographyAccordion';
 import { lifeSections, characterTraits, lifeIntro } from '@/content/life';
 import { getMilestones } from '@/lib/content';
@@ -22,8 +22,8 @@ export default async function HisLifePage() {
   return (
     <>
       <section className="thero">
-        <CelestialBackdrop even />
-        <Hill />
+        <CelestialBackdrop even sky />
+        {!hasHeroSky && <Hill />}
         <Container className="in">
           <div>
             <h1>Rev. Paul <span className="g">Kadir Shidali</span></h1>
