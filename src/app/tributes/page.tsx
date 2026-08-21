@@ -58,7 +58,7 @@ export default async function TributesPage() {
             </ul>
           </div>
           <div className="por">
-            <Image src="/portrait.jpg" alt={site.subject.name} width={520} height={587}
+            <Image src="/portrait-v2.jpg" alt={site.subject.name} width={620} height={780}
               sizes="(max-width: 1023px) 230px, 250px" />
           </div>
         </Container>

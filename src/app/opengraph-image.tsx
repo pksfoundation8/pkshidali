@@ -22,7 +22,7 @@ export const contentType = 'image/png';
 export default async function Image() {
   let portrait = '';
   try {
-    const file = await readFile(join(process.cwd(), 'public', 'portrait.jpg'));
+    const file = await readFile(join(process.cwd(), 'public', 'portrait-v2.jpg'));
     portrait = `data:image/jpeg;base64,${file.toString('base64')}`;
   } catch {
     // Card still renders without it.
