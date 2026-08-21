@@ -1,9 +1,9 @@
 import { Container } from './Container';
 import { CelestialBackdrop } from '@/components/home/CelestialBackdrop';
 
-/** Inner-page banner. Pass `sky` for the photographic sky and the
- *  courage-and-victory motion used on the main heroes. */
-export function PageBanner({ eyebrow, title, intro, sky = false }: {
+/** Inner-page banner. Carries the photographic sky and the
+ *  courage-and-victory motion by default; pass sky={false} to opt out. */
+export function PageBanner({ eyebrow, title, intro, sky = true }: {
   eyebrow?: string; title: string; intro?: string; sky?: boolean;
 }) {
   return (
