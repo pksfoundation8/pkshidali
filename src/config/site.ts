@@ -107,7 +107,8 @@ export const policyNav = [
 /** The roles strip beneath the hero. Two groups, split by a spacer. */
 export const rolesVocation: [IconName, string][] = [
   ['book', 'Teacher'], ['cap', 'Headmaster'], ['users', 'Pastor'],
-  ['mic', 'Preacher'], ['prayer', 'Prayer Warrior'], ['doc', 'Bible Student'],
+  ['mic', 'Preacher'], ['pen', 'Writer'], ['prayer', 'Prayer Warrior'],
+  ['doc', 'Bible Student'],
 ];
 
 export const rolesFamily: [IconName, string][] = [

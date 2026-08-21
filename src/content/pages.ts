@@ -49,7 +49,7 @@ export const archiveSections: ArchiveSection[] = [
     title: 'Documents & Bible Notes',
     icon: 'doc',
     intro:
-      'Letters, certificates, school records, appointment papers and his annotated Bibles. This is the material most at risk of loss, and the first priority for digitisation.',
+      'Letters, certificates, school records, appointment papers, his annotated Bibles — and his unpublished manuscripts, which the foundation is cataloguing for eventual publication. This is the material most at risk of loss, and the first priority for digitisation.',
     fields: ['Document type', 'Date', 'Issuing body or author', 'Condition', 'Scan and transcription'],
     records: [
       { id: 'dc1', sample: true, title: '[Sample] Handwritten Bible notes', meta: 'Document · Undated',

@@ -25,6 +25,7 @@ export function CelestialBackdrop({ even = false, sky = false }: { even?: boolea
     <div className="bd" aria-hidden="true">
       <div className="bd-base" />
       {hasSky && <div className="bd-sky" />}
+      {hasSky && <div className="bd-victory" />}
       <svg className="bd-stars" viewBox="0 0 100 100" preserveAspectRatio="none">
         {STARS.map(([x, y, r], i) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r={r * 0.16} fill="var(--gold-300)"

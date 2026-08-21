@@ -18,7 +18,7 @@ export const metadata = {
     'Tributes and testimonies from family, students, church members, colleagues and community members whose lives were changed by Rev. Paul Kadir Shidali.',
 };
 
-const heroRoles = ['Husband', 'Father', 'Grandfather', 'Teacher', 'Pastor', 'Prayer Warrior'];
+const heroRoles = ['Husband', 'Father', 'Grandfather', 'Teacher', 'Pastor', 'Writer', 'Prayer Warrior'];
 
 export default async function TributesPage() {
   const [tributes, milestones] = await Promise.all([getPublishedTributes(), getMilestones()]);

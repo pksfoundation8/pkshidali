@@ -14,7 +14,7 @@ export const thesis = {
   heading: 'Not a memorial. An institution.',
   body: [
     'A memorial records that someone lived. This foundation exists to demonstrate that what he lived for is still being carried forward.',
-    'He was, above everything else, a builder of people. As a teacher he built minds. As a headmaster he built students and institutions. As a pastor he built believers. As a father and grandfather he built a family that has now outlived him.',
+    'He was, above everything else, a builder of people. As a teacher he built minds. As a headmaster he built students and institutions. As a pastor he built believers. As a writer he filled manuscripts that remain unpublished. As a father and grandfather he built a family that has now outlived him.',
     'That gives the organisation a working theory of change, and it is the sentence the whole foundation rests on:',
   ],
   pullQuote:
@@ -59,6 +59,8 @@ export const commitments: Commitment[] = [
     detail: 'Must address the Nigeria Data Protection Act 2023 and the cross-border transfer of contributor data from Canada, the US and the UK.' },
   { title: 'Donation policy', status: 'pending', statusLabel: 'Required before first gift',
     detail: 'Including a plain statement that gifts from outside Nigeria are not tax-receiptable, and why.' },
+  { title: 'Publishing his manuscripts', status: 'progress', statusLabel: 'Being catalogued',
+    detail: 'He left a body of unpublished writing. The foundation is gathering and cataloguing the manuscripts; preparing them for publication through the Legacy Archive is a standing commitment, done at the pace careful editing requires.' },
   { title: 'Annual report and accounts', status: 'pending', statusLabel: 'From first full year',
     detail: 'Income, programme expenditure and administrative ratio, in naira with major-currency equivalents.' },
   { title: 'Independent audit', status: 'pending', statusLabel: 'As the organisation matures',

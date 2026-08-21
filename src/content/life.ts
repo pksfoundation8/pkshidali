@@ -84,6 +84,16 @@ export const lifeSections: LifeSection[] = [
     ],
   },
   {
+    slug: 'the-writer', title: 'The Writer',
+    standfirst: 'A lifetime of writing — manuscripts that remain unpublished.',
+    prompts: [
+      'What did he write — books, teachings, reflections, letters — and over what years?',
+      'Where are the manuscripts now, and in what condition?',
+      'Did he speak about publishing them, and what did he want done with them?',
+      'Who in the family can catalogue, transcribe and prepare them for the archive?',
+    ],
+  },
+  {
     slug: 'the-prayer-warrior', title: 'The Prayer Warrior',
     standfirst: 'The least visible part of his work, and by many accounts the largest.',
     prompts: [
@@ -163,7 +173,7 @@ export const characterTraits: { icon: IconName; label: string }[] = [
 
 export const lifeIntro = {
   roles: [
-    'Teacher', 'Headmaster', 'Pastor', 'Preacher', 'Prayer Warrior',
+    'Teacher', 'Headmaster', 'Pastor', 'Preacher', 'Writer', 'Prayer Warrior',
     'Bible Student', 'Husband', 'Father', 'Grandfather',
   ],
   note:
