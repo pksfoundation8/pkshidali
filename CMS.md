@@ -5,18 +5,23 @@ deployment for the family to learn.
 
 ## Connecting a project
 
+Two commands — the first opens the browser to sign in, the second provisions
+everything (project, production dataset, CORS, an Editor write token, the
+revalidate secret) and writes `.env`:
+
 ```bash
-cp .env.example .env.local
-npx sanity@latest login
-npx sanity@latest projects create "PK Shidali Foundation"
-# paste the project id into NEXT_PUBLIC_SANITY_PROJECT_ID
-npx sanity@latest tokens add "web write" --role editor   # → SANITY_API_WRITE_TOKEN
+npx sanity login
+npm run setup:sanity
 ```
+
+Restart the dev server and open `/studio`. On the production host, set the
+same four variables from `.env`.
 
 Then in Sanity Manage → API → Webhooks, point `create/update/delete` at
 `https://pkshidali.org/api/revalidate` with the secret from
-`SANITY_REVALIDATE_SECRET`. Publishing invalidates only that document type's
-cache tag, so a tribute going live does not rebuild the whole site.
+`SANITY_REVALIDATE_SECRET` (the setup script prints the exact URL and value).
+Publishing invalidates only that document type's cache tag, so a tribute going
+live does not rebuild the whole site.
 
 ## The fallback is the point
 
@@ -42,8 +47,11 @@ Rejected, because that is the list needing daily attention.
 
 Two rules are encoded in the `tribute` schema rather than left to convention:
 
-1. **Nothing publishes without a human.** `status` starts at `pending` and only a
-   moderator can move it. Every public query filters on `status == "published"`.
+1. **`status` is the only publication gate.** Every public query filters on
+   `status == "published"`. *Current launch posture:* submissions are
+   auto-approved — `SUBMISSION_STATUS` in `src/app/api/tributes/route.ts`
+   creates them as `published`. Flip it back to `'pending'` to restore
+   human moderation; the studio's Pending queue is already wired for it.
 2. **`rawSubmission` is the consent record and is read-only.** Moderators correct
    `body`; the original wording survives underneath. `permissionPublish` and
    `permissionArchive` are read-only and validated — a tribute cannot be saved as

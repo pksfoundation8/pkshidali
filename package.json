@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup:sanity": "node scripts/setup-sanity.mjs"
   },
   "dependencies": {
     "@sanity/image-url": "1.2.0",
