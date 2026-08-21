@@ -23,20 +23,24 @@ export const milestonesQuery = groq`
   }`;
 
 /** Published only. Status is the gate — nothing else may open it. */
+const tributeFields = groq`
+  "id": _id, name, relationship, title, body, taught, years, location,
+  videoUrl, "hasAudio": defined(audioFile), "hasVideo": defined(videoUrl)`;
+
 export const publishedTributesQuery = groq`
   *[_type == "tribute" && status == "published"] | order(submittedAt desc) {
-    "id": _id, name, relationship, title, body, taught, years, location
+    ${tributeFields}
   }`;
 
 export const featuredTributesQuery = groq`
   *[_type == "tribute" && status == "published" && featured == true]
     | order(submittedAt desc) [0...4] {
-    "id": _id, name, relationship, title, body, taught, years, location
+    ${tributeFields}
   }`;
 
 export const tributeByIdQuery = groq`
   *[_type == "tribute" && _id == $id && status == "published"][0] {
-    "id": _id, name, relationship, title, body, taught, years, location
+    ${tributeFields}
   }`;
 
 export const archiveSectionQuery = groq`

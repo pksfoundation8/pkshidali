@@ -9,7 +9,7 @@ import { relationships } from '@/content/home';
 
 const BLANK = {
   name: '', email: '', relationship: '', years: '', location: '',
-  title: '', body: '', website: '',
+  title: '', taught: '', body: '', website: '',
 };
 
 const ACCEPT = 'image/jpeg,image/png,image/webp,image/heic,audio/*,video/mp4';
@@ -74,15 +74,21 @@ export function ShareSidebar() {
     return (
       <div className="sform">
         <span className="ring"><Icon n="check" s={24} /></span>
-        <h2 style={{ marginTop: 16, fontSize: 24 }}>Submitted for review</h2>
+        <h2 style={{ marginTop: 16, fontSize: 24 }}>Published — thank you</h2>
         <p className="lead" style={{ marginTop: 12, fontSize: 14 }}>
-          Nothing publishes automatically. A family administrator reads every tribute, and you
-          will hear from us at {f.email} once yours is live.
+          Your tribute is now live on this page — reload to see it. The family may reach you
+          at {f.email} if anything needs clarifying.
         </p>
-        <button type="button" className="btn btn-outline" style={{ marginTop: 20, width: '100%' }}
-          onClick={() => { setF(BLANK); setFile(null); setConsent(false); setErrs({}); setState('idle'); }}>
-          Share another memory
-        </button>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 20 }}>
+          <button type="button" className="btn btn-gold" style={{ width: '100%' }}
+            onClick={() => window.location.assign('/tributes')}>
+            See it on the wall
+          </button>
+          <button type="button" className="btn btn-outline" style={{ width: '100%' }}
+            onClick={() => { setF(BLANK); setFile(null); setConsent(false); setErrs({}); setState('idle'); }}>
+            Share another memory
+          </button>
+        </div>
       </div>
     );
   }
@@ -124,6 +130,11 @@ export function ShareSidebar() {
 
       <Field label="Tribute title" htmlFor="s-title" required error={errs.title}>
         <input id="s-title" value={f.title} onChange={set('title')} placeholder="Give your tribute a title" />
+      </Field>
+
+      <Field label="He taught me…" htmlFor="s-taught">
+        <input id="s-taught" value={f.taught} onChange={set('taught')}
+          placeholder="discipline / to pray / humility" />
       </Field>
 
       <Field label="Your tribute" htmlFor="s-body" required error={errs.body}>

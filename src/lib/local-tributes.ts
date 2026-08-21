@@ -32,9 +32,17 @@ export async function readLocalTributes(): Promise<Tribute[]> {
   return (await readAll()).map(({ email: _email, ...pub }) => pub);
 }
 
-export async function addLocalTribute(t: StoredTribute): Promise<void> {
-  const all = await readAll();
-  all.unshift(t);
-  await fs.mkdir(DIR, { recursive: true });
-  await fs.writeFile(FILE, JSON.stringify(all, null, 2), 'utf8');
+/** Writes are serialised so two simultaneous submissions cannot lose one to a
+ *  read-modify-write race on the file. */
+let writeQueue: Promise<unknown> = Promise.resolve();
+
+export function addLocalTribute(t: StoredTribute): Promise<void> {
+  const run = writeQueue.then(async () => {
+    const all = await readAll();
+    all.unshift(t);
+    await fs.mkdir(DIR, { recursive: true });
+    await fs.writeFile(FILE, JSON.stringify(all, null, 2), 'utf8');
+  });
+  writeQueue = run.catch(() => {});
+  return run;
 }

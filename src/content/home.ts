@@ -269,6 +269,8 @@ export type Tribute = {
   /** Marks a submission that arrived as audio or video, for the media filters. */
   hasAudio?: boolean;
   hasVideo?: boolean;
+  /** External link (YouTube/Vimeo/Drive) rendered on the detail page. */
+  videoUrl?: string;
   featured?: boolean;
 };
 

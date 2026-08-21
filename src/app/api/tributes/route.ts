@@ -176,6 +176,7 @@ export async function POST(req: Request) {
         body: tribute.body,
         hasAudio: audio ? true : undefined,
         hasVideo: tribute.videoUrl ? true : undefined,
+        videoUrl: tribute.videoUrl || undefined,
         submittedAt,
       });
     } catch (err) {

@@ -48,6 +48,13 @@ export default async function TributePage({ params }: { params: Promise<{ id: st
               </p>
             )}
 
+            {t.videoUrl && (
+              <a href={t.videoUrl} target="_blank" rel="noopener noreferrer"
+                className="btn btn-outline" style={{ marginTop: 26 }}>
+                <Icon n="video" s={16} />Watch the video tribute
+              </a>
+            )}
+
             <div style={{ marginTop: 34, paddingTop: 22, borderTop: '1px solid var(--line)' }}>
               <p style={{ fontSize: 17, fontWeight: 600 }}>{t.name}</p>
               <p style={{ marginTop: 5, fontSize: 14, color: 'var(--ink-muted)' }}>

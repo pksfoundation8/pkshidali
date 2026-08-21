@@ -99,22 +99,22 @@ export default function ShareTributePage() {
   if (state === 'done') {
     return (
       <>
-        <PageBanner eyebrow="Tributes" title="Thank you" intro="Your tribute has been received." />
+        <PageBanner eyebrow="Tributes" title="Thank you" intro="Your tribute has been published." />
         <section className="pad">
           <Container>
             <div className="panel" style={{ maxWidth: 640 }}>
               <span className="ring"><Icon n="check" s={26} /></span>
-              <h2 style={{ marginTop: 20, fontSize: 28 }}>Submitted for review</h2>
+              <h2 style={{ marginTop: 20, fontSize: 28 }}>Published — thank you</h2>
               <p className="lead" style={{ marginTop: 14 }}>
-                Nothing is published automatically. A family administrator will read your tribute,
-                and you will hear from us at {f.email} once it is live.
+                Your tribute is now live on the tributes page. The family may reach you
+                at {f.email} if anything needs clarifying.
               </p>
               <p className="lead" style={{ marginTop: 14 }}>
-                The workflow is: submitted, reviewed, approved, published, archived. Your original
-                wording is preserved even if minor corrections are made.
+                Your original wording is preserved in the archive even if minor corrections
+                are ever made to the published copy.
               </p>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 28 }}>
-                <Link href="/tributes" className="btn btn-solid">Back to tributes</Link>
+                <Link href="/tributes" className="btn btn-solid">See it on the tributes page</Link>
                 <button type="button" className="btn btn-outline"
                   onClick={() => {
                   setF(BLANK); setPhoto(null); setAudio(null);

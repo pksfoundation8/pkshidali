@@ -8,6 +8,7 @@ import { TributesExplorer } from '@/components/tributes/TributesExplorer';
 import { ShareSidebar } from '@/components/tributes/ShareSidebar';
 import { LegacyWall } from '@/components/tributes/LegacyWall';
 import { CandleCard } from '@/components/tributes/CandleCard';
+import { SymbolicTribute } from '@/components/tributes/SymbolicTribute';
 import { getPublishedTributes, getMilestones } from '@/lib/content';
 import { site } from '@/config/site';
 
@@ -101,23 +102,7 @@ export default async function TributesPage() {
             <aside className="tside">
               <ShareSidebar />
               <CandleCard />
-              <div className="panel symb" aria-label="Leave a symbolic tribute">
-                <h3>Leave a Symbolic Tribute</h3>
-                <ul>
-                  <li>
-                    <Link href="/tributes/share"><span className="ring sm"><Icon n="seed" s={18} /></span>Send Flowers</Link>
-                  </li>
-                  <li>
-                    <Link href="/tributes/share"><span className="ring sm"><Icon n="send" s={18} /></span>Send a Dove</Link>
-                  </li>
-                  <li>
-                    <Link href="/tributes/share"><span className="ring sm"><Icon n="heart" s={18} /></span>Leave a Heart</Link>
-                  </li>
-                </ul>
-                <Link href="/tributes" className="tlink" style={{ marginTop: 14 }}>
-                  View all tributes<Icon n="arrow" s={13} />
-                </Link>
-              </div>
+              <SymbolicTribute />
             </aside>
           </div>
         </Container>
