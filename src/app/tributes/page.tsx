@@ -3,13 +3,12 @@ import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { SectionHeading } from '@/components/primitives/SectionHeading';
 import { Icon } from '@/components/primitives/Icon';
-import { CelestialBackdrop, Hill } from '@/components/home/CelestialBackdrop';
+import { CelestialBackdrop, Hill, hasHeroSky } from '@/components/home/CelestialBackdrop';
 import { TributesExplorer } from '@/components/tributes/TributesExplorer';
 import { ShareSidebar } from '@/components/tributes/ShareSidebar';
 import { LegacyWall } from '@/components/tributes/LegacyWall';
 import { CandleCard } from '@/components/tributes/CandleCard';
 import { getPublishedTributes, getMilestones } from '@/lib/content';
-import { wallMessages } from '@/content/home';
 import { site } from '@/config/site';
 
 export const metadata = {
@@ -20,11 +19,6 @@ export const metadata = {
 
 const heroRoles = ['Husband', 'Father', 'Grandfather', 'Teacher', 'Pastor', 'Prayer Warrior'];
 
-function initials(name: string) {
-  const parts = name.replace(/\[.*?\]/g, '').trim().split(/\s+/).slice(0, 2);
-  return parts.map((w) => w[0] ?? '').join('').toUpperCase() || '✦';
-}
-
 export default async function TributesPage() {
   const [tributes, milestones] = await Promise.all([getPublishedTributes(), getMilestones()]);
   const taught = tributes.filter((t) => t.taught);
@@ -33,7 +27,7 @@ export default async function TributesPage() {
     <>
       <section className="thero">
         <CelestialBackdrop even sky />
-        <Hill />
+        {!hasHeroSky && <Hill />}
         <Container className="in">
           <div>
             <h1><span className="g">Lives</span> He Touched</h1>
@@ -85,17 +79,6 @@ export default async function TributesPage() {
                     <li><Icon n="doc" s={17} /><span>Documents</span></li>
                   </ul>
                   <Link href="/archive" className="btn btn-outline">Explore gallery</Link>
-                </div>
-
-                <div className="tpanel">
-                  <h3>Legacy Wall</h3>
-                  <p>Short messages of love, gratitude and remembrance from the community.</p>
-                  <div className="faces" aria-hidden="true">
-                    {wallMessages.map((m) => (
-                      <span key={m.id} className="avatar xs">{initials(m.name)}</span>
-                    ))}
-                  </div>
-                  <Link href="#legacy-wall" className="btn btn-outline">View Legacy Wall</Link>
                 </div>
 
                 <div className="tpanel">

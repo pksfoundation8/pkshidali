@@ -1083,6 +1083,39 @@
   -webkit-mask-image:radial-gradient(ellipse 72% 78% at 50% 42%,#000 52%,transparent 79%);
           mask-image:radial-gradient(ellipse 72% 78% at 50% 42%,#000 52%,transparent 79%)}
 
+/* ══════════════ v11 — compact hero, professional portrait blend ══════════════ */
+
+/* tighter vertical rhythm */
+.pks .hero2 .in{padding-top:92px;padding-bottom:28px;gap:26px}
+@media(min-width:1024px){.pks .hero2 .in{padding-top:100px;padding-bottom:34px;gap:36px}}
+
+/* the full name sets on one line, both color spans inline */
+.pks .hero2 h1{font-size:clamp(1.7rem,3.5vw,3rem)}
+.pks .hero2 h1 > span{display:inline}
+.pks .hero2 .hrule{margin-top:18px}
+.pks .hero2 .lede{margin-top:14px}
+.pks .hero2 .acts{margin-top:22px}
+
+/* portrait: head-and-shoulders visible with a soft feather; the sunburst
+   calms down so it reads as atmosphere rather than ornament */
+.pks .pwrap,.pks .pframe{max-width:360px}
+.pks .pframe{
+  -webkit-mask-image:radial-gradient(ellipse 70% 78% at 50% 46%,#000 48%,transparent 78%);
+          mask-image:radial-gradient(ellipse 70% 78% at 50% 46%,#000 48%,transparent 78%)}
+@media(max-width:1023px){.pks .pframe,.pks .pwrap{max-width:280px}}
+.pks .pburst{opacity:.15;width:175%}
+.pks .pglow{width:130%;padding-bottom:130%;top:-8%}
+
+/* memorial plate: overlaps the portrait's faded base to keep the band short */
+.pks .pdates{margin-top:-34px;position:relative;z-index:1}
+.pks .pdates .k{color:var(--gold-300);text-shadow:0 1px 10px rgba(5,29,53,.95)}
+.pks .pdates .d{color:var(--ivory);text-shadow:0 1px 10px rgba(5,29,53,.95)}
+
+/* the same calmer feather on the tributes hero portrait */
+.pks .thero .por img{
+  -webkit-mask-image:radial-gradient(ellipse 64% 70% at 50% 40%,#000 40%,transparent 71%);
+          mask-image:radial-gradient(ellipse 64% 70% at 50% 40%,#000 40%,transparent 71%)}
+
 /* ══════════════ v10 — tributes page, enhanced mockup ══════════════ */
 
 /* anchored sections stop below the sticky 72px header instead of under it
@@ -1239,4 +1272,72 @@
 @media(min-width:1280px){
   .pks .roles li+li::before{content:'';display:block;position:absolute;left:0;top:22%;
     height:56%;border-left:1px solid rgba(196,154,69,.25)}
+}
+
+/* ══════════════ v12 — home + tributes responsive alignment pass ══════════════
+   (kept last in the file: these override earlier layers by cascade order) */
+
+/* roles strip: an even 5x2 grid on phones instead of a ragged 3/3/3/1 wrap */
+@media(max-width:767px){
+  .pks .roles ul{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:8px 6px}
+  .pks .roles li{padding:9px 2px;gap:6px;min-width:0;white-space:normal}
+  .pks .roles span{font-size:10px;line-height:1.25;text-align:center}
+  .pks .roles svg{width:18px;height:18px}
+}
+
+/* hero plate: shallower overlap on the smaller mobile portrait */
+@media(max-width:1023px){.pks .pdates{margin-top:-22px}}
+
+/* tributes hero centers on mobile, matching the homepage hero */
+@media(max-width:1023px){
+  .pks .thero .in{text-align:center;justify-items:center}
+  .pks .thero .acts{justify-content:center}
+  .pks .thero .hrule{margin-left:auto;margin-right:auto}
+  .pks .thero p.lede{margin-left:auto;margin-right:auto}
+  .pks .heroroles{justify-content:center}
+}
+@media(max-width:519px){
+  .pks .thero .acts{flex-direction:column;align-items:stretch;width:100%;max-width:320px}
+  .pks .thero .acts .btn{width:100%}
+}
+
+/* tributes toolbar on phones: full-width sort, stats visible as an even row,
+   media filters side by side inside the scroll rail */
+@media(max-width:767px){
+  .pks .tsort{flex:1 1 140px;padding-top:11px;padding-bottom:11px}
+  .pks .tstats{display:flex;width:100%;justify-content:space-between}
+  .pks .tstats > div{flex:1;padding:4px 6px}
+  .pks .tfilters .mediagroup{flex-direction:row;margin-left:0}
+}
+
+/* ══════════════ v13 — tributes layout reorganisation ══════════════
+   The featured/latest split columns and the wall's five-track grid were
+   collapsing to one-word-per-line text inside the ~800px main column.
+   Kept last in the file so it overrides earlier layers by cascade order. */
+
+/* featured sits full-width above the latest grid */
+.pks .tcols{grid-template-columns:minmax(0,1fr)}
+@media(min-width:900px){.pks .tcols{grid-template-columns:minmax(0,1fr);gap:28px}}
+.pks .avatar.lg{width:96px;height:96px;font-size:30px}
+@media(min-width:560px){.pks .feat .row{grid-template-columns:130px minmax(0,1fr);gap:26px}}
+
+/* latest cards: three across in the main column; header clears the badge */
+.pks .lcard .head{padding-right:26px}
+@media(min-width:900px){.pks .lgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* filter rail wraps on wider screens instead of clipping pills */
+@media(min-width:768px){
+  .pks .tfilters{flex-wrap:wrap;overflow:visible;padding-bottom:2px;gap:9px 9px}
+}
+
+/* two summary panels at content height (no stretched empty middles) */
+@media(min-width:900px){
+  .pks .tpanels{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+}
+
+/* legacy wall: intro spans the top, messages + scripture in an even 2x2 */
+@media(min-width:600px){
+  .pks .wall{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pks .wall .lead-col{grid-column:1/-1}
+  .pks .wall .lead-col p{max-width:40rem}
 }

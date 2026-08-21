@@ -15,8 +15,12 @@ const STARS: [number, number, number][] = [
   [24,84,.7],[45,88,.6],[59,79,.8],[71,91,.6],[88,76,.7],[15,73,.9],
 ];
 
+/** True when public/hero-sky.jpg is present (detected in next.config.mjs).
+ *  Heroes use it to skip the SVG hill — the photo carries its own cross. */
+export const hasHeroSky = process.env.NEXT_PUBLIC_HERO_SKY === '1';
+
 export function CelestialBackdrop({ even = false, sky = false }: { even?: boolean; sky?: boolean }) {
-  const hasSky = sky && process.env.NEXT_PUBLIC_HERO_SKY === '1';
+  const hasSky = sky && hasHeroSky;
   return (
     <div className="bd" aria-hidden="true">
       <div className="bd-base" />

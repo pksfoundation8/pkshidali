@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getWriteClient } from '@/lib/sanity/client';
 import { rateLimit, clientKey } from '@/lib/rate-limit';
 import { verifyTurnstile } from '@/lib/turnstile';
@@ -13,14 +14,19 @@ import { notifyModerator } from '@/lib/notify';
  *   3. Turnstile       — verified when configured, fails closed
  *   4. validation      — server-side, independent of the client
  *   5. asset upload    — size and type checked before touching Sanity
- *   6. create pending  — status is the only publication gate, and only a
- *                        human can move it
+ *   6. create          — AUTO-APPROVED for now: submissions go straight to
+ *                        status "published". When the family's moderation
+ *                        workflow goes live, set SUBMISSION_STATUS back to
+ *                        'pending' so a human becomes the publication gate.
  *   7. notify          — best effort; never fails the submission
  *
  * Accepts multipart/form-data (the site form, which may carry files) or JSON.
  */
 
 export const runtime = 'nodejs';
+
+/** Auto-approve for launch; flip to 'pending' once moderators are active. */
+const SUBMISSION_STATUS = 'published';
 
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_PER_WINDOW = 3;
@@ -153,12 +159,12 @@ export async function POST(req: Request) {
   const client = getWriteClient();
 
   if (!client) {
-    // No CMS yet. Accept and log — never publish, never silently drop.
-    console.info('[tribute] pending submission (no CMS configured)', {
+    // No CMS yet. Accept and log — never silently drop.
+    console.info('[tribute] submission received (no CMS configured)', {
       ...tribute, email: '[redacted]', submittedAt,
       photo: photo?.name ?? null, audio: audio?.name ?? null,
     });
-    return NextResponse.json({ ok: true, status: 'pending', persisted: false }, { status: 201 });
+    return NextResponse.json({ ok: true, status: SUBMISSION_STATUS, persisted: false }, { status: 201 });
   }
 
   // 5 ── upload assets. A failed upload must not lose the words, so the tribute
@@ -191,7 +197,7 @@ export async function POST(req: Request) {
     }
   }
 
-  // 6 ── create as pending
+  // 6 ── create (auto-approved for now; see SUBMISSION_STATUS above)
   try {
     await client.create({
       _type: 'tribute',
@@ -206,7 +212,7 @@ export async function POST(req: Request) {
       videoUrl: tribute.videoUrl || undefined,
       ...(photoRef ? { photo: { _type: 'image', asset: { _type: 'reference', _ref: photoRef } } } : {}),
       ...(audioRef ? { audioFile: { _type: 'file', asset: { _type: 'reference', _ref: audioRef } } } : {}),
-      status: 'pending',
+      status: SUBMISSION_STATUS,
       featured: false,
       submittedAt,
       permissionPublish: tribute.permissionPublish,
@@ -224,8 +230,12 @@ export async function POST(req: Request) {
     );
   }
 
+  // Auto-published tributes must appear without waiting for a rebuild.
+  revalidatePath('/tributes');
+  revalidatePath('/');
+
   // 7 ── notify. Best effort: the tribute is already safe.
   await notifyModerator(tribute);
 
-  return NextResponse.json({ ok: true, status: 'pending', persisted: true }, { status: 201 });
+  return NextResponse.json({ ok: true, status: SUBMISSION_STATUS, persisted: true }, { status: 201 });
 }

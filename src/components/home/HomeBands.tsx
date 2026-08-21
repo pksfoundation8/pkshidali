@@ -4,7 +4,7 @@ import { Container } from '@/components/layout/Container';
 import { SectionHeading } from '@/components/primitives/SectionHeading';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
-import { CelestialBackdrop, PortraitBurst, Hill } from './CelestialBackdrop';
+import { CelestialBackdrop, PortraitBurst, Hill, hasHeroSky } from './CelestialBackdrop';
 import { site, rolesVocation, rolesFamily } from '@/config/site';
 import { archiveTiles, involveCards, heroCopy, signatureQuote } from '@/content/home';
 import { getPillars, getPrograms, getMilestones, getFeaturedTributes, getSettings } from '@/lib/content';
@@ -14,7 +14,7 @@ export function Hero() {
   return (
     <section className="hero2">
       <CelestialBackdrop sky />
-      <Hill />
+      {!hasHeroSky && <Hill />}
       <Container className="in">
         <div>
           <p className="eb rise">{heroCopy.eyebrow}</p>
