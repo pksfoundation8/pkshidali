@@ -5,6 +5,10 @@
  * atmosphere behind text). Presence is detected in next.config.mjs and
  * exposed as NEXT_PUBLIC_HERO_SKY; until the approved image is added the
  * gradient base renders alone — nothing 404s and nothing breaks.
+ *
+ * `sky` heroes also get the courage-and-victory motion layers (rays, mist,
+ * rising motes, the light swell) whether or not the photo is present; the
+ * global prefers-reduced-motion rule flattens all of it.
  */
 
 // Fixed positions so server and client markup match. No randomness.
@@ -13,6 +17,15 @@ const STARS: [number, number, number][] = [
   [39,71,.6],[43,15,.9],[47,52,1.2],[52,27,.7],[56,9,1],[61,44,.8],[65,68,.6],[69,22,1.1],
   [73,55,.9],[78,13,.7],[82,37,1.2],[86,60,.8],[90,18,1],[94,42,.7],[97,7,.9],[7,57,.6],
   [24,84,.7],[45,88,.6],[59,79,.8],[71,91,.6],[88,76,.7],[15,73,.9],
+];
+
+/** Rising motes: x%, start y%, radius, duration s, delay s. Biased toward the
+ *  cross on the right so the ascent reads as movement into the light. */
+const MOTES: [number, number, number, number, number][] = [
+  [58,96,.5,16,0],[63,92,.35,19,3],[68,98,.45,14,6],[72,90,.3,21,1],[76,95,.55,17,8],
+  [80,93,.4,15,4],[84,97,.35,20,10],[88,91,.5,18,2],[92,96,.3,16,12],[66,94,.4,22,7],
+  [74,99,.35,13,9],[86,94,.45,19,5],[52,97,.3,23,11],[95,92,.4,17,13],[70,93,.5,15,14],
+  [61,99,.35,18,16],
 ];
 
 /** True when public/hero-sky.jpg is present (detected in next.config.mjs).
@@ -25,13 +38,23 @@ export function CelestialBackdrop({ even = false, sky = false }: { even?: boolea
     <div className="bd" aria-hidden="true">
       <div className="bd-base" />
       {hasSky && <div className="bd-sky" />}
-      {hasSky && <div className="bd-victory" />}
+      {sky && <div className="bd-rays" />}
+      {sky && <div className="bd-victory" />}
       <svg className="bd-stars" viewBox="0 0 100 100" preserveAspectRatio="none">
         {STARS.map(([x, y, r], i) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r={r * 0.16} fill="var(--gold-300)"
             style={{ animationDelay: `${(i % 7) * 0.7}s` }} />
         ))}
       </svg>
+      {sky && (
+        <svg className="bd-motes" viewBox="0 0 100 100" preserveAspectRatio="none">
+          {MOTES.map(([x, y, r, dur, delay]) => (
+            <circle key={`${x}-${y}`} cx={x} cy={y} r={r * 0.16} fill="var(--gold-300)"
+              style={{ animationDuration: `${dur}s`, animationDelay: `${delay}s` }} />
+          ))}
+        </svg>
+      )}
+      {sky && <div className="bd-mist" />}
       <div className="bd-hor" />
       <div className={`bd-scrim${even ? ' even' : ''}`} />
     </div>
