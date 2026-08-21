@@ -1086,8 +1086,8 @@
 /* ══════════════ v11 — compact hero, professional portrait blend ══════════════ */
 
 /* tighter vertical rhythm */
-.pks .hero2 .in{padding-top:92px;padding-bottom:28px;gap:26px}
-@media(min-width:1024px){.pks .hero2 .in{padding-top:100px;padding-bottom:34px;gap:36px}}
+.pks .hero2 .in{padding-top:80px;padding-bottom:20px;gap:22px}
+@media(min-width:1024px){.pks .hero2 .in{padding-top:80px;padding-bottom:20px;gap:28px}}
 
 /* the full name sets on one line, both color spans inline */
 .pks .hero2 h1{font-size:clamp(1.7rem,3.5vw,3rem)}
@@ -1098,16 +1098,16 @@
 
 /* portrait: head-and-shoulders visible with a soft feather; the sunburst
    calms down so it reads as atmosphere rather than ornament */
-.pks .pwrap,.pks .pframe{max-width:360px}
+.pks .pwrap,.pks .pframe{max-width:300px}
 .pks .pframe{
   -webkit-mask-image:radial-gradient(ellipse 70% 78% at 50% 46%,#000 48%,transparent 78%);
           mask-image:radial-gradient(ellipse 70% 78% at 50% 46%,#000 48%,transparent 78%)}
-@media(max-width:1023px){.pks .pframe,.pks .pwrap{max-width:280px}}
+@media(max-width:1023px){.pks .pframe,.pks .pwrap{max-width:220px}}
 .pks .pburst{opacity:.15;width:175%}
 .pks .pglow{width:130%;padding-bottom:130%;top:-8%}
 
 /* memorial plate: overlaps the portrait's faded base to keep the band short */
-.pks .pdates{margin-top:-34px;position:relative;z-index:1}
+.pks .pdates{margin-top:-26px;position:relative;z-index:1}
 .pks .pdates .k{color:var(--gold-300);text-shadow:0 1px 10px rgba(5,29,53,.95)}
 .pks .pdates .d{color:var(--ivory);text-shadow:0 1px 10px rgba(5,29,53,.95)}
 
@@ -1286,7 +1286,7 @@
 }
 
 /* hero plate: shallower overlap on the smaller mobile portrait */
-@media(max-width:1023px){.pks .pdates{margin-top:-22px}}
+@media(max-width:1023px){.pks .pdates{margin-top:-16px}}
 
 /* tributes hero centers on mobile, matching the homepage hero */
 @media(max-width:1023px){
