@@ -13,7 +13,7 @@ import { getPillars, getPrograms, getMilestones, getFeaturedTributes, getSetting
 export function Hero() {
   return (
     <section className="hero2">
-      <CelestialBackdrop />
+      <CelestialBackdrop sky />
       <Hill />
       <Container className="in">
         <div>

@@ -32,7 +32,7 @@ export default async function TributesPage() {
   return (
     <>
       <section className="thero">
-        <CelestialBackdrop even />
+        <CelestialBackdrop even sky />
         <Hill />
         <Container className="in">
           <div>

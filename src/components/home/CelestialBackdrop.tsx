@@ -1,6 +1,10 @@
 /**
- * Atmosphere drawn entirely in SVG and CSS — no AI or stock sky imagery,
- * no asset dependency, ~3KB, and it scales cleanly to any viewport.
+ * Atmosphere drawn in SVG and CSS, with an optional photographic sky.
+ * Heroes that pass `sky` render public/hero-sky.jpg beneath the stars and
+ * scrim when the file exists (plan §0.5 permits imagery as abstract
+ * atmosphere behind text). Presence is detected in next.config.mjs and
+ * exposed as NEXT_PUBLIC_HERO_SKY; until the approved image is added the
+ * gradient base renders alone — nothing 404s and nothing breaks.
  */
 
 // Fixed positions so server and client markup match. No randomness.
@@ -11,10 +15,12 @@ const STARS: [number, number, number][] = [
   [24,84,.7],[45,88,.6],[59,79,.8],[71,91,.6],[88,76,.7],[15,73,.9],
 ];
 
-export function CelestialBackdrop({ even = false }: { even?: boolean }) {
+export function CelestialBackdrop({ even = false, sky = false }: { even?: boolean; sky?: boolean }) {
+  const hasSky = sky && process.env.NEXT_PUBLIC_HERO_SKY === '1';
   return (
     <div className="bd" aria-hidden="true">
       <div className="bd-base" />
+      {hasSky && <div className="bd-sky" />}
       <svg className="bd-stars" viewBox="0 0 100 100" preserveAspectRatio="none">
         {STARS.map(([x, y, r], i) => (
           <circle key={`${x}-${y}`} cx={x} cy={y} r={r * 0.16} fill="var(--gold-300)"

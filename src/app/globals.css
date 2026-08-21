@@ -88,6 +88,9 @@
 .pks .bd-stars{position:absolute;inset:0;width:100%;height:100%}
 .pks .bd-stars circle{animation:pkstw 5s ease-in-out infinite}
 @keyframes pkstw{0%,100%{opacity:.25}50%{opacity:.85}}
+/* photographic sky (public/hero-sky.jpg), rendered only when the file
+   exists; the scrim above it keeps hero text at readable contrast */
+.pks .bd-sky{position:absolute;inset:0;background:url('/hero-sky.jpg') 50% 35%/cover no-repeat}
 .pks .bd-hor{position:absolute;left:0;right:0;bottom:0;height:45%;
   background:radial-gradient(80% 100% at 50% 100%,rgba(227,199,126,.30) 0%,transparent 70%)}
 .pks .bd-scrim{position:absolute;inset:0;
