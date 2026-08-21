@@ -11,6 +11,7 @@ import {
   type Pillar, type Program, type Milestone, type Tribute,
 } from '@/content/home';
 import { archiveSections as seedSections, type ArchiveRecord } from '@/content/pages';
+import { readLocalTributes } from './local-tributes';
 import { site } from '@/config/site';
 
 /**
@@ -65,7 +66,10 @@ export async function getFeaturedTributes(): Promise<Tribute[]> {
 
 export async function getPublishedTributes(): Promise<Tribute[]> {
   const data = await sanityFetch<Tribute[]>(publishedTributesQuery, ['tribute']);
-  return data?.length ? data : seedTributes;
+  if (data?.length) return data;
+  // No CMS: real submissions from the local store come first, then samples.
+  const local = await readLocalTributes();
+  return [...local, ...seedTributes];
 }
 
 export async function getTribute(id: string): Promise<Tribute | undefined> {

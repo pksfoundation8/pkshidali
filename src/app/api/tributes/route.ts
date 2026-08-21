@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
+import { addLocalTribute } from '@/lib/local-tributes';
 import { getWriteClient } from '@/lib/sanity/client';
 import { rateLimit, clientKey } from '@/lib/rate-limit';
 import { verifyTurnstile } from '@/lib/turnstile';
@@ -159,12 +160,34 @@ export async function POST(req: Request) {
   const client = getWriteClient();
 
   if (!client) {
-    // No CMS yet. Accept and log — never silently drop.
-    console.info('[tribute] submission received (no CMS configured)', {
-      ...tribute, email: '[redacted]', submittedAt,
-      photo: photo?.name ?? null, audio: audio?.name ?? null,
-    });
-    return NextResponse.json({ ok: true, status: SUBMISSION_STATUS, persisted: false }, { status: 201 });
+    // No CMS yet: persist to the local file store so the auto-approved
+    // tribute actually appears on the site. Uploaded files are not kept in
+    // this fallback — only the CMS path stores media.
+    try {
+      await addLocalTribute({
+        id: `l${Date.now().toString(36)}`,
+        name: tribute.name,
+        email: tribute.email,
+        relationship: tribute.relationship,
+        years: tribute.years || undefined,
+        location: tribute.location || undefined,
+        title: tribute.title || undefined,
+        taught: tribute.taught || undefined,
+        body: tribute.body,
+        hasAudio: audio ? true : undefined,
+        hasVideo: tribute.videoUrl ? true : undefined,
+        submittedAt,
+      });
+    } catch (err) {
+      console.error('[tribute] local store write failed', err);
+      return NextResponse.json(
+        { error: 'We could not save your tribute. Please try again shortly.' },
+        { status: 503 },
+      );
+    }
+    revalidatePath('/tributes');
+    revalidatePath('/');
+    return NextResponse.json({ ok: true, status: SUBMISSION_STATUS, persisted: true }, { status: 201 });
   }
 
   // 5 ── upload assets. A failed upload must not lose the words, so the tribute
