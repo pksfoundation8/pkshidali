@@ -1530,3 +1530,14 @@
   -webkit-mask-image:none;mask-image:none}
 .pks .pglow{opacity:.55}
 .pks .pburst{opacity:.13}
+
+/* ══════════ v22 — compositing artefact fix ══════════
+   A faint rectangle the size of the portrait layer appeared over the glow in
+   Chrome. The asset was clean (verified by decoding it in the browser): this
+   is Chromium rendering mix-blend-mode layers with a hole wherever an
+   animated, composited layer overlaps them. Normal blending with tuned
+   opacity looks the same and cannot produce the seam; will-change is dropped
+   since the animation already promotes the layer. */
+.pks .bd-victory{mix-blend-mode:normal;opacity:.9}
+.pks .bd-rays{mix-blend-mode:normal;opacity:.22}
+.pks .hero2 .bd-sky,.pks .thero .bd-sky,.pks .pbanner.sky .bd-sky{will-change:auto}
