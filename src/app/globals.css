@@ -1516,3 +1516,17 @@
   background:
     radial-gradient(ellipse 40% 48% at 50% 38%,transparent 30%,rgba(5,29,53,.55) 58%,rgba(5,29,53,.99) 84%),
     linear-gradient(180deg,rgba(5,29,53,.55) 0%,transparent 18%,transparent 62%,rgba(5,29,53,.92) 100%)}
+
+/* ══════════ v21 — real cutout: masking retired ══════════
+   The portrait is now a WebP with a true alpha channel (studio backdrop keyed
+   out on warmth, since the peach ground reads 38-66 against the agbada's
+   14-31). With genuine transparency there is nothing to feather or repaint,
+   so the radial masks, the navy vignette and the grade all come off — he sits
+   in the sky directly, as the mockup shows. */
+.pks .pframe,.pks .thero .por{
+  -webkit-mask-image:none;mask-image:none}
+.pks .pframe::after,.pks .pframe::before,.pks .thero .por::after{display:none}
+.pks .pframe img,.pks .thero .por img{filter:none;
+  -webkit-mask-image:none;mask-image:none}
+.pks .pglow{opacity:.55}
+.pks .pburst{opacity:.13}
