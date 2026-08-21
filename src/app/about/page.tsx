@@ -16,7 +16,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageBanner eyebrow="About" title="The PK Shidali Foundation"
+      <PageBanner sky eyebrow="About" title="The PK Shidali Foundation"
         intro={site.tagline} />
 
       {/* ── thesis ─────────────────────────────────────────── */}

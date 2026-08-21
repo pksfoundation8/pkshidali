@@ -1,12 +1,14 @@
 import { Container } from './Container';
 import { CelestialBackdrop } from '@/components/home/CelestialBackdrop';
 
-export function PageBanner({ eyebrow, title, intro }: {
-  eyebrow?: string; title: string; intro?: string;
+/** Inner-page banner. Pass `sky` for the photographic sky and the
+ *  courage-and-victory motion used on the main heroes. */
+export function PageBanner({ eyebrow, title, intro, sky = false }: {
+  eyebrow?: string; title: string; intro?: string; sky?: boolean;
 }) {
   return (
-    <section className="pbanner">
-      <CelestialBackdrop even />
+    <section className={sky ? 'pbanner sky' : 'pbanner'}>
+      <CelestialBackdrop even sky={sky} />
       <Container className="in">
         {eyebrow && <span className="crumb" style={{ cursor: 'default' }}>&#10022; {eyebrow}</span>}
         <h1>{title}</h1>

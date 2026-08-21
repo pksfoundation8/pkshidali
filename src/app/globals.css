@@ -1480,3 +1480,10 @@
   -webkit-mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%);
           mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%)}
 .pks .thero .por img{-webkit-mask-image:none;mask-image:none}
+
+/* ══════════ v19 — sky banners share the hero motion ══════════ */
+.pks .pbanner.sky .bd-sky{animation:pkssky 40s ease-in-out infinite alternate;
+  transform-origin:64% 42%;will-change:transform}
+.pks .pbanner.sky .bd-hor{animation:pksdawn 11s ease-in-out infinite}
+/* banners are shorter than heroes: keep the cross in frame */
+.pks .pbanner.sky .bd-sky{background-position:50% 45%}
