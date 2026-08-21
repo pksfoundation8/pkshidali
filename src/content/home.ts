@@ -313,9 +313,10 @@ export const relationships = [
 
 export const heroCopy = {
   eyebrow: 'Continuing the Legacy of',
-  /** Two stacked lines: line one ivory, line two gold (per the hero mockup). */
-  nameLine1: 'Rev. Paul',
-  nameLine2: 'Kadir Shidali',
+  /** One line, gold on the middle name only (per the hero mockup). */
+  namePre: 'Rev. Paul',
+  nameGold: 'Kadir',
+  namePost: 'Shidali',
   lede:
     'A life devoted to God and dedicated to building people through faith, education, leadership, prayer and service.',
 };

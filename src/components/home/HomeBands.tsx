@@ -19,7 +19,9 @@ export function Hero() {
         <div>
           <p className="eb rise">{heroCopy.eyebrow}</p>
           <h1 className="rise" style={{ animationDelay: '.1s' }}>
-            <span>{heroCopy.nameLine1}</span> <span className="g">{heroCopy.nameLine2}</span>
+            <span>{heroCopy.namePre}</span>{' '}
+            <span className="g">{heroCopy.nameGold}</span>{' '}
+            <span>{heroCopy.namePost}</span>
           </h1>
           <div className="hrule rise" style={{ animationDelay: '.15s' }} aria-hidden="true">
             <span className="a" /><span className="d">&#10022;</span><span className="b" />
