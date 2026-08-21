@@ -44,7 +44,7 @@ export function Hero() {
           <PortraitBurst />
           <span className="pglow" aria-hidden="true" />
           <div className="pframe">
-            <Image src="/portrait-v3.webp?v=2" unoptimized alt={site.subject.name} width={620} height={780}
+            <Image src="/portrait-v4.webp" unoptimized alt={site.subject.name} width={479} height={776}
               priority sizes="(max-width: 1023px) 270px, 330px" />
           </div>
           <div className="pdates">
