@@ -1493,3 +1493,26 @@
   min-height:104px}
 .pks .wmsg.none p{font-family:var(--display);font-style:italic;font-size:14px;
   color:var(--ink-muted)}
+
+/* ══════════ v20 — blend tuned for the studio-backdrop portrait ══════════
+   The replacement photograph carries a flat peach studio background whose
+   tone sits within a few points of the cream agbada, so it cannot be keyed
+   out automatically. Tighter mask and a stronger navy vignette suppress as
+   much of it as possible while leaving his skin tone true. A background-
+   removed PNG would remove the need for all of this. */
+.pks .pframe{
+  -webkit-mask-image:radial-gradient(ellipse 52% 60% at 50% 40%,#000 26%,rgba(0,0,0,.65) 46%,transparent 68%);
+          mask-image:radial-gradient(ellipse 52% 60% at 50% 40%,#000 26%,rgba(0,0,0,.65) 46%,transparent 68%)}
+.pks .pframe img{filter:saturate(.88) contrast(1.05) brightness(1.0)}
+.pks .pframe::after{
+  background:
+    radial-gradient(ellipse 40% 48% at 50% 38%,transparent 30%,rgba(5,29,53,.55) 58%,rgba(5,29,53,.99) 84%),
+    linear-gradient(180deg,rgba(5,29,53,.55) 0%,transparent 18%,transparent 62%,rgba(5,29,53,.92) 100%)}
+.pks .thero .por img{filter:saturate(.88) contrast(1.05) brightness(1.0)}
+.pks .thero .por{
+  -webkit-mask-image:radial-gradient(ellipse 52% 60% at 50% 40%,#000 26%,rgba(0,0,0,.65) 46%,transparent 68%);
+          mask-image:radial-gradient(ellipse 52% 60% at 50% 40%,#000 26%,rgba(0,0,0,.65) 46%,transparent 68%)}
+.pks .thero .por::after{
+  background:
+    radial-gradient(ellipse 40% 48% at 50% 38%,transparent 30%,rgba(5,29,53,.55) 58%,rgba(5,29,53,.99) 84%),
+    linear-gradient(180deg,rgba(5,29,53,.55) 0%,transparent 18%,transparent 62%,rgba(5,29,53,.92) 100%)}
