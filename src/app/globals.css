@@ -1472,3 +1472,11 @@
   background:
     radial-gradient(ellipse 46% 56% at 50% 40%,transparent 38%,rgba(5,29,53,.45) 62%,rgba(5,29,53,.92) 90%),
     linear-gradient(180deg,rgba(5,29,53,.25) 0%,transparent 22%,transparent 70%,rgba(5,29,53,.7) 100%)}
+
+/* ══════════ v18 — tributes portrait: mask the wrapper, not the image ══════════
+   The vignette (::after) sits on .por, so the feather must too — otherwise
+   its navy edges print as a hard rectangle against the sky. */
+.pks .thero .por{
+  -webkit-mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%);
+          mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%)}
+.pks .thero .por img{-webkit-mask-image:none;mask-image:none}
