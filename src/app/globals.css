@@ -1541,3 +1541,14 @@
 .pks .bd-victory{mix-blend-mode:normal;opacity:.9}
 .pks .bd-rays{mix-blend-mode:normal;opacity:.22}
 .pks .hero2 .bd-sky,.pks .thero .bd-sky,.pks .pbanner.sky .bd-sky{will-change:auto}
+
+/* ══════════ v23 — nothing behind the portrait but sky ══════════
+   Bisected with headless Chrome: the faint rectangle around the portrait is
+   produced by the decorative layers behind it (the square sunburst SVG and
+   the glow disc) and the clip + transform layers wrapping the image, not by
+   the cutout, which paints nothing outside the figure. With a true cutout
+   they add nothing the sky's own glow does not already provide, so they go,
+   and the wrapper stops being a clipped, animated compositing layer. */
+.pks .pburst,.pks .pglow{display:none}
+.pks .pframe{overflow:visible;border-radius:0}
+.pks .pwrap.rise{animation:none;opacity:1;transform:none}
