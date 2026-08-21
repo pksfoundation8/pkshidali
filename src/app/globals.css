@@ -1439,3 +1439,36 @@
   80%{opacity:.5}
   100%{transform:translateY(-62px);opacity:0}
 }
+
+/* ══════════ v17 — portrait blended into the sky ══════════
+   The photo carries its own pale background, which a mask alone can only
+   feather, not hide. Three layers now do the job: a tighter feather around
+   the bust, an inner navy vignette that repaints the photo's edges in the
+   sky's own colour before the mask bites, and a light grade so skin tones
+   sit in the scene's cool-navy / warm-gold palette. */
+
+/* homepage portrait */
+.pks .pframe{
+  -webkit-mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%);
+          mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%)}
+.pks .pframe img{filter:saturate(.9) contrast(1.05) brightness(.94)}
+.pks .pframe::after{content:'';display:block;position:absolute;inset:0;border:0;border-radius:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse 46% 56% at 50% 40%,transparent 38%,rgba(5,29,53,.45) 62%,rgba(5,29,53,.92) 90%),
+    linear-gradient(180deg,rgba(5,29,53,.25) 0%,transparent 22%,transparent 70%,rgba(5,29,53,.7) 100%)}
+/* a faint warm cast on the cross side so the halo light reads as falling on him */
+.pks .pframe::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(100deg,rgba(5,29,53,.18) 0%,transparent 45%,rgba(240,200,120,.16) 100%);
+  mix-blend-mode:soft-light}
+.pks .pglow{opacity:.7}
+.pks .pburst{opacity:.11}
+
+/* tributes hero portrait — same treatment on its wrapper */
+.pks .thero .por img{filter:saturate(.9) contrast(1.05) brightness(.94);
+  -webkit-mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%);
+          mask-image:radial-gradient(ellipse 56% 66% at 50% 42%,#000 30%,rgba(0,0,0,.6) 52%,transparent 72%)}
+.pks .thero .por::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 46% 56% at 50% 40%,transparent 38%,rgba(5,29,53,.45) 62%,rgba(5,29,53,.92) 90%),
+    linear-gradient(180deg,rgba(5,29,53,.25) 0%,transparent 22%,transparent 70%,rgba(5,29,53,.7) 100%)}
