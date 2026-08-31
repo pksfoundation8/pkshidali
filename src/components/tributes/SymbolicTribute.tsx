@@ -20,6 +20,7 @@ export function SymbolicTribute() {
   const [counts, setCounts] = useState<Record<string, number> | null>(null);
   const [done, setDone] = useState<Record<string, boolean>>({});
   const [busy, setBusy] = useState<string | null>(null);
+  const [available, setAvailable] = useState<boolean | null>(null);
 
   useEffect(() => {
     const flags: Record<string, boolean> = {};
@@ -27,7 +28,11 @@ export function SymbolicTribute() {
     setDone(flags);
     fetch('/api/gestures')
       .then((r) => (r.ok ? r.json() : null))
-      .then((c) => c && setCounts(c))
+      .then((c) => {
+        if (!c) return;
+        setCounts(c);
+        setAvailable(c.available !== false);
+      })
       .catch(() => {});
   }, []);
 
@@ -51,6 +56,8 @@ export function SymbolicTribute() {
       setBusy(null);
     }
   };
+
+  if (available === false) return null;
 
   return (
     <div className="panel symb" aria-label="Leave a symbolic tribute">

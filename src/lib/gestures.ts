@@ -22,8 +22,28 @@ export type GestureCounts = Record<GestureKind, number>;
 
 const ZERO: GestureCounts = { candle: 0, flowers: 0, dove: 0, heart: 0 };
 
+/**
+ * Serverless hosts give us a read-only filesystem, so the .data fallback can
+ * only ever work locally. Detecting that up front means we fail fast with a
+ * clear message instead of throwing ENOENT on every visitor's click.
+ */
+const readOnlyFs = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+
 /** Which backend is active — surfaced so ops can confirm the deploy is sane. */
-export const gesturesStore: 'kv' | 'file' = kvConfigured ? 'kv' : 'file';
+export const gesturesStore: 'kv' | 'file' | 'unavailable' =
+  kvConfigured ? 'kv' : readOnlyFs ? 'unavailable' : 'file';
+
+/** False when gestures cannot be persisted at all; the UI hides the controls
+ *  rather than offering a button that always errors. */
+export const gesturesAvailable = gesturesStore !== 'unavailable';
+
+if (gesturesStore === 'unavailable') {
+  // Logged once per cold start, not once per click.
+  console.warn(
+    '[gestures] No KV configured and the filesystem is read-only, so gesture ' +
+    'counters are disabled. Set KV_REST_API_URL and KV_REST_API_TOKEN to enable them.',
+  );
+}
 
 // ── KV ────────────────────────────────────────────────────────────────
 const key = (k: GestureKind) => `pks:gesture:${k}`;
@@ -71,9 +91,13 @@ function fileAdd(kind: GestureKind): Promise<GestureCounts> {
 
 // ── public API ────────────────────────────────────────────────────────
 export function readGestures(): Promise<GestureCounts> {
+  if (gesturesStore === 'unavailable') return Promise.resolve({ ...ZERO });
   return gesturesStore === 'kv' ? kvRead() : fileRead();
 }
 
 export function addGesture(kind: GestureKind): Promise<GestureCounts> {
+  if (gesturesStore === 'unavailable') {
+    return Promise.reject(new Error('Gesture storage is not configured.'));
+  }
   return gesturesStore === 'kv' ? kvAdd(kind) : fileAdd(kind);
 }

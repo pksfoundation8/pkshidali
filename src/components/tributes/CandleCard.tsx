@@ -12,12 +12,18 @@ export function CandleCard() {
   const [count, setCount] = useState<number | null>(null);
   const [lit, setLit] = useState(false);
   const [busy, setBusy] = useState(false);
+  // null = still asking; false = the server has no store, so hide the card
+  const [available, setAvailable] = useState<boolean | null>(null);
 
   useEffect(() => {
     setLit(localStorage.getItem('pks-lit-candle') === '1');
     fetch('/api/gestures')
       .then((r) => (r.ok ? r.json() : null))
-      .then((c) => c && setCount(c.candle))
+      .then((c) => {
+        if (!c) return;
+        setCount(c.candle);
+        setAvailable(c.available !== false);
+      })
       .catch(() => {});
   }, []);
 
@@ -42,6 +48,10 @@ export function CandleCard() {
       setBusy(false);
     }
   };
+
+  // Nothing to offer if the counts cannot be stored — better to show no
+  // control than one that fails when someone reaches for it.
+  if (available === false) return null;
 
   return (
     <aside className="panel candle-card" aria-label="Light a candle">

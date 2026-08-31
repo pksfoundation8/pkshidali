@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { readGestures, addGesture, GESTURE_KINDS, type GestureKind } from '@/lib/gestures';
+import { readGestures, addGesture, gesturesAvailable, GESTURE_KINDS, type GestureKind } from '@/lib/gestures';
 import { rateLimit, clientKey } from '@/lib/rate-limit';
 
 /** Remembrance gestures: GET returns the collective counts, POST records one.
@@ -10,10 +10,19 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  return NextResponse.json(await readGestures());
+  return NextResponse.json({ ...(await readGestures()), available: gesturesAvailable });
 }
 
 export async function POST(req: Request) {
+  // Refuse before doing any work when there is nowhere to persist to. The
+  // client hides the controls in this state, so reaching here is unusual.
+  if (!gesturesAvailable) {
+    return NextResponse.json(
+      { error: 'Remembrance gestures are not enabled yet.', available: false },
+      { status: 503 },
+    );
+  }
+
   const ip = clientKey(req);
   const limit = await rateLimit(`gesture:${ip}`, 12, 60 * 60 * 1000);
   if (!limit.ok) {
@@ -37,6 +46,9 @@ export async function POST(req: Request) {
     return NextResponse.json(await addGesture(kind as GestureKind));
   } catch (err) {
     console.error('[gestures] write failed', err);
-    return NextResponse.json({ error: 'Could not record that just now.' }, { status: 503 });
+    return NextResponse.json(
+      { error: 'Could not record that just now.', available: true },
+      { status: 503 },
+    );
   }
 }
