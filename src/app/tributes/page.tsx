@@ -9,13 +9,27 @@ import { ShareSidebar } from '@/components/tributes/ShareSidebar';
 import { LegacyWall } from '@/components/tributes/LegacyWall';
 import { CandleCard } from '@/components/tributes/CandleCard';
 import { SymbolicTribute } from '@/components/tributes/SymbolicTribute';
+import { ShareInvite } from '@/components/tributes/ShareInvite';
 import { getPublishedTributes, getMilestones } from '@/lib/content';
 import { site } from '@/config/site';
+
+const shareAsk =
+  `Did ${site.subject.name} touch your life? Teacher, headmaster, pastor, writer — ` +
+  'if you knew him, add your memory to his archive. It takes two minutes and lasts ' +
+  'for generations.';
 
 export const metadata = {
   title: 'Lives He Touched',
   description:
-    'Tributes and testimonies from family, students, church members, colleagues and community members whose lives were changed by Rev. Paul Kadir Shidali.',
+    'Tributes and testimonies from family, students, church members, colleagues and ' +
+    'community members whose lives were changed by Rev. Paul Kadir Shidali. Add yours.',
+  openGraph: {
+    title: `Did he touch your life? | ${site.name}`,
+    description: shareAsk,
+    url: `${site.url}/tributes`,
+    type: 'article',
+  },
+  twitter: { card: 'summary_large_image', title: 'Did he touch your life?', description: shareAsk },
 };
 
 const heroRoles = ['Husband', 'Father', 'Grandfather', 'Teacher', 'Pastor', 'Writer', 'Prayer Warrior'];
@@ -69,6 +83,8 @@ export default async function TributesPage() {
           <div className="tlayout">
             <div>
               <TributesExplorer tributes={tributes} />
+
+              <ShareInvite />
 
               <div className="tpanels">
                 <div className="tpanel">

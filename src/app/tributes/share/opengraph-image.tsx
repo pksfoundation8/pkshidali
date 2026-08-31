@@ -4,18 +4,16 @@ import { join } from 'node:path';
 import { site } from '@/config/site';
 
 /**
- * The share card.
+ * The tributes share card.
  *
- * This site will spread through WhatsApp groups and family chats far more than
- * through search. Without this, every one of those links renders as bare text.
- *
- * Deliberately built from shapes, rules and letterspacing rather than a display
- * serif: ImageResponse would need a font file fetched at render time, which
- * adds latency and a failure mode. The composition carries the identity instead.
+ * This is the link that gets forwarded into WhatsApp groups, and its whole job
+ * is to ask for something: a memory, from someone who knew him. The site card
+ * introduces the man; this one makes the request, so the ask survives being
+ * pasted somewhere with no other context.
  */
 
 export const runtime = 'nodejs';
-export const alt = `${site.name} — ${site.tagline}`;
+export const alt = `Share your memory of ${site.subject.name}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -35,7 +33,6 @@ export default async function Image() {
         background: 'linear-gradient(115deg, #051d35 0%, #082a4a 48%, #0e3d68 100%)',
         color: '#faf8f1', fontFamily: 'sans-serif',
       }}>
-        {/* gold hairline frame */}
         <div style={{
           position: 'absolute', top: 26, left: 26, right: 26, bottom: 26,
           border: '1px solid rgba(196,154,69,0.55)', display: 'flex',
@@ -48,48 +45,42 @@ export default async function Image() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <div style={{ width: 44, height: 1, background: '#c49a45', display: 'flex' }} />
             <div style={{
-              fontSize: 19, letterSpacing: 6, textTransform: 'uppercase',
+              fontSize: 18, letterSpacing: 6, textTransform: 'uppercase',
               color: '#c49a45', display: 'flex',
             }}>
-              Continuing the Legacy of
+              In memory of
             </div>
           </div>
 
           <div style={{
-            marginTop: 22, fontSize: 74, fontWeight: 700, lineHeight: 1.02, display: 'flex',
+            marginTop: 24, fontSize: 68, fontWeight: 700, lineHeight: 1.05, display: 'flex',
           }}>
-            <span style={{ color: '#c49a45' }}>Rev.&nbsp;Paul</span>
+            <span style={{ color: '#c49a45' }}>Did he</span>
           </div>
-          <div style={{ fontSize: 74, fontWeight: 700, lineHeight: 1.02, display: 'flex' }}>
-            Kadir Shidali
+          <div style={{ fontSize: 68, fontWeight: 700, lineHeight: 1.05, display: 'flex' }}>
+            touch your life?
           </div>
 
           <div style={{
-            marginTop: 26, fontSize: 24, lineHeight: 1.5, color: 'rgba(250,248,241,0.85)',
-            maxWidth: 560, display: 'flex',
+            marginTop: 24, fontSize: 26, lineHeight: 1.45, color: 'rgba(250,248,241,0.88)',
+            maxWidth: 540, display: 'flex',
           }}>
-            {site.tagline}
+            {site.subject.name} — teacher, headmaster, pastor, writer.
+            If you knew him, your memory belongs in his archive.
           </div>
 
           <div style={{
-            marginTop: 26, fontSize: 19, letterSpacing: 3, color: 'rgba(227,199,126,0.9)',
-            display: 'flex',
-          }}>
-            {site.subject.bornLabel} — {site.subject.diedLabel}
-          </div>
-
-          <div style={{
-            marginTop: 26, display: 'flex', alignItems: 'center', alignSelf: 'flex-start',
-            padding: '12px 24px', borderRadius: 999,
+            marginTop: 30, display: 'flex', alignItems: 'center', alignSelf: 'flex-start',
+            padding: '13px 26px', borderRadius: 999,
             background: '#c49a45', color: '#051d35',
-            fontSize: 20, fontWeight: 700, letterSpacing: 2,
+            fontSize: 21, fontWeight: 700, letterSpacing: 2,
           }}>
-            SHARE YOUR TRIBUTE
+            LEAVE A TRIBUTE
           </div>
         </div>
 
         {portrait && (
-          <div style={{ display: 'flex', alignItems: 'center', paddingRight: 70 }}>
+          <div style={{ display: 'flex', alignItems: 'center', paddingRight: 56 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={portrait} alt="" width={400} height={351} />
           </div>

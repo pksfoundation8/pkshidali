@@ -1572,3 +1572,25 @@
    presence, and the base fade is baked into the asset rather than masked. */
 .pks .pwrap,.pks .pframe{max-width:430px}
 @media(max-width:1023px){.pks .pframe,.pks .pwrap{max-width:290px}}
+
+/* ══════════ v26 — the share invitation ══════════
+   Most people who knew him will arrive because someone forwarded the link,
+   so the ask needs to be visible and one tap from sending. */
+.pks .invite{margin-top:26px;padding:22px 24px;background:var(--paper);
+  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-1);
+  display:grid;gap:18px}
+@media(min-width:900px){.pks .invite{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px}}
+.pks .invite h3{font-family:var(--display);font-size:21px;font-weight:600;color:var(--navy-800)}
+.pks .invite p{margin-top:7px;font-size:13.5px;line-height:1.7;color:var(--ink-muted);max-width:46ch}
+.pks .invite-links{display:flex;flex-wrap:wrap;gap:9px}
+.pks .invite-links a,.pks .invite-links button{display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:999px;border:1px solid var(--line-strong);
+  background:transparent;font-family:var(--body);font-size:12.5px;font-weight:500;
+  color:var(--ink);cursor:pointer;transition:border-color .2s,color .2s,background-color .2s}
+.pks .invite-links a:hover,.pks .invite-links button:hover{
+  border-color:var(--gold-500);color:var(--gold-700);background:rgba(196,154,69,.06)}
+.pks .invite-links svg{color:var(--gold-700);flex:none}
+@media(max-width:519px){
+  .pks .invite{padding:20px}
+  .pks .invite-links a,.pks .invite-links button{flex:1 1 calc(50% - 5px);justify-content:center}
+}

@@ -8,7 +8,9 @@ import type { IconName } from '@/components/primitives/Icon';
 export const site = {
   name: 'PK Shidali Foundation',
   domain: 'pkshidali.org',
-  url: 'https://pkshidali.org',
+  // www is canonical: the apex 308-redirects to it, so every canonical
+  // link, OG url and sitemap entry must name this form.
+  url: 'https://www.pkshidali.org',
   tagline: 'Building People. Continuing a Legacy. Transforming Generations.',
   footerCreed: ['Building people.', 'Continuing a legacy.', 'Transforming generations.'],
 

@@ -8,7 +8,20 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} — ${site.tagline}`, template: `%s | ${site.name}` },
   description: `Continuing the legacy of ${site.subject.name}: a life devoted to God and dedicated to building people through faith, education, leadership, prayer and service.`,
-  openGraph: { type: 'website', siteName: site.name, url: site.url },
+  openGraph: {
+    type: 'website', siteName: site.name, url: site.url, locale: 'en_NG',
+    title: `${site.name} — ${site.tagline}`,
+    description:
+      `A memorial and living archive for ${site.subject.name}. If he taught you, ` +
+      'pastored you, prayed for you or raised you, your memory belongs here.',
+  },
+  // Without this, X renders the link as a bare thumbnail rather than the card.
+  twitter: {
+    card: 'summary_large_image',
+    title: `${site.name} — ${site.tagline}`,
+    description:
+      `Continuing the legacy of ${site.subject.name}. Share the memory only you can tell.`,
+  },
 };
 
 /** Person + Organization structured data — this is how the archive gets found. */

@@ -7,6 +7,7 @@ import { Icon } from '@/components/primitives/Icon';
 import { CelestialBackdrop, PortraitBurst, Hill, hasHeroSky } from './CelestialBackdrop';
 import { site, rolesVocation, rolesFamily } from '@/config/site';
 import { archiveTiles, involveCards, heroCopy, signatureQuote } from '@/content/home';
+import { ShareInvite } from '@/components/tributes/ShareInvite';
 import { getPillars, getPrograms, getMilestones, getFeaturedTributes, getSettings } from '@/lib/content';
 
 /* ── hero ─────────────────────────────────────────────────────────── */
@@ -170,6 +171,8 @@ export async function TributesAndTimeline() {
               <Icon n="plus" s={15} />Share your story
             </Link>
           </div>
+
+          <ShareInvite />
         </div>
 
         <div>
