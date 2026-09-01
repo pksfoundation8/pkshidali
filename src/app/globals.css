@@ -1895,3 +1895,25 @@
   .pks .pill6,.pks .prog5,.pks .tmini,.pks .arch5,.pks .gi{margin-top:22px}
   .pks .tl6{margin-top:22px}
 }
+
+/* ── v33 · sharing ─────────────────────────────────────────────────────
+   The OS share sheet is the one control that reaches whichever app the
+   sender actually uses, so on a phone it leads the row rather than
+   sitting among the named services. Rendered only where the browser
+   supports it, so it never appears as a dead control. */
+.pks .invite-links .share-native{
+  background:var(--gold-700);border-color:var(--gold-700);color:#fff;font-weight:600;
+}
+.pks .invite-links .share-native svg{color:#fff}
+.pks .invite-links .share-native:hover{
+  background:var(--gold-800,#a67c2e);border-color:var(--gold-800,#a67c2e);color:#fff;
+}
+/* The flex item here is the <li>, not the <a>/<button> inside it, so the
+   earlier rule sizing the anchors never took effect and the row wrapped
+   ragged. Sizing the list item is what actually lays the row out. */
+@media(max-width:539px){
+  .pks .invite-links li{flex:1 1 calc(50% - 5px);display:flex}
+  .pks .invite-links li > a,.pks .invite-links li > button{width:100%;justify-content:center}
+  /* the share sheet leads on its own line, the named services pair beneath */
+  .pks .invite-links li.share-li{flex:1 1 100%}
+}

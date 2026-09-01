@@ -25,10 +25,20 @@ export const metadata = {
     description: shareAsk,
     url: `${site.url}/funeral`,
     type: 'article',
+    siteName: site.name,
+    locale: 'en_NG',
     // The family's own announcement card, used for both funeral pages.
     images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, type: 'image/jpeg', alt: FUNERAL_CARD_ALT }],
   },
-  twitter: { images: ['/og-funeral.jpg'], card: 'summary_large_image', title: 'Funeral Arrangements', description: shareAsk },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Funeral Arrangements',
+    description: shareAsk,
+    images: [{ url: '/og-funeral.jpg', alt: FUNERAL_CARD_ALT }],
+  },
+  // Shares arrive carrying ?fbclid= and ?utm_source=; without this each
+  // variant counts as a separate page.
+  alternates: { canonical: `${site.url}/funeral` },
 };
 
 function eventJsonLd() {

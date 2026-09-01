@@ -22,15 +22,63 @@ export const metadata = {
     description: shareAsk,
     url: `${site.url}/funeral/livestream`,
     type: 'article',
+    siteName: site.name,
+    locale: 'en_NG',
     // The family's own announcement card, used for both funeral pages.
     images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, type: 'image/jpeg', alt: FUNERAL_CARD_ALT }],
   },
-  twitter: { images: ['/og-funeral.jpg'], card: 'summary_large_image', title: 'Watch the services', description: shareAsk },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Watch the services',
+    description: shareAsk,
+    images: [{ url: '/og-funeral.jpg', alt: FUNERAL_CARD_ALT }],
+  },
+  // Shares arrive carrying ?fbclid= and ?utm_source=; without this each
+  // variant counts as a separate page.
+  alternates: { canonical: `${site.url}/funeral/livestream` },
 };
+
+/* The same two services as /funeral, described here as watchable online.
+   The virtual location is this page: that is genuinely where the stream will
+   be reachable, whether or not the provider link is set yet. */
+function broadcastJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': funeralEvents.map((e) => ({
+      '@type': 'Event',
+      name: `${e.title} — ${site.subject.name}`,
+      startDate: e.startsAt,
+      eventAttendanceMode: 'https://schema.org/MixedEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      description: e.summary,
+      location: [
+        {
+          '@type': 'VirtualLocation',
+          url: livestream.url ?? `${site.url}/funeral/livestream`,
+        },
+        {
+          '@type': 'Place',
+          name: venue.name,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: venue.street,
+            addressLocality: venue.city,
+            addressRegion: venue.state,
+            addressCountry: 'NG',
+          },
+        },
+      ],
+      organizer: { '@type': 'Organization', name: site.name, url: site.url },
+    })),
+  };
+}
 
 export default function LivestreamPage() {
   return (
     <>
+      <script type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(broadcastJsonLd()) }} />
+
       <PageBanner
         eyebrow="Livestream"
         title="Watch From Anywhere"
@@ -136,6 +184,29 @@ export default function LivestreamPage() {
               + 'Friday 16 October at 10:00 AM WAT. Times in your timezone, and the watch link:'
             }
           />
+
+          {/* the same announcement the funeral page offers — someone who lands
+              here first should not have to go looking for it */}
+          <div className="cards-dl">
+            <div>
+              <h3>Announcement card</h3>
+              <p>
+                Save and post the announcement to WhatsApp Status, Instagram or
+                Facebook. Each is sized for where it is going.
+              </p>
+            </div>
+            <div className="dl-links">
+              <a href="/og-funeral.jpg" download>
+                <Icon n="photo" s={16} /><span>Post &amp; link<small>1200 × 630</small></span>
+              </a>
+              <a href="/share-square.jpg" download>
+                <Icon n="photo" s={16} /><span>Square<small>1080 × 1080</small></span>
+              </a>
+              <a href="/share-story.jpg" download>
+                <Icon n="photo" s={16} /><span>Status / Story<small>1080 × 1920</small></span>
+              </a>
+            </div>
+          </div>
 
           <div className="stream-foot">
             <div>

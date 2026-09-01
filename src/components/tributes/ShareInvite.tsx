@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@/components/primitives/Icon';
 import type { IconName } from '@/components/primitives/Icon';
 import { site } from '@/config/site';
@@ -39,8 +39,22 @@ export function ShareInvite({
   body?: React.ReactNode; subject?: string;
 } = {}) {
   const [copied, setCopied] = useState(false);
+  /* On a phone the OS share sheet reaches every app the sender actually has —
+     Telegram, SMS, Messenger, a work Slack — not just the four we can name.
+     Detected after mount so the server and client render the same markup. */
+  const [canShare, setCanShare] = useState(false);
+  useEffect(() => { setCanShare(typeof navigator !== 'undefined' && !!navigator.share); }, []);
+
   const URL = url;
   const MESSAGE = message;
+
+  const shareNative = async () => {
+    try {
+      await navigator.share({ title: subject, text: MESSAGE, url: URL });
+    } catch {
+      /* dismissed, or the sheet refused — the explicit links below still work */
+    }
+  };
 
   const links: { key: string; label: string; icon: IconName; href: string }[] = [
     { key: 'wa', label: 'WhatsApp', icon: 'wa',
@@ -50,7 +64,7 @@ export function ShareInvite({
     { key: 'x', label: 'X', icon: 'send',
       href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(MESSAGE)}&url=${encodeURIComponent(URL)}` },
     { key: 'mail', label: 'Email', icon: 'mail',
-      href: `mailto:?subject=${encodeURIComponent('A tribute to Rev. Paul Kadir Shidali')}&body=${encodeURIComponent(`${MESSAGE}\n\n${URL}`)}` },
+      href: `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`${MESSAGE}\n\n${URL}`)}` },
   ];
 
   const copy = async () => {
@@ -71,6 +85,14 @@ export function ShareInvite({
       </div>
 
       <ul className="invite-links">
+        {canShare && (
+          <li className="share-li">
+            <button type="button" onClick={shareNative} className="share-native">
+              <Icon n="send" s={18} />
+              <span>Share&hellip;</span>
+            </button>
+          </li>
+        )}
         {links.map((l) => (
           <li key={l.key}>
             <a href={l.href} target="_blank" rel="noopener noreferrer">
