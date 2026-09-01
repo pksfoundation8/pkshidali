@@ -14,9 +14,6 @@ const shareAsk =
   + `and Funeral Service on Friday 16 October at 10:00 AM, ${venue.name}, ${venue.city}. `
   + 'Please let the family know if you plan to attend.';
 
-const FUNERAL_CARD_ALT =
-  'Celebration of a Life Well Lived — Rev. Paul Kadir Shidali, December 4, 1933 to August 16, 2026. Funeral arrangements, 15–16 October 2026, Ilorin, Nigeria.';
-
 export const metadata = {
   title: 'Funeral Arrangements',
   description: shareAsk,
@@ -27,14 +24,14 @@ export const metadata = {
     type: 'article',
     siteName: site.name,
     locale: 'en_NG',
-    // The family's own announcement card, used for both funeral pages.
-    images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, type: 'image/jpeg', alt: FUNERAL_CARD_ALT }],
+    // og:image comes from opengraph-image.tsx alongside this file — the
+    // generated card carries his portrait. Naming images here would
+    // override that convention.
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Funeral Arrangements',
     description: shareAsk,
-    images: [{ url: '/og-funeral.jpg', alt: FUNERAL_CARD_ALT }],
   },
   // Shares arrive carrying ?fbclid= and ?utm_source=; without this each
   // variant counts as a separate page.

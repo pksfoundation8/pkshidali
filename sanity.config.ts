@@ -39,6 +39,29 @@ export default defineConfig({
                 S.documentTypeListItem('tribute').title('All tributes'),
               ])
             ),
+            // Funeral RSVPs — operational and time-limited, but the family
+            // needs a headcount per service, so the splits are listed as well
+            // as the full list. The schema was registered without a structure
+            // entry, which left submissions saved but unreachable in the desk.
+            S.listItem().title('Funeral RSVPs').child(
+              S.list().title('Funeral RSVPs').items([
+                S.listItem().title('All RSVPs — newest first').child(
+                  S.documentList().title('All RSVPs')
+                    .filter('_type == "rsvp"')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+                S.listItem().title('Service of Song — 15 October').child(
+                  S.documentList().title('Service of Song')
+                    .filter('_type == "rsvp" && "service-of-song" in attending')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+                S.listItem().title('Funeral Service — 16 October').child(
+                  S.documentList().title('Funeral Service')
+                    .filter('_type == "rsvp" && "funeral-service" in attending')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+              ])
+            ),
             S.divider(),
             S.documentTypeListItem('pillar').title('Legacy Pillars'),
             S.documentTypeListItem('program').title('Programs'),
