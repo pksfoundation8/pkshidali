@@ -5,6 +5,7 @@ import { PageBanner } from '@/components/layout/PageBanner';
 import { Icon } from '@/components/primitives/Icon';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { RsvpForm } from '@/components/funeral/RsvpForm';
+import { ShareInvite } from '@/components/tributes/ShareInvite';
 import { funeralEvents, venue, funeralIntro, reception, livestream } from '@/content/funeral';
 import { site } from '@/config/site';
 
@@ -130,6 +131,25 @@ export default function FuneralPage() {
               </div>
             </div>
           </div>
+
+          <ShareInvite
+            url={`${site.url}/funeral`}
+            subject={`Funeral arrangements — ${site.subject.name}`}
+            heading="Help the family reach everyone"
+            body={
+              <>
+                Many who knew him have not yet heard. Forward these arrangements to a former
+                student, a church member, a colleague &mdash; anyone who would want to be there,
+                or to know the services can be watched from abroad.
+              </>
+            }
+            message={
+              `Funeral arrangements for ${site.subject.name}. Service of Song on Thursday `
+              + '15 October at 5:00 PM, and the Funeral Service on Friday 16 October at 10:00 AM, '
+              + `at ${venue.name}, ${venue.street}, ${venue.city}. `
+              + 'Details, livestream and RSVP:'
+            }
+          />
 
           <div className="rsvp-wrap">
             <RsvpForm />

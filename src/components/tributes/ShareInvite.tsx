@@ -12,16 +12,35 @@ import { site } from '@/config/site';
  * it by someone. WhatsApp leads because that is how this community actually
  * shares, and the prewritten message carries the request so the sender does not
  * have to compose one.
+ *
+ * Defaults invite a tribute; the funeral pages pass their own copy.
  */
 
-const URL = `${site.url}/tributes`;
-const MESSAGE =
+const TRIBUTE_URL = `${site.url}/tributes`;
+const TRIBUTE_MESSAGE =
   'Rev. Paul Kadir Shidali — teacher, headmaster, pastor and writer. His family ' +
   'is gathering memories from everyone whose life he touched. If he taught you, ' +
   'pastored you or prayed for you, please add yours:';
 
-export function ShareInvite() {
+export function ShareInvite({
+  url = TRIBUTE_URL,
+  message = TRIBUTE_MESSAGE,
+  heading = 'Know someone who knew him?',
+  body = (
+    <>
+      Most of the people whose lives he touched will never find this site on their
+      own. Send it to one person who remembers him &mdash; a former student, a church
+      member, a colleague. One message can preserve a memory for generations.
+    </>
+  ),
+  subject = 'A tribute to Rev. Paul Kadir Shidali',
+}: {
+  url?: string; message?: string; heading?: string;
+  body?: React.ReactNode; subject?: string;
+} = {}) {
   const [copied, setCopied] = useState(false);
+  const URL = url;
+  const MESSAGE = message;
 
   const links: { key: string; label: string; icon: IconName; href: string }[] = [
     { key: 'wa', label: 'WhatsApp', icon: 'wa',
@@ -47,12 +66,8 @@ export function ShareInvite() {
   return (
     <section className="invite" aria-labelledby="invite-h">
       <div className="invite-copy">
-        <h3 id="invite-h">Know someone who knew him?</h3>
-        <p>
-          Most of the people whose lives he touched will never find this site on their
-          own. Send it to one person who remembers him &mdash; a former student, a church
-          member, a colleague. One message can preserve a memory for generations.
-        </p>
+        <h3 id="invite-h">{heading}</h3>
+        <p>{body}</p>
       </div>
 
       <ul className="invite-links">

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { PageBanner } from '@/components/layout/PageBanner';
 import { Icon } from '@/components/primitives/Icon';
+import { ShareInvite } from '@/components/tributes/ShareInvite';
 import { funeralEvents, venue, livestream, zoneTimes } from '@/content/funeral';
 import { site } from '@/config/site';
 
@@ -112,6 +113,24 @@ export default function LivestreamPage() {
               )}
             </div>
           </div>
+
+          <ShareInvite
+            url={`${site.url}/funeral/livestream`}
+            subject={`Watch the services — ${site.subject.name}`}
+            heading="Send this to someone who cannot travel"
+            body={
+              <>
+                Distance should not keep anyone away. Pass this on to family and friends
+                abroad &mdash; the service times are shown in their own timezone, and a
+                recording will follow for anyone who cannot watch live.
+              </>
+            }
+            message={
+              `Both services for ${site.subject.name} will be streamed from Ilorin. `
+              + 'Service of Song, Thursday 15 October at 5:00 PM WAT, and the Funeral Service, '
+              + 'Friday 16 October at 10:00 AM WAT. Times in your timezone, and the watch link:'
+            }
+          />
 
           <div className="stream-foot">
             <div>
