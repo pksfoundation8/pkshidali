@@ -1594,3 +1594,89 @@
   .pks .invite{padding:20px}
   .pks .invite-links a,.pks .invite-links button{flex:1 1 calc(50% - 5px);justify-content:center}
 }
+
+/* ══════════ v27 — funeral announcement, events and RSVP ══════════ */
+
+/* announcement bar, above the header on every page */
+.pks .announce{background:linear-gradient(100deg,var(--navy-900),var(--navy-800) 60%,var(--navy-600));
+  border-bottom:1px solid rgba(196,154,69,.35)}
+.pks .announce a{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  padding:9px 20px;font-size:13px;color:rgba(250,248,241,.92);text-align:center}
+.pks .announce svg{color:var(--gold-500);flex:none}
+.pks .announce .a-cta{display:inline-flex;align-items:center;gap:5px;font-weight:600;
+  color:var(--gold-300);white-space:nowrap}
+.pks .announce a:hover .a-cta{color:var(--gold-500)}
+@media(max-width:519px){
+  .pks .announce a{padding:8px 14px;font-size:11.5px;gap:6px}
+  .pks .announce .a-main{flex:1 1 100%}
+}
+
+/* the two services */
+.pks .events{display:grid;gap:16px;margin-top:8px}
+@media(min-width:820px){.pks .events{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pks .event{display:flex;gap:18px;align-items:flex-start;padding:26px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-1)}
+.pks .event h2{margin-top:4px;font-family:var(--display);font-size:26px;font-weight:600;
+  color:var(--navy-800)}
+.pks .event .ev-when{font-size:11px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-700)}
+.pks .event .ev-time{display:flex;align-items:center;gap:7px;margin-top:8px;
+  font-size:13px;color:var(--ink-muted)}
+.pks .event .ev-time svg{color:var(--gold-700);flex:none}
+.pks .event .ev-sum{margin-top:10px;font-size:14px;line-height:1.7;color:var(--ink-muted)}
+
+/* venue */
+.pks .venue{display:grid;gap:22px;margin-top:22px;padding:26px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-1)}
+@media(min-width:900px){.pks .venue{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:start}}
+.pks .venue h3{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-700)}
+.pks .venue .v-name{margin-top:10px;font-family:var(--display);font-size:23px;
+  font-weight:600;color:var(--navy-800)}
+.pks .venue address{margin-top:7px;font-style:normal;font-size:14.5px;line-height:1.75;
+  color:var(--ink-muted)}
+.pks .venue .tlink{margin-top:14px}
+.pks .venue .v-note{display:flex;gap:12px;padding:16px 18px;border-left:2px solid var(--gold-500);
+  background:rgba(196,154,69,.07);border-radius:var(--radius-sm);
+  font-size:13.5px;line-height:1.7;color:var(--ink-muted)}
+.pks .venue .v-note svg{flex:none;margin-top:2px;color:var(--gold-700)}
+
+/* rsvp layout */
+.pks .rsvp-wrap{display:grid;gap:20px;margin-top:26px}
+@media(min-width:1024px){.pks .rsvp-wrap{grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr);gap:24px;align-items:start}}
+.pks .rsvp h3,.pks .rsvp-done h3{font-family:var(--display);font-size:24px;font-weight:600;
+  color:var(--navy-800)}
+.pks .rsvp .rsvp-lede{margin-top:8px;font-size:14px;line-height:1.7;color:var(--ink-muted)}
+.pks .rsvp .field{margin-top:16px}
+
+/* which services — checkbox cards */
+.pks .evpick{margin-top:20px;padding:0;border:0}
+.pks .evpick legend{font-size:11px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-700);padding:0}
+.pks .evpick label{display:flex;align-items:center;gap:12px;margin-top:10px;padding:14px 16px;
+  border:1px solid var(--line-strong);border-radius:var(--radius-sm);cursor:pointer;
+  font-size:14.5px;color:var(--ink);transition:border-color .2s,background-color .2s}
+.pks .evpick label:hover{border-color:var(--gold-500)}
+.pks .evpick label.on{border-color:var(--navy-800);background:rgba(8,42,74,.04);
+  box-shadow:inset 3px 0 0 var(--gold-500)}
+.pks .evpick input{width:18px;height:18px;flex:none;accent-color:var(--navy-800)}
+.pks .evpick.bad label{border-color:#a13636}
+
+/* confirmation */
+.pks .rsvp-done{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:32px}
+.pks .rsvp-done p{font-size:14.5px;line-height:1.75;color:var(--ink-muted);max-width:46ch}
+
+/* aside */
+.pks .rsvp-aside{padding:24px;background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow-1)}
+.pks .rsvp-aside h3{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-700)}
+.pks .rsvp-aside p{margin-top:10px;font-size:13.5px;line-height:1.7;color:var(--ink-muted)}
+.pks .rsvp-aside ul{display:flex;flex-direction:column;gap:11px;margin-top:16px;
+  padding-top:16px;border-top:1px solid var(--line)}
+.pks .rsvp-aside .aside-contact{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);
+  font-size:13px}
+.pks .rsvp-aside .aside-contact a{color:var(--gold-700);text-decoration:underline;
+  text-underline-offset:3px}

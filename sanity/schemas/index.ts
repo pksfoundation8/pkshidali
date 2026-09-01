@@ -7,8 +7,9 @@ import { sermon } from './sermon';
 import { person } from './person';
 import { page } from './page';
 import { siteSettings } from './siteSettings';
+import { rsvp } from './rsvp';
 
-/** The nine document types from the development plan. */
+/** The nine document types from the development plan, plus funeral RSVPs. */
 export const schemaTypes = [
-  pillar, program, milestone, tribute, mediaAsset, sermon, person, page, siteSettings,
+  pillar, program, milestone, tribute, mediaAsset, sermon, person, page, siteSettings, rsvp,
 ];

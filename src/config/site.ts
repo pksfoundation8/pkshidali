@@ -81,6 +81,7 @@ export const primaryNav = [
 
 /** Demoted from the primary bar; still reachable from the drawer and footer. */
 export const secondaryNav = [
+  { label: 'Funeral Arrangements', href: '/funeral' },
   { label: 'Stories', href: '/stories' },
   { label: 'Get Involved', href: '/get-involved' },
   { label: 'Contact', href: '/contact' },
@@ -88,6 +89,7 @@ export const secondaryNav = [
 ];
 
 export const footerNav = [
+  { label: 'Funeral', href: '/funeral' },
   { label: 'About', href: '/about' },
   { label: 'Get Involved', href: '/get-involved' },
   { label: 'His Life', href: '/his-life' },

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { AnnounceBar } from '@/components/layout/AnnounceBar';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { site } from '@/config/site';
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       */}
       <body className="pks" suppressHydrationWarning>
         <a href="#main" className="skip">Skip to content</a>
+        <AnnounceBar />
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
