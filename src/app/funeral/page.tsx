@@ -26,7 +26,7 @@ export const metadata = {
     url: `${site.url}/funeral`,
     type: 'article',
     // The family's own announcement card, used for both funeral pages.
-    images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, alt: FUNERAL_CARD_ALT }],
+    images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, type: 'image/jpeg', alt: FUNERAL_CARD_ALT }],
   },
   twitter: { images: ['/og-funeral.jpg'], card: 'summary_large_image', title: 'Funeral Arrangements', description: shareAsk },
 };
@@ -155,6 +155,29 @@ export default function FuneralPage() {
               + 'Details, livestream and RSVP:'
             }
           />
+
+          {/* the same announcement, sized for the surfaces that are not link
+              previews — WhatsApp Status and Instagram crop to square or 9:16 */}
+          <div className="cards-dl">
+            <div>
+              <h3>Announcement card</h3>
+              <p>
+                Save and post the announcement directly to WhatsApp Status, Instagram
+                or Facebook. Each is sized for where it is going.
+              </p>
+            </div>
+            <div className="dl-links">
+              <a href="/og-funeral.jpg" download>
+                <Icon n="photo" s={16} /><span>Post &amp; link<small>1200 × 630</small></span>
+              </a>
+              <a href="/share-square.jpg" download>
+                <Icon n="photo" s={16} /><span>Square<small>1080 × 1080</small></span>
+              </a>
+              <a href="/share-story.jpg" download>
+                <Icon n="photo" s={16} /><span>Status / Story<small>1080 × 1920</small></span>
+              </a>
+            </div>
+          </div>
 
           <div className="rsvp-wrap">
             <RsvpForm />

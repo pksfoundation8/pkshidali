@@ -23,7 +23,7 @@ export const metadata = {
     url: `${site.url}/funeral/livestream`,
     type: 'article',
     // The family's own announcement card, used for both funeral pages.
-    images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, alt: FUNERAL_CARD_ALT }],
+    images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, type: 'image/jpeg', alt: FUNERAL_CARD_ALT }],
   },
   twitter: { images: ['/og-funeral.jpg'], card: 'summary_large_image', title: 'Watch the services', description: shareAsk },
 };
