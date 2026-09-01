@@ -9,6 +9,7 @@ import { site, rolesVocation, rolesFamily } from '@/config/site';
 import { archiveTiles, involveCards, heroCopy, signatureQuote } from '@/content/home';
 import { ShareInvite } from '@/components/tributes/ShareInvite';
 import { getPillars, getPrograms, getMilestones, getFeaturedTributes, getSettings } from '@/lib/content';
+import { GiveLink } from '@/components/give/GiveLink';
 
 /* ── hero ─────────────────────────────────────────────────────────── */
 export function Hero() {
@@ -35,9 +36,9 @@ export function Hero() {
             <Link href="/tributes" className="btn btn-ghost">
               <Icon n="chat" s={15} />Read Tributes
             </Link>
-            <Link href="/give" className="btn btn-light">
+            <GiveLink className="btn btn-light">
               <Icon n="heart" s={15} />Support the Foundation
-            </Link>
+            </GiveLink>
           </div>
         </div>
 
@@ -247,14 +248,18 @@ export function BuildLegacy() {
         <div>
           <h2>Help <span className="g">Build the Legacy</span></h2>
           <p>
-            Your support continues the mission and vision of {site.subject.name} &mdash; empowering
-            lives, advancing education and building people, one generation at a time.
+            {site.donationsEnabled
+              ? `Your support continues the mission and vision of ${site.subject.name} — empowering
+                 lives, advancing education and building people, one generation at a time.`
+              : `The work of ${site.subject.name} continues through the people who give their time.
+                 Giving opens once the foundation's registration and donation policy are complete.`}
           </p>
         </div>
         <div className="acts">
-          <Link href="/give" className="btn btn-gold"><Icon n="heart" s={16} />Donate now</Link>
+          <GiveLink className="btn btn-gold"><Icon n="heart" s={16} />Donate now</GiveLink>
           <Link href="/get-involved" className="btn btn-light">
-            Other ways to give<Icon n="arrow" s={15} />
+            {site.donationsEnabled ? 'Other ways to give' : 'Volunteer or mentor'}
+            <Icon n="arrow" s={15} />
           </Link>
         </div>
       </Container>

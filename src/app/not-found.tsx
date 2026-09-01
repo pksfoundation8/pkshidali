@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { PageBanner } from '@/components/layout/PageBanner';
 import { Icon } from '@/components/primitives/Icon';
+import { site } from '@/config/site';
 
 export const metadata = { title: 'Page not found' };
 
@@ -20,7 +21,9 @@ export default function NotFound() {
               ['/his-life', 'His Life', 'Biography and timeline'],
               ['/legacy', 'Legacy Pillars', 'The six principles'],
               ['/archive', 'The Legacy Archive', 'Sermons, photographs, documents'],
-              ['/give', 'Support the Foundation', 'Give in naira or your own currency'],
+              ...(site.donationsEnabled
+                ? [['/give', 'Support the Foundation', 'Give in naira or your own currency'] as const]
+                : []),
             ].map(([href, title, desc]) => (
               <li key={href}>
                 <Link href={href} className="aitem" style={{ width: '100%' }}>

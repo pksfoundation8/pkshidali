@@ -5,6 +5,7 @@ import { PageBanner } from '@/components/layout/PageBanner';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
 import { getPillars } from '@/lib/content';
+import { GiveLink } from '@/components/give/GiveLink';
 
 export async function generateStaticParams() {
   return (await getPillars()).map((p) => ({ pillar: p.slug }));
@@ -56,7 +57,7 @@ export default async function PillarPage({ params }: { params: Promise<{ pillar:
               <Link href={`/legacy/${next.slug}`} className="btn btn-outline">
                 Next: {next.title}<Icon n="arrow" s={15} />
               </Link>
-              <Link href="/give" className="btn btn-solid"><Icon n="heart" s={16} />Support this work</Link>
+              <GiveLink className="btn btn-solid"><Icon n="heart" s={16} />Support this work</GiveLink>
             </div>
           </div>
         </Container>

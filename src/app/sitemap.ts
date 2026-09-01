@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [pillars, programs, tributes] = await Promise.all([getPillars(), getPrograms(), getPublishedTributes()]);
   const paths = [
     '/', '/about', '/his-life', '/legacy', '/tributes', '/tributes/share',
-    '/programs', '/stories', '/get-involved', '/give', '/contact', '/archive',
+    '/programs', '/stories', '/get-involved', '/contact', '/archive',
     ...pillars.map((p) => `/legacy/${p.slug}`),
     ...programs.map((p) => `/programs/${p.slug}`),
     ...tributes.map((t) => `/tributes/${t.id}`),

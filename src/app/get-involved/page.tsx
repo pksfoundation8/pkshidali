@@ -5,6 +5,7 @@ import { SectionHeading } from '@/components/primitives/SectionHeading';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
 import { VolunteerForm } from '@/components/forms/VolunteerForm';
+import { GiveLink } from '@/components/give/GiveLink';
 
 export const metadata = {
   title: 'Get Involved',
@@ -82,7 +83,7 @@ export default function GetInvolvedPage() {
               </div>
 
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 30 }}>
-                <Link href="/give" className="btn btn-outline"><Icon n="heart" s={16} />Give instead</Link>
+                <GiveLink className="btn btn-outline"><Icon n="heart" s={16} />Give instead</GiveLink>
                 <Link href="/contact" className="btn btn-outline">Ask a question</Link>
               </div>
             </div>

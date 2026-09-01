@@ -4,6 +4,7 @@ import { PageBanner } from '@/components/layout/PageBanner';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
 import { getPrograms } from '@/lib/content';
+import { GiveLink } from '@/components/give/GiveLink';
 
 export const metadata = {
   title: 'Programs & Initiatives',
@@ -57,7 +58,7 @@ export default async function ProgramsPage() {
             </p>
           </div>
           <div className="cta-act">
-            <Link href="/give" className="btn btn-solid"><Icon n="heart" s={16} />Support a programme</Link>
+            <GiveLink className="btn btn-solid"><Icon n="heart" s={16} />Support a programme</GiveLink>
             <Link href="/get-involved" className="btn btn-outline">Volunteer<Icon n="arrow" s={15} /></Link>
           </div>
         </Container>

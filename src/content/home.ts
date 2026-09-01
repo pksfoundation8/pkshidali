@@ -1,4 +1,5 @@
 import type { IconName } from '@/components/primitives/Icon';
+import { site } from '@/config/site';
 
 /**
  * Phase 1 content. Shapes deliberately mirror the Sanity schemas in the
@@ -245,6 +246,8 @@ export type InvolveCard = {
   icon: IconName; title: string; summary: string; cta: string; href: string; colour: string;
 };
 
+/** The Donate card is appended only when giving is switched on — see
+ *  site.donationsEnabled. */
 export const involveCards: InvolveCard[] = [
   { icon: 'hands', title: 'Volunteer', summary: 'Give your time and make a difference.',
     cta: 'Get involved', href: '/get-involved', colour: 'var(--olive)' },
@@ -252,8 +255,10 @@ export const involveCards: InvolveCard[] = [
     cta: 'Become a mentor', href: '/get-involved', colour: 'var(--navy-800)' },
   { icon: 'heart', title: 'Partner', summary: 'Partner with us to expand the impact.',
     cta: 'Partner with us', href: '/contact', colour: 'var(--navy-600)' },
-  { icon: 'star', title: 'Donate', summary: 'Your giving helps build the legacy.',
-    cta: 'Donate now', href: '/give', colour: 'var(--purple)' },
+  ...(site.donationsEnabled
+    ? [{ icon: 'star' as IconName, title: 'Donate', summary: 'Your giving helps build the legacy.',
+        cta: 'Donate now', href: '/give', colour: 'var(--purple)' }]
+    : []),
 ];
 
 export type Tribute = {

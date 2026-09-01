@@ -12,6 +12,7 @@ import { SymbolicTribute } from '@/components/tributes/SymbolicTribute';
 import { ShareInvite } from '@/components/tributes/ShareInvite';
 import { getPublishedTributes, getMilestones } from '@/lib/content';
 import { site } from '@/config/site';
+import { GiveLink } from '@/components/give/GiveLink';
 
 const shareAsk =
   `Did ${site.subject.name} touch your life? Teacher, headmaster, pastor, writer — ` +
@@ -173,8 +174,11 @@ export default async function TributesPage() {
               mentorship and community service.
             </p>
             <div className="acts">
-              <Link href="/give" className="btn btn-gold">Support a student</Link>
-              <Link href="/give" className="btn btn-ghost">Make a donation</Link>
+              <GiveLink className="btn btn-gold">Support a student</GiveLink>
+              <GiveLink className="btn btn-ghost">Make a donation</GiveLink>
+              {!site.donationsEnabled && (
+                <Link href="/get-involved" className="btn btn-gold">Volunteer or mentor</Link>
+              )}
             </div>
           </div>
         </Container>

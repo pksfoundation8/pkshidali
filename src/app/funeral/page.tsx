@@ -203,11 +203,13 @@ export default function FuneralPage() {
                     <Icon n="candle" s={15} />Light a candle
                   </Link>
                 </li>
-                <li>
-                  <Link href="/give" className="tlink">
-                    <Icon n="heart" s={15} />Support his work
-                  </Link>
-                </li>
+                {site.donationsEnabled && (
+                  <li>
+                    <Link href="/give" className="tlink">
+                      <Icon n="heart" s={15} />Support his work
+                    </Link>
+                  </li>
+                )}
               </ul>
               <p className="aside-contact">
                 Questions about arrangements?{' '}

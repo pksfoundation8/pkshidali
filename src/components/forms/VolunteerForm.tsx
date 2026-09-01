@@ -8,6 +8,7 @@ import { Icon } from '@/components/primitives/Icon';
 import {
   volunteerAreas, availabilityOptions, connectionOptions, workingWithChildren,
 } from '@/content/forms';
+import { GiveLink } from '@/components/give/GiveLink';
 
 const BLANK = {
   name: '', email: '', phone: '', location: '', area: '',
@@ -77,7 +78,7 @@ export function VolunteerForm() {
         )}
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 26 }}>
           <Link href="/" className="btn btn-solid">Back to home</Link>
-          <Link href="/give" className="btn btn-outline"><Icon n="heart" s={16} />Support the foundation</Link>
+          <GiveLink className="btn btn-outline"><Icon n="heart" s={16} />Support the foundation</GiveLink>
         </div>
       </div>
     );

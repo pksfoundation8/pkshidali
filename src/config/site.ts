@@ -24,15 +24,21 @@ export const site = {
 
   // DECISION 2 — RESOLVED. The foundation is Nigerian; its reach is global,
   // with four of his children based in Canada.
-  //
-  // Street address and phone below are still placeholders — replace with the
-  // registered address once CAC incorporation is complete.
   contact: {
-    address: ['[Street address]', 'Nigeria'],
-    phone: '+234 800 000 0000',
+    address: ['111 Agbo-Oba Street', 'Ilorin, Kwara State', 'Nigeria'],
+    phone: '+234 803 581 5333',
     email: 'info@pkshidali.org',
     countryLocked: true,
   },
+
+  /**
+   * Giving is switched off until CAC registration, the donation and refund
+   * policies, and a payment gateway are all in place. While false: the Donate
+   * button, the Give nav entry and every donation call to action are hidden,
+   * and /give explains the position rather than taking money it cannot yet
+   * lawfully receipt. Set to true to restore all of it at once.
+   */
+  donationsEnabled: false,
 
   /** Home jurisdiction. Registration, safeguarding law and data law follow this. */
   jurisdiction: {
@@ -68,7 +74,7 @@ export const site = {
  * bar wraps. Stories, Get Involved and Contact live in the footer (and the
  * mobile drawer's secondary group); Gallery/Sermons/Resources fold under Archive.
  */
-export const primaryNav = [
+const primaryNavAll = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'His Life', href: '/his-life' },
@@ -79,6 +85,11 @@ export const primaryNav = [
   { label: 'Give', href: '/give' },
 ];
 
+/** Give disappears from the bar entirely while donations are switched off. */
+export const primaryNav = primaryNavAll.filter(
+  (i) => site.donationsEnabled || i.href !== '/give',
+);
+
 /** Demoted from the primary bar; still reachable from the drawer and footer. */
 export const secondaryNav = [
   { label: 'Funeral Arrangements', href: '/funeral' },
@@ -88,7 +99,7 @@ export const secondaryNav = [
   { label: 'Share a Tribute', href: '/tributes/share' },
 ];
 
-export const footerNav = [
+const footerNavAll = [
   { label: 'Funeral', href: '/funeral' },
   { label: 'About', href: '/about' },
   { label: 'Get Involved', href: '/get-involved' },
@@ -101,6 +112,10 @@ export const footerNav = [
   { label: 'Programs', href: '/programs' },
   { label: 'Stories', href: '/stories' },
 ];
+
+export const footerNav = footerNavAll.filter(
+  (i) => site.donationsEnabled || i.href !== '/give',
+);
 
 export const policyNav = [
   { label: 'Privacy', href: '/policies/privacy' },

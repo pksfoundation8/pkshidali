@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Brandmark } from './Brandmark';
 import { Container } from './Container';
 import { Icon } from '@/components/primitives/Icon';
-import { primaryNav, secondaryNav } from '@/config/site';
+import { primaryNav, secondaryNav, site } from '@/config/site';
 
 /**
  * Eight primary items (plan §0.3); the bar is visible from 1024px and
@@ -63,9 +63,11 @@ export function SiteHeader() {
             <Icon n="search" s={17} />
           </Link>
 
-          <Link href="/give" className="give-btn">
-            <Icon n="heart" s={15} />Donate
-          </Link>
+          {site.donationsEnabled && (
+            <Link href="/give" className="give-btn">
+              <Icon n="heart" s={15} />Donate
+            </Link>
+          )}
 
           <button type="button" className="burger" onClick={() => setOpen((v) => !v)}
             aria-expanded={open} aria-controls="mobile-nav">

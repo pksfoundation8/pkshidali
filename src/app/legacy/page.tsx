@@ -4,6 +4,7 @@ import { PageBanner } from '@/components/layout/PageBanner';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
 import { getPillars } from '@/lib/content';
+import { GiveLink } from '@/components/give/GiveLink';
 
 export const metadata = {
   title: 'Legacy Pillars',
@@ -55,7 +56,7 @@ export default async function LegacyPage() {
           </div>
           <div className="cta-act">
             <Link href="/programs" className="btn btn-solid">See the programmes<Icon n="arrow" s={15} /></Link>
-            <Link href="/give" className="btn btn-outline"><Icon n="heart" s={16} />Support the work</Link>
+            <GiveLink className="btn btn-outline"><Icon n="heart" s={16} />Support the work</GiveLink>
           </div>
         </Container>
       </section>

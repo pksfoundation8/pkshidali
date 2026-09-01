@@ -5,6 +5,7 @@ import { PageBanner } from '@/components/layout/PageBanner';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
 import { getPrograms, getProgram } from '@/lib/content';
+import { GiveLink } from '@/components/give/GiveLink';
 
 export async function generateStaticParams() {
   return (await getPrograms()).map((p) => ({ slug: p.slug }));
@@ -48,7 +49,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
             </ul>
 
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 44 }}>
-              <Link href="/give" className="btn btn-solid"><Icon n="heart" s={16} />Fund this programme</Link>
+              <GiveLink className="btn btn-solid"><Icon n="heart" s={16} />Fund this programme</GiveLink>
               <Link href="/get-involved" className="btn btn-outline">Volunteer<Icon n="arrow" s={15} /></Link>
             </div>
           </div>
