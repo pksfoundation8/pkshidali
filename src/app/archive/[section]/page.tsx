@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/layout/Container';
@@ -33,18 +34,31 @@ export default async function ArchiveSectionPage({ params }: { params: Promise<{
             <Icon n="back" s={14} />Whole archive
           </Link>
 
-          <div className="note" style={{ marginTop: 24, maxWidth: 760 }}>
-            <Icon n="info" s={18} />
-            <span>
-              Every record below is a placeholder showing the shape of a catalogue entry.
-              Digitisation of real material begins in Phase 3.
-            </span>
-          </div>
+          {records.every((r) => r.sample) && (
+            <div className="note" style={{ marginTop: 24, maxWidth: 760 }}>
+              <Icon n="info" s={18} />
+              <span>
+                Every record below is a placeholder showing the shape of a catalogue entry.
+                Digitisation of real material begins in Phase 3.
+              </span>
+            </div>
+          )}
 
           <ul className="arch" style={{ marginTop: 28 }}>
             {records.map((r) => (
-              <li key={r.id} className="aitem">
-                <IconCircle n={s.icon} size="sm" />
+              <li key={r.id} className={`aitem${r.image ? ' has-thumb' : ''}`}>
+                {r.image ? (
+                  <a className="athumb" href={r.image.url} target="_blank" rel="noopener noreferrer"
+                    aria-label={`View ${r.title} at full size`}>
+                    <Image src={r.image.url} alt={r.title}
+                      width={r.image.width} height={r.image.height}
+                      sizes="(max-width: 767px) 100vw, 220px"
+                      placeholder={r.image.lqip ? 'blur' : 'empty'}
+                      blurDataURL={r.image.lqip} />
+                  </a>
+                ) : (
+                  <IconCircle n={s.icon} size="sm" />
+                )}
                 <div>
                   {r.sample && <span className="badge sample">Sample</span>}
                   <h3 style={{ marginTop: 8 }}>{r.title}</h3>

@@ -1917,3 +1917,22 @@
   /* the share sheet leads on its own line, the named services pair beneath */
   .pks .invite-links li.share-li{flex:1 1 100%}
 }
+
+/* ── v34 · archive thumbnails ──────────────────────────────────────────
+   A catalogued photograph should show the photograph. The list is a three
+   column grid, so an image beside the text leaves neither enough room —
+   entries with one become a card with the picture on top. Entries without
+   keep the section icon, so a documents list still reads as a list rather
+   than a broken gallery. */
+.pks .aitem.has-thumb{flex-direction:column;gap:14px}
+.pks .athumb{
+  display:block;width:100%;border-radius:10px;overflow:hidden;
+  border:1px solid var(--line);background:#efe8db;line-height:0;
+  transition:border-color .2s ease;
+}
+.pks .athumb:hover{border-color:var(--gold-500)}
+/* a fixed frame keeps a row of mixed portrait and landscape scans aligned */
+.pks .athumb img{width:100%;height:230px;object-fit:cover;object-position:center top;display:block}
+@media(max-width:767px){
+  .pks .athumb img{height:280px}
+}

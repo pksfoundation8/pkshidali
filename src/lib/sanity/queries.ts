@@ -45,7 +45,12 @@ export const tributeByIdQuery = groq`
 
 export const archiveSectionQuery = groq`
   *[_type == "mediaAsset" && section == $section] | order(date desc) {
-    "id": _id, title, type, date, dateUncertain, description
+    "id": _id, title, type, date, dateUncertain, description,
+    "imageUrl": image.asset->url,
+    "imageW": image.asset->metadata.dimensions.width,
+    "imageH": image.asset->metadata.dimensions.height,
+    "lqip": image.asset->metadata.lqip,
+    "fileUrl": file.asset->url
   }`;
 
 export const siteSettingsQuery = groq`

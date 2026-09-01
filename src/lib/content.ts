@@ -79,7 +79,11 @@ export async function getTribute(id: string): Promise<Tribute | undefined> {
 }
 
 export async function getArchiveRecords(section: string): Promise<ArchiveRecord[]> {
-  type Row = { id: string; title: string; type: string; date?: string; dateUncertain?: boolean; description?: string };
+  type Row = {
+    id: string; title: string; type: string; date?: string; dateUncertain?: boolean;
+    description?: string; imageUrl?: string; imageW?: number; imageH?: number;
+    lqip?: string; fileUrl?: string;
+  };
   const data = await sanityFetch<Row[]>(archiveSectionQuery, ['mediaAsset'], { section });
   if (data?.length) {
     return data.map((r) => ({
@@ -88,6 +92,10 @@ export async function getArchiveRecords(section: string): Promise<ArchiveRecord[
       meta: [r.type, r.date ? `${r.dateUncertain ? 'c. ' : ''}${r.date}` : 'Undated']
         .filter(Boolean).join(' · '),
       desc: r.description ?? '',
+      image: r.imageUrl && r.imageW && r.imageH
+        ? { url: r.imageUrl, width: r.imageW, height: r.imageH, lqip: r.lqip }
+        : undefined,
+      fileUrl: r.fileUrl,
     }));
   }
   return seedSections.find((s) => s.slug === section)?.records ?? [];

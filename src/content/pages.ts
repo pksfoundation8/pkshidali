@@ -1,7 +1,14 @@
 import type { IconName } from '@/components/primitives/Icon';
 
 /** Archive sections. Records are sample catalogue entries until Phase 3 digitisation. */
-export type ArchiveRecord = { id: string; title: string; meta: string; desc: string; sample?: boolean };
+export type ArchiveImage = { url: string; width: number; height: number; lqip?: string };
+
+export type ArchiveRecord = {
+  id: string; title: string; meta: string; desc: string; sample?: boolean;
+  /** Present once real material is catalogued; sample entries have none. */
+  image?: ArchiveImage;
+  fileUrl?: string;
+};
 
 export type ArchiveSection = {
   slug: string;
