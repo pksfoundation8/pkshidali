@@ -1749,3 +1749,10 @@
 @media(min-width:820px){.pks .stream-foot{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px}}
 .pks .stream-foot h3{font-family:var(--display);font-size:21px;font-weight:600;color:var(--navy-800)}
 .pks .stream-foot p{margin-top:8px;font-size:14px;line-height:1.7;color:var(--ink-muted)}
+
+/* recording note on the livestream page */
+.pks .recording{display:flex;gap:16px;align-items:flex-start;margin-top:20px;padding:22px 24px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-1)}
+.pks .recording h3{font-family:var(--display);font-size:20px;font-weight:600;color:var(--navy-800)}
+.pks .recording p{margin-top:7px;font-size:14px;line-height:1.75;color:var(--ink-muted);max-width:56ch}

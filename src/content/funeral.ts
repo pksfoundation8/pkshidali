@@ -86,6 +86,13 @@ export const livestream = {
   note:
     'A link will be published on this page before the services begin. Both services are '
     + 'expected to be streamed for family and friends who cannot travel to Ilorin.',
+  /** The funeral service falls at 5:00 am in North America, so the recording
+   *  matters as much as the live stream for a family spread across Canada. */
+  recordingNote:
+    'A recording of both services will be posted here afterwards, so anyone who cannot watch '
+    + 'live — or for whom the hour is difficult — can still take part in their own time.',
+  /** Set once the recording is up; the page then links it instead of promising it. */
+  recordingUrl: null as string | null,
 };
 
 export const funeralIntro = {

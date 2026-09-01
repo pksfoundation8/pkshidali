@@ -97,6 +97,22 @@ export default function LivestreamPage() {
             where it applies in October.
           </p>
 
+          {/* the funeral service lands before dawn in North America, so say plainly
+              that watching later is a real option rather than a consolation */}
+          <div className="recording">
+            <span className="ring sm"><Icon n="video" s={18} /></span>
+            <div>
+              <h3>{livestream.recordingUrl ? 'Watch the recording' : 'A recording will follow'}</h3>
+              <p>{livestream.recordingNote}</p>
+              {livestream.recordingUrl && (
+                <a href={livestream.recordingUrl} target="_blank" rel="noopener noreferrer"
+                  className="btn btn-outline" style={{ marginTop: 14, padding: '10px 18px' }}>
+                  <Icon n="video" s={15} />Open the recording
+                </a>
+              )}
+            </div>
+          </div>
+
           <div className="stream-foot">
             <div>
               <h3>Attending in person instead?</h3>
