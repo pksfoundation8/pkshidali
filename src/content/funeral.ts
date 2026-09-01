@@ -49,7 +49,7 @@ export const funeralEvents: FuneralEvent[] = [
 
 export const venue = {
   name: 'Apostolic Faith Church',
-  street: '111 Agbo Oba Street',
+  street: '111 Agbo-Oba Street',
   city: 'Ilorin',
   state: 'Kwara State',
   country: 'Nigeria',
