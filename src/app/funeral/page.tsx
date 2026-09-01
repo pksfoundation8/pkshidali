@@ -1,16 +1,17 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { PageBanner } from '@/components/layout/PageBanner';
 import { Icon } from '@/components/primitives/Icon';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { RsvpForm } from '@/components/funeral/RsvpForm';
-import { funeralEvents, venue, funeralIntro } from '@/content/funeral';
+import { funeralEvents, venue, funeralIntro, reception, livestream } from '@/content/funeral';
 import { site } from '@/config/site';
 
 const shareAsk =
-  `Funeral arrangements for ${site.subject.name}. Service of Song on Thursday 15 October and ` +
-  `Funeral Service on Friday 16 October 2026, at ${venue.name}, ${venue.city}. ` +
-  'Please let the family know if you plan to attend.';
+  `Funeral arrangements for ${site.subject.name}. Service of Song on Thursday 15 October at 5:00 PM `
+  + `and Funeral Service on Friday 16 October at 10:00 AM, ${venue.name}, ${venue.city}. `
+  + 'Please let the family know if you plan to attend.';
 
 export const metadata = {
   title: 'Funeral Arrangements',
@@ -24,15 +25,16 @@ export const metadata = {
   twitter: { card: 'summary_large_image', title: 'Funeral Arrangements', description: shareAsk },
 };
 
-/** Event structured data so the services surface correctly in search and chat previews. */
 function eventJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@graph': funeralEvents.map((e) => ({
       '@type': 'Event',
       name: `${e.title} — ${site.subject.name}`,
-      startDate: e.date,
-      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      startDate: e.startsAt,
+      eventAttendanceMode: livestream.url
+        ? 'https://schema.org/MixedEventAttendanceMode'
+        : 'https://schema.org/OfflineEventAttendanceMode',
       eventStatus: 'https://schema.org/EventScheduled',
       location: {
         '@type': 'Place',
@@ -62,6 +64,23 @@ export default function FuneralPage() {
 
       <section className="pad">
         <Container>
+          {/* memorial card — the man himself, before the arrangements */}
+          <div className="memcard">
+            <div className="mem-por">
+              <Image src="/portrait-v5.webp" unoptimized alt={site.subject.name}
+                width={950} height={835} priority sizes="(max-width: 767px) 240px, 300px" />
+            </div>
+            <div className="mem-text">
+              <p className="mem-k">In loving memory</p>
+              <h2>{site.subject.name}</h2>
+              <p className="mem-dates">{site.subject.bornLabel} &mdash; {site.subject.diedLabel}</p>
+              <p className="mem-creed">
+                Teacher, headmaster, pastor, preacher, writer and prayer warrior.
+                Husband, father and grandfather.
+              </p>
+            </div>
+          </div>
+
           {/* the two services */}
           <ul className="events">
             {funeralEvents.map((e) => (
@@ -70,10 +89,7 @@ export default function FuneralPage() {
                 <div>
                   <p className="ev-when">{e.dateLabel}</p>
                   <h2>{e.title}</h2>
-                  <p className="ev-time">
-                    <Icon n="info" s={14} />
-                    {e.time ?? 'Time to be confirmed'}
-                  </p>
+                  <p className="ev-time"><Icon n="info" s={14} />{e.timeLabel} (WAT)</p>
                   <p className="ev-sum">{e.summary}</p>
                 </div>
               </li>
@@ -83,7 +99,7 @@ export default function FuneralPage() {
           {/* venue */}
           <div className="venue">
             <div>
-              <h3>Venue</h3>
+              <h3>Venue &mdash; both services</h3>
               <p className="v-name">{venue.name}</p>
               <address>
                 {venue.street}<br />
@@ -95,13 +111,23 @@ export default function FuneralPage() {
                 <Icon n="pin" s={15} />Open in Maps
               </a>
             </div>
-            <div className="v-note">
-              <Icon n="info" s={18} />
-              <span>
-                Both services are held at the same church. Service times will be confirmed here
-                as soon as the family has finalised them &mdash; if you are travelling a long
-                way, please check this page again nearer the date.
-              </span>
+
+            <div className="v-side">
+              <div className="v-block">
+                <h3>{reception.title}</h3>
+                <p className="v-when">{reception.when}</p>
+                <p className="v-venue">{reception.venue ?? 'Venue to be confirmed'}</p>
+                <p className="v-note-sm">{reception.note}</p>
+              </div>
+
+              <div className="v-block">
+                <h3>Watching from abroad</h3>
+                <p className="v-note-sm">{livestream.note}</p>
+                <Link href="/funeral/livestream" className="btn btn-outline"
+                  style={{ marginTop: 12, padding: '10px 18px' }}>
+                  <Icon n="video" s={15} />Livestream details
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -114,6 +140,11 @@ export default function FuneralPage() {
                 If you cannot travel, you are just as welcome to take part from wherever you are.
               </p>
               <ul>
+                <li>
+                  <Link href="/funeral/livestream" className="tlink">
+                    <Icon n="video" s={15} />Watch the livestream
+                  </Link>
+                </li>
                 <li>
                   <Link href="/tributes/share" className="tlink">
                     <Icon n="pen" s={15} />Share a tribute

@@ -1680,3 +1680,72 @@
   font-size:13px}
 .pks .rsvp-aside .aside-contact a{color:var(--gold-700);text-decoration:underline;
   text-underline-offset:3px}
+
+/* ══════════ v28 — memorial card, reception, livestream ══════════ */
+
+/* the portrait and dates, at the head of the funeral pages */
+.pks .memcard{display:grid;gap:24px;align-items:center;margin-bottom:26px;padding:26px 28px;
+  border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow-1);
+  background:radial-gradient(130% 180% at 12% 0%,#0e3d68 0%,var(--navy-800) 45%,var(--navy-900) 100%);
+  color:var(--ivory)}
+@media(min-width:700px){.pks .memcard{grid-template-columns:auto minmax(0,1fr);gap:30px}}
+.pks .memcard .mem-por{justify-self:center;width:100%;max-width:300px}
+.pks .memcard.slim .mem-por{max-width:250px}
+.pks .memcard .mem-por img{display:block;width:100%;height:auto;
+  -webkit-mask-image:radial-gradient(ellipse 62% 70% at 50% 42%,#000 42%,transparent 74%);
+          mask-image:radial-gradient(ellipse 62% 70% at 50% 42%,#000 42%,transparent 74%)}
+.pks .memcard .mem-k{font-size:11px;font-weight:600;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold-500)}
+.pks .memcard h2{margin-top:10px;font-family:var(--display);font-weight:700;
+  font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.1;color:var(--ivory)}
+.pks .memcard .mem-dates{margin-top:8px;font-family:var(--display);font-style:italic;
+  font-size:19px;color:var(--gold-300)}
+.pks .memcard .mem-creed{margin-top:14px;font-size:14px;line-height:1.75;
+  color:rgba(250,248,241,.8);max-width:46ch}
+@media(max-width:699px){.pks .memcard{text-align:center}.pks .memcard .mem-creed{margin-left:auto;margin-right:auto}}
+
+/* venue side column: reception + livestream blocks */
+.pks .venue .v-side{display:grid;gap:16px}
+.pks .venue .v-block{padding:18px 20px;border:1px solid var(--line);
+  border-radius:var(--radius-sm);background:var(--ivory)}
+.pks .venue .v-when{margin-top:9px;font-size:13.5px;color:var(--ink-muted)}
+.pks .venue .v-venue{margin-top:5px;font-family:var(--display);font-size:19px;
+  font-weight:600;color:var(--navy-800)}
+.pks .venue .v-note-sm{margin-top:9px;font-size:13px;line-height:1.7;color:var(--ink-muted)}
+
+/* livestream status panel */
+.pks .stream{display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+  padding:30px;background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow-1)}
+.pks .stream.live{border-color:rgba(196,154,69,.55);background:rgba(196,154,69,.05)}
+.pks .stream h2{font-family:var(--display);font-size:25px;font-weight:600;color:var(--navy-800)}
+.pks .stream p{font-size:14.5px;line-height:1.75;color:var(--ink-muted);max-width:56ch}
+.pks .stream .stream-sub{font-size:13px;color:var(--ink-muted)}
+
+/* service times by timezone */
+.pks .zones-h{margin-top:34px;font-family:var(--display);font-size:23px;font-weight:600;
+  color:var(--navy-800)}
+.pks .zones{display:grid;gap:16px;margin-top:16px}
+@media(min-width:760px){.pks .zones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pks .zone-card{padding:22px 24px;background:var(--paper);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow-1)}
+.pks .zone-card .z-title{font-family:var(--display);font-size:20px;font-weight:600;color:var(--navy-800)}
+.pks .zone-card .z-date{margin-top:4px;font-size:11px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-700)}
+.pks .zone-card ul{margin-top:14px;display:flex;flex-direction:column}
+.pks .zone-card li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;
+  border-top:1px solid var(--line);font-size:14px}
+.pks .zone-card li:first-child{border-top:0}
+.pks .zone-card .z-place{color:var(--ink-muted)}
+.pks .zone-card .z-time{font-weight:600;color:var(--ink)}
+.pks .zones-note{display:flex;gap:9px;margin-top:14px;font-size:12.5px;line-height:1.65;
+  color:var(--ink-muted)}
+.pks .zones-note svg{flex:none;margin-top:1px;color:var(--gold-700)}
+
+/* closing strip */
+.pks .stream-foot{display:grid;gap:18px;margin-top:30px;padding:26px 28px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-1)}
+@media(min-width:820px){.pks .stream-foot{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px}}
+.pks .stream-foot h3{font-family:var(--display);font-size:21px;font-weight:600;color:var(--navy-800)}
+.pks .stream-foot p{margin-top:8px;font-size:14px;line-height:1.7;color:var(--ink-muted)}
