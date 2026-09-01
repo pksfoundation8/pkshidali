@@ -22,13 +22,18 @@ const GOLD_LIGHT = '#e3c77e';
 const IVORY = '#faf8f1';
 
 export default async function Image() {
-  let portrait = '';
-  try {
-    const file = await readFile(join(process.cwd(), 'public', 'portrait-og.png'));
-    portrait = `data:image/png;base64,${file.toString('base64')}`;
-  } catch {
-    /* card still renders without it */
-  }
+  const load = async (file: string, mime: string) => {
+    try {
+      const buf = await readFile(join(process.cwd(), 'public', file));
+      return `data:${mime};base64,${buf.toString('base64')}`;
+    } catch {
+      return '';                      // card still renders without it
+    }
+  };
+  const [portrait, sky] = await Promise.all([
+    load('portrait-og.png', 'image/png'),
+    load('hero-sky-v2.jpg', 'image/jpeg'),
+  ]);
 
   const bornYear = site.subject.born.slice(0, 4);
   const diedYear = site.subject.died.slice(0, 4);
@@ -41,6 +46,28 @@ export default async function Image() {
         background: 'linear-gradient(160deg, #051d35 0%, #082a4a 52%, #0e3d68 100%)',
         color: IVORY, fontFamily: 'sans-serif', padding: '26px 0',
       }}>
+        {/* the hero sky, as it appears on the site */}
+        {sky && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={sky} alt="" width={1200} height={630}
+            style={{ position: 'absolute', top: 0, left: 0, objectFit: 'cover' }} />
+        )}
+
+        {/* his portrait, set into that sky rather than floating on flat navy */}
+        {portrait && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={portrait} alt="" width={300} height={263}
+            style={{ position: 'absolute', top: 52, left: 450 }} />
+        )}
+
+        {/* light where the sky should breathe, heavy only under the text */}
+        <div style={{
+          position: 'absolute', top: 0, left: 0, width: 1200, height: 630, display: 'flex',
+          background:
+            'linear-gradient(180deg, rgba(5,29,53,0.38) 0%, rgba(5,29,53,0.12) 30%, '
+            + 'rgba(5,29,53,0.62) 52%, rgba(5,29,53,0.90) 72%, rgba(5,29,53,0.96) 100%)',
+        }} />
+
         <div style={{
           position: 'absolute', top: 22, left: 22, right: 22, bottom: 22,
           border: `1px solid ${GOLD}55`, display: 'flex',
@@ -53,12 +80,8 @@ export default async function Image() {
           Watch From Anywhere
         </div>
 
-        {portrait && (
-          <div style={{ display: 'flex', marginTop: 6 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={portrait} alt="" width={262} height={230} />
-          </div>
-        )}
+        {/* space reserved for the portrait behind */}
+        <div style={{ display: 'flex', height: 244 }} />
 
         <div style={{
           marginTop: 2, fontSize: 46, fontWeight: 700, letterSpacing: -0.5, display: 'flex',
