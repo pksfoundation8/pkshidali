@@ -1852,3 +1852,46 @@
 @media(max-width:400px){
   .pks .tstats dt{font-size:8px}
 }
+
+/* ══════════ v32 — homepage across real devices ══════════
+   Measured at 320/360/390/430/768/1024/1280/1440 via the devtools protocol.
+   No overflow anywhere, so these are refinements rather than repairs. */
+
+/* 1. The name was pinned at its 27.2px floor from 320px all the way to 768px,
+      so a tablet showed it at phone size. Lift it through the tablet range
+      only, leaving the approved desktop scale untouched. */
+@media(min-width:600px) and (max-width:1023px){
+  .pks .hero2 h1{font-size:clamp(1.9rem,4.4vw,2.6rem)}
+  .pks .hero2 .lede{font-size:17px}
+}
+
+/* 2. Text links measured 21px tall — under the 24px minimum touch target.
+      Keyed on viewport rather than pointer:coarse, which touch laptops report
+      as fine and which could not be verified under emulation. */
+@media(max-width:1023px){
+  .pks .tlink,.pks .go,.pks .crumb{min-height:30px;align-items:center}
+  .pks .card-acts button,.pks .card-acts a{min-height:32px}
+  .pks .dl-links a,.pks .invite-links a,.pks .invite-links button{min-height:42px}
+  .pks .tfilter,.pks .chip{min-height:38px}
+}
+
+/* 3. The hero stood 803px tall on a 320px phone — taller than the viewport,
+      so nothing below it hinted the page continued. Trim it so the roles
+      strip peeks above the fold. */
+@media(max-width:400px){
+  .pks .hero2 .in{padding-top:78px;padding-bottom:18px;gap:18px}
+  .pks .pframe,.pks .pwrap{max-width:236px}
+  .pks .hero2 .lede{font-size:15px;line-height:1.7}
+  .pks .hero2 .acts{margin-top:20px}
+  .pks .pdates .d{font-size:17px}
+}
+
+/* 4. The stacked mobile page ran to 8,400px. Tighten the rhythm between
+      bands without crowding them. */
+@media(max-width:767px){
+  .pks .band{padding:36px 0}
+  .pks section.pad{padding:40px 0}
+  .pks .duo{gap:30px}
+  .pks .pill6,.pks .prog5,.pks .tmini,.pks .arch5,.pks .gi{margin-top:22px}
+  .pks .tl6{margin-top:22px}
+}
