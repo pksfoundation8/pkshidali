@@ -27,6 +27,16 @@ export function TributesExplorer({ tributes }: { tributes: Tribute[] }) {
   const [slide, setSlide] = useState(0);
   const [q, setQ] = useState('');
   const [sort, setSort] = useState<'recent' | 'name'>('recent');
+  /* Reading a tribute should not cost a page load. On a phone, tapping through
+     and back for each one is the difference between reading three and reading
+     thirty, so cards open in place and the permalink stays as a second option. */
+  const [open, setOpen] = useState<Set<string>>(new Set());
+  const toggle = (id: string) =>
+    setOpen((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
 
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
@@ -143,10 +153,20 @@ export function TributesExplorer({ tributes }: { tributes: Tribute[] }) {
                     </div>
                     <div>
                       <span className="qm" aria-hidden="true">&ldquo;</span>
-                      <q>{trim(current.body, 190)}</q>
-                      <div style={{ marginTop: 16 }}>
-                        <Link href={`/tributes/${current.id}`} className="tlink">
-                          Read full story<Icon n="arrow" s={14} />
+                      <q>{open.has(current.id) ? current.body : trim(current.body, 190)}</q>
+                      {open.has(current.id) && current.taught && (
+                        <p className="taught-line">&ldquo;He taught me {current.taught}.&rdquo;</p>
+                      )}
+                      <div className="card-acts">
+                        {current.body.length > 190 && (
+                          <button type="button" className="tlink" onClick={() => toggle(current.id)}
+                            aria-expanded={open.has(current.id)}>
+                            {open.has(current.id) ? 'Show less' : 'Read it here'}
+                            <Icon n={open.has(current.id) ? 'back' : 'arrow'} s={14} />
+                          </button>
+                        )}
+                        <Link href={`/tributes/${current.id}`} className="tlink subtle">
+                          Open full page<Icon n="arrow" s={14} />
                         </Link>
                       </div>
                     </div>
@@ -168,7 +188,14 @@ export function TributesExplorer({ tributes }: { tributes: Tribute[] }) {
 
           {/* latest */}
           <section aria-label="Latest tributes">
-            <h2 className="colhead">Latest tributes</h2>
+            <h2 className="colhead">
+              Latest tributes
+              {rest.length > 0 && (
+                <span className="colcount">
+                  showing {Math.min(shown, rest.length)} of {rest.length}
+                </span>
+              )}
+            </h2>
             {visible.length === 0 ? (
               <p className="lead" style={{ marginTop: 14, fontSize: 14 }}>
                 This is the only one so far.
@@ -177,7 +204,7 @@ export function TributesExplorer({ tributes }: { tributes: Tribute[] }) {
               <ul className="lgrid">
                 {visible.map((t) => (
                   <li key={t.id}>
-                    <Link href={`/tributes/${t.id}`} className="lcard">
+                    <article className={`lcard${open.has(t.id) ? ' open' : ''}`}>
                       {(t.hasAudio || t.hasVideo) && (
                         <span className="corner" title={t.hasVideo ? 'Video tribute' : 'Audio tribute'}>
                           <Icon n={t.hasVideo ? 'video' : 'audio'} s={13} />
@@ -187,12 +214,28 @@ export function TributesExplorer({ tributes }: { tributes: Tribute[] }) {
                         <span className="avatar sm" aria-hidden="true">{initials(t.name)}</span>
                         <span>
                           <span className="nm">{t.name}</span>
-                          <span className="rl">{t.relationship}</span>
+                          <span className="rl">
+                            {[t.relationship, t.years].filter(Boolean).join(' · ')}
+                          </span>
                         </span>
                       </div>
-                      <q>{trim(t.body, 108)}</q>
-                      <span className="go">View story<Icon n="arrow" s={13} /></span>
-                    </Link>
+                      <q>{open.has(t.id) ? t.body : trim(t.body, 108)}</q>
+                      {open.has(t.id) && t.taught && (
+                        <p className="taught-line">&ldquo;He taught me {t.taught}.&rdquo;</p>
+                      )}
+                      <div className="card-acts">
+                        {t.body.length > 108 ? (
+                          <button type="button" className="go" onClick={() => toggle(t.id)}
+                            aria-expanded={open.has(t.id)}>
+                            {open.has(t.id) ? 'Show less' : 'Read it here'}
+                            <Icon n={open.has(t.id) ? 'back' : 'arrow'} s={13} />
+                          </button>
+                        ) : <span />}
+                        <Link href={`/tributes/${t.id}`} className="go subtle">
+                          Full page<Icon n="arrow" s={13} />
+                        </Link>
+                      </div>
+                    </article>
                   </li>
                 ))}
               </ul>

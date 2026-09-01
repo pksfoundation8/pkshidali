@@ -1773,3 +1773,82 @@
 .pks .dl-links svg{color:var(--gold-700);flex:none}
 .pks .dl-links small{display:block;margin-top:2px;font-size:10.5px;color:var(--ink-muted)}
 @media(max-width:519px){.pks .dl-links a{flex:1 1 100%;justify-content:center}}
+
+/* ══════════ v30 — reading tributes on a phone ══════════
+   The archive is read far more than it is written, and mostly on a handset
+   over mobile data. These rules serve the reader: a comfortable measure,
+   cards that open in place, and controls big enough for a thumb. */
+
+/* cards that expand */
+.pks .lcard.open{border-color:rgba(196,154,69,.5);box-shadow:var(--shadow-2)}
+.pks .lcard.open q{font-size:14.5px;line-height:1.8;color:var(--ink)}
+.pks .card-acts{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+.pks .lcard .card-acts .go{margin-top:0;padding-top:0;border-top:0}
+.pks .card-acts button{background:none;border:0;padding:0;font-family:var(--body);
+  cursor:pointer;font-size:inherit;color:inherit}
+.pks .go.subtle,.pks .tlink.subtle{color:var(--ink-muted);font-weight:400}
+.pks .go.subtle:hover,.pks .tlink.subtle:hover{color:var(--gold-700)}
+.pks .taught-line{margin-top:12px;font-family:var(--display);font-style:italic;
+  font-size:15px;line-height:1.5;color:var(--gold-700)}
+.pks .colcount{display:block;margin-top:3px;font-family:var(--body);font-size:10.5px;
+  font-weight:500;letter-spacing:.06em;text-transform:none;color:var(--ink-muted)}
+
+/* the single-tribute page, as a reading surface */
+.pks .tribute-read{max-width:680px}
+.pks .tribute-read blockquote{margin-top:26px}
+.pks .tribute-read blockquote p{margin-top:16px;font-family:var(--display);
+  font-size:clamp(1.15rem,1rem + 1.1vw,1.45rem);line-height:1.72;color:var(--navy-800)}
+.pks .taught-line.big{margin-top:28px;font-size:clamp(1.15rem,3.6vw,1.5rem)}
+.pks .read-acts{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+
+/* previous / next through the archive */
+.pks .tnav{display:grid;gap:11px;margin-top:32px;padding-top:22px;
+  border-top:1px solid var(--line)}
+@media(min-width:600px){.pks .tnav{grid-template-columns:1fr 1fr}}
+.pks .tnav-link{display:flex;align-items:center;gap:11px;padding:14px 16px;
+  border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--paper);
+  font-size:14px;font-weight:500;color:var(--navy-800);line-height:1.35;
+  transition:border-color .2s,background-color .2s}
+.pks .tnav-link:hover{border-color:var(--gold-500);background:rgba(196,154,69,.05)}
+.pks .tnav-link.next{justify-content:flex-end;text-align:right}
+.pks .tnav-link svg{flex:none;color:var(--gold-700)}
+.pks .tnav-link small{display:block;margin-bottom:3px;font-size:10.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
+
+/* phones: fewer, roomier columns and thumb-sized controls */
+@media(max-width:767px){
+  .pks .lgrid{grid-template-columns:1fr;gap:12px}
+  .pks .lcard{padding:18px}
+  .pks .lcard q{font-size:14.5px;line-height:1.72}
+  .pks .card-acts{padding-top:13px}
+  .pks .card-acts button,.pks .card-acts a{min-height:34px;display:inline-flex;align-items:center}
+  .pks .feat{padding:20px}
+  .pks .feat q{font-size:15.5px;line-height:1.7}
+  .pks .tcols{gap:22px}
+  .pks .tribute-read blockquote p{font-size:17px;line-height:1.8}
+  .pks .tnav-link{padding:15px 16px}
+}
+
+/* ══════════ v31 — the tributes page must not scroll sideways ══════════
+   At 390px the stats strip and toolbar were wider than the viewport, which
+   drags the whole page with them and clips every card. Flex and grid children
+   default to min-width:auto, so they refuse to shrink below their content;
+   these rules let them. */
+.pks .ttools > *{min-width:0}
+.pks .tstats > div{min-width:0}
+.pks .tstats dt{white-space:nowrap}
+/* long words and pasted links must wrap rather than widen the card */
+.pks .lcard q,.pks .feat q,.pks .taught-line,.pks .wmsg q{overflow-wrap:anywhere}
+
+@media(max-width:767px){
+  .pks .tstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+    width:100%;gap:0;padding:6px 2px}
+  .pks .tstats > div{padding:4px 2px}
+  .pks .tstats dd{font-size:16px}
+  .pks .tstats dt{font-size:8.5px;letter-spacing:.04em;gap:3px}
+  .pks .tstats dt svg{display:none}
+}
+@media(max-width:400px){
+  .pks .tstats dt{font-size:8px}
+}

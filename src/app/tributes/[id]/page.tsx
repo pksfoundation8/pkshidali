@@ -20,12 +20,20 @@ export default async function TributePage({ params }: { params: Promise<{ id: st
   const t = await getTribute(id);
   if (!t) notFound();
 
+  /* Neighbours in the published order, so someone reading through the archive
+     on a phone can move to the next memory without going back to the list and
+     finding their place again. */
+  const all = await getPublishedTributes();
+  const i = all.findIndex((x) => x.id === id);
+  const prev = i > 0 ? all[i - 1] : null;
+  const next = i >= 0 && i < all.length - 1 ? all[i + 1] : null;
+
   return (
     <>
       <PageBanner eyebrow="Tribute" title={t.title ?? 'A memory'} />
       <section className="pad">
         <Container>
-          <div style={{ maxWidth: 700 }}>
+          <div className="tribute-read">
             <Link href="/tributes" className="crumb" style={{ color: 'var(--gold-700)' }}>
               <Icon n="back" s={14} />All tributes
             </Link>
@@ -35,17 +43,13 @@ export default async function TributePage({ params }: { params: Promise<{ id: st
               {t.sample && <span className="badge sample">Sample record</span>}
             </div>
 
-            <blockquote style={{ marginTop: 26 }}>
-              <Icon n="quote" s={38} style={{ color: 'rgba(196,154,69,.7)' }} />
-              <p style={{ marginTop: 18, fontFamily: 'var(--display)', fontSize: 24, lineHeight: 1.55, color: 'var(--navy-800)' }}>
-                {t.body}
-              </p>
+            <blockquote>
+              <Icon n="quote" s={34} style={{ color: 'rgba(196,154,69,.7)' }} />
+              <p>{t.body}</p>
             </blockquote>
 
             {t.taught && (
-              <p style={{ marginTop: 30, fontFamily: 'var(--display)', fontSize: 26, color: 'var(--gold-700)' }}>
-                &ldquo;He taught me {t.taught}.&rdquo;
-              </p>
+              <p className="taught-line big">&ldquo;He taught me {t.taught}.&rdquo;</p>
             )}
 
             {t.videoUrl && (
@@ -62,9 +66,38 @@ export default async function TributePage({ params }: { params: Promise<{ id: st
               </p>
             </div>
 
-            <Link href="/tributes/share" className="btn btn-outline" style={{ marginTop: 36 }}>
-              <Icon n="plus" s={16} />Add your own
-            </Link>
+            {/* move through the archive without losing your place */}
+            {(prev || next) && (
+              <nav className="tnav" aria-label="More tributes">
+                {prev ? (
+                  <Link href={`/tributes/${prev.id}`} className="tnav-link prev">
+                    <Icon n="back" s={15} />
+                    <span>
+                      <small>Previous</small>
+                      {prev.title ?? prev.name}
+                    </span>
+                  </Link>
+                ) : <span />}
+                {next && (
+                  <Link href={`/tributes/${next.id}`} className="tnav-link next">
+                    <span>
+                      <small>Next</small>
+                      {next.title ?? next.name}
+                    </span>
+                    <Icon n="arrow" s={15} />
+                  </Link>
+                )}
+              </nav>
+            )}
+
+            <div className="read-acts">
+              <Link href="/tributes" className="btn btn-solid">
+                <Icon n="back" s={16} />All tributes
+              </Link>
+              <Link href="/tributes/share" className="btn btn-outline">
+                <Icon n="plus" s={16} />Add your own
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
