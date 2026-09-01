@@ -14,6 +14,9 @@ const shareAsk =
   + `and Funeral Service on Friday 16 October at 10:00 AM, ${venue.name}, ${venue.city}. `
   + 'Please let the family know if you plan to attend.';
 
+const FUNERAL_CARD_ALT =
+  'Celebration of a Life Well Lived — Rev. Paul Kadir Shidali, December 4, 1933 to August 16, 2026. Funeral arrangements, 15–16 October 2026, Ilorin, Nigeria.';
+
 export const metadata = {
   title: 'Funeral Arrangements',
   description: shareAsk,
@@ -22,8 +25,10 @@ export const metadata = {
     description: shareAsk,
     url: `${site.url}/funeral`,
     type: 'article',
+    // The family's own announcement card, used for both funeral pages.
+    images: [{ url: '/og-funeral.jpg', width: 1200, height: 630, alt: FUNERAL_CARD_ALT }],
   },
-  twitter: { card: 'summary_large_image', title: 'Funeral Arrangements', description: shareAsk },
+  twitter: { images: ['/og-funeral.jpg'], card: 'summary_large_image', title: 'Funeral Arrangements', description: shareAsk },
 };
 
 function eventJsonLd() {
