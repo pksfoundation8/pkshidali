@@ -80,8 +80,8 @@ export default function FuneralPage() {
           {/* memorial card — the man himself, before the arrangements */}
           <div className="memcard">
             <div className="mem-por">
-              <Image src="/portrait-v5.webp" unoptimized alt={site.subject.name}
-                width={950} height={835} priority sizes="(max-width: 767px) 240px, 300px" />
+              <Image src="/portrait-seated-v1.webp" unoptimized alt={site.subject.name}
+                width={760} height={869} preload sizes="(max-width: 767px) 240px, 300px" />
             </div>
             <div className="mem-text">
               <p className="mem-k">In loving memory</p>

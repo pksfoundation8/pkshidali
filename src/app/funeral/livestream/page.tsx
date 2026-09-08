@@ -89,8 +89,8 @@ export default function LivestreamPage() {
         <Container>
           <div className="memcard slim">
             <div className="mem-por">
-              <Image src="/portrait-v5.webp" unoptimized alt={site.subject.name}
-                width={950} height={835} priority sizes="(max-width: 767px) 200px, 250px" />
+              <Image src="/portrait-seated-v1.webp" unoptimized alt={site.subject.name}
+                width={760} height={869} preload sizes="(max-width: 767px) 200px, 250px" />
             </div>
             <div className="mem-text">
               <p className="mem-k">In loving memory</p>
