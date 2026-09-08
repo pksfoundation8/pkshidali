@@ -19,8 +19,9 @@ export const rsvp = defineType({
       name: 'attending', title: 'Attending', type: 'array', of: [{ type: 'string' }],
       options: {
         list: [
-          { title: 'Service of Song — 15 October', value: 'service-of-song' },
-          { title: 'Funeral Service — 16 October', value: 'funeral-service' },
+          { title: 'Service of Song — 15 October, 4:00 PM', value: 'service-of-song' },
+          { title: 'Lying in State — 16 October, 8:00 AM', value: 'lying-in-state' },
+          { title: 'Funeral Service — 16 October, 10:00 AM', value: 'funeral-service' },
         ],
       },
       validation: (r) => r.required().min(1),
@@ -40,7 +41,8 @@ export const rsvp = defineType({
   preview: {
     select: { title: 'name', guests: 'guests', attending: 'attending' },
     prepare({ title, guests, attending }) {
-      const which = (attending ?? []).length === 2 ? 'both services' : (attending ?? []).join('');
+      const list = attending ?? [];
+      const which = list.length === 3 ? 'all three' : list.join(', ');
       return { title, subtitle: `${guests ?? 1} attending · ${which || 'no service chosen'}` };
     },
   },

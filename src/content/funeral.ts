@@ -12,7 +12,7 @@ import type { IconName } from '@/components/primitives/Icon';
  */
 
 export type FuneralEvent = {
-  key: 'service-of-song' | 'funeral-service';
+  key: 'service-of-song' | 'lying-in-state' | 'funeral-service';
   title: string;
   date: string;
   dateLabel: string;
@@ -20,6 +20,10 @@ export type FuneralEvent = {
   timeLabel: string;
   summary: string;
   icon: IconName;
+  /** Whether this one is carried on the livestream. The lying in state is a
+   *  viewing rather than a service, and nobody has said it will be broadcast,
+   *  so it is not claimed here. */
+  streamed: boolean;
 };
 
 export const funeralEvents: FuneralEvent[] = [
@@ -28,11 +32,24 @@ export const funeralEvents: FuneralEvent[] = [
     title: 'Service of Song',
     date: '2026-10-15',
     dateLabel: 'Thursday, 15 October 2026',
-    startsAt: '2026-10-15T17:00:00+01:00',
-    timeLabel: '5:00 PM',
+    startsAt: '2026-10-15T16:00:00+01:00',
+    timeLabel: '4:00 PM',
     summary:
       'An evening of hymns, scripture and remembrance, in the tradition he kept all his life.',
     icon: 'mic',
+    streamed: true,
+  },
+  {
+    key: 'lying-in-state',
+    title: 'Lying in State',
+    date: '2026-10-16',
+    dateLabel: 'Friday, 16 October 2026',
+    startsAt: '2026-10-16T08:00:00+01:00',
+    timeLabel: '8:00 AM',
+    summary:
+      'An hour to pay respects before the service, for those who wish to come early.',
+    icon: 'candle',
+    streamed: false,
   },
   {
     key: 'funeral-service',
@@ -44,8 +61,28 @@ export const funeralEvents: FuneralEvent[] = [
     summary:
       'The service of committal, celebrating a life given to God and to the building of people.',
     icon: 'cross',
+    streamed: true,
   },
 ];
+
+/** "Thursday 15 October at 4:00 PM" — the year is dropped because every one of
+ *  these is 2026 and the surrounding copy already says so. */
+export function shortWhen(e: FuneralEvent) {
+  return `${e.dateLabel.replace(/,/, '').replace(/ \d{4}$/, '')} at ${e.timeLabel}`;
+}
+
+/** The whole schedule in one sentence, for share text and meta descriptions.
+ *  Derived, so the prose cannot drift from the times above the way it did when
+ *  each mention was typed by hand. */
+export function scheduleSentence(opts: { zone?: boolean; events?: FuneralEvent[] } = {}) {
+  const z = opts.zone ? ' WAT' : '';
+  return (opts.events ?? funeralEvents)
+    .map((e) => `${e.title}, ${e.dateLabel.replace(/,/, '').replace(/ \d{4}$/, '')} at ${e.timeLabel}${z}`)
+    .join('; ');
+}
+
+/** The two that are broadcast — the livestream page speaks only for these. */
+export const streamedEvents = funeralEvents.filter((e) => e.streamed);
 
 export const venue = {
   name: 'Apostolic Faith Church',
@@ -100,7 +137,7 @@ export const funeralIntro = {
   title: 'Celebration of a Life Well Lived',
   lede:
     'The family of Rev. Paul Kadir Shidali invites you to join them in giving thanks for his life. '
-    + 'Both services will be held at the Apostolic Faith Church in Ilorin.',
+    + 'All three will be held at the Apostolic Faith Church in Ilorin.',
   note:
     'If you plan to attend, please let the family know using the form below. It helps them prepare '
     + 'seating and hospitality, and it is the only reason we ask.',

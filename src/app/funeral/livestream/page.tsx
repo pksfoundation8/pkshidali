@@ -4,12 +4,11 @@ import { Container } from '@/components/layout/Container';
 import { PageBanner } from '@/components/layout/PageBanner';
 import { Icon } from '@/components/primitives/Icon';
 import { ShareInvite } from '@/components/tributes/ShareInvite';
-import { funeralEvents, venue, livestream, zoneTimes } from '@/content/funeral';
+import { streamedEvents, venue, livestream, zoneTimes, scheduleSentence } from '@/content/funeral';
 import { site } from '@/config/site';
 
 const shareAsk =
-  `Watch the services for ${site.subject.name} from anywhere. Service of Song, Thursday 15 October `
-  + 'at 5:00 PM WAT, and Funeral Service, Friday 16 October at 10:00 AM WAT.';
+  `Watch the services for ${site.subject.name} from anywhere. ${scheduleSentence({ zone: true, events: streamedEvents })}.`;
 
 export const metadata = {
   title: 'Livestream',
@@ -41,7 +40,7 @@ export const metadata = {
 function broadcastJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@graph': funeralEvents.map((e) => ({
+    '@graph': streamedEvents.map((e) => ({
       '@type': 'Event',
       name: `${e.title} — ${site.subject.name}`,
       startDate: e.startsAt,
@@ -127,7 +126,7 @@ export default function LivestreamPage() {
           {/* times where people actually are */}
           <h2 className="zones-h">Service times in your part of the world</h2>
           <div className="zones">
-            {funeralEvents.map((e) => (
+            {streamedEvents.map((e) => (
               <div key={e.key} className="zone-card">
                 <p className="z-title">{e.title}</p>
                 <p className="z-date">{e.dateLabel}</p>
@@ -176,9 +175,9 @@ export default function LivestreamPage() {
               </>
             }
             message={
-              `Both services for ${site.subject.name} will be streamed from Ilorin. `
-              + 'Service of Song, Thursday 15 October at 5:00 PM WAT, and the Funeral Service, '
-              + 'Friday 16 October at 10:00 AM WAT. Times in your timezone, and the watch link:'
+              `The services for ${site.subject.name} will be streamed from Ilorin. `
+              + `${scheduleSentence({ zone: true, events: streamedEvents })}. `
+              + 'Times in your timezone, and the watch link:'
             }
           />
 
@@ -209,7 +208,7 @@ export default function LivestreamPage() {
             <div>
               <h3>Attending in person instead?</h3>
               <p>
-                Both services are at {venue.name}, {venue.street}, {venue.city}.
+                All three gatherings are at {venue.name}, {venue.street}, {venue.city}.
                 The family would be glad to know you are coming.
               </p>
             </div>

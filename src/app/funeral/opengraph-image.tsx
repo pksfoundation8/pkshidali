@@ -1,11 +1,10 @@
 import { funeralCard, size, contentType } from '@/lib/og/funeral-card';
-import { funeralEvents, venue } from '@/content/funeral';
+import { funeralEvents, venue, scheduleSentence } from '@/content/funeral';
 
 export const runtime = 'nodejs';
 export const alt =
-  'Rev. Paul Kadir Shidali, December 4, 1933 to August 16, 2026. Service of Song '
-  + 'Thursday 15 October at 5:00 PM and Funeral Service Friday 16 October at 10:00 AM, '
-  + 'Apostolic Faith Church, Ilorin.';
+  `Rev. Paul Kadir Shidali, December 4, 1933 to August 16, 2026. ${scheduleSentence()}, `
+  + `at ${venue.name}, ${venue.city}.`;
 export { size, contentType };
 
 export default async function Image() {

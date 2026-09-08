@@ -6,12 +6,12 @@ import { Icon } from '@/components/primitives/Icon';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { RsvpForm } from '@/components/funeral/RsvpForm';
 import { ShareInvite } from '@/components/tributes/ShareInvite';
-import { funeralEvents, venue, funeralIntro, reception, livestream } from '@/content/funeral';
+import { funeralEvents, venue, funeralIntro, reception, livestream, scheduleSentence } from '@/content/funeral';
 import { site } from '@/config/site';
 
 const shareAsk =
-  `Funeral arrangements for ${site.subject.name}. Service of Song on Thursday 15 October at 5:00 PM `
-  + `and Funeral Service on Friday 16 October at 10:00 AM, ${venue.name}, ${venue.city}. `
+  `Funeral arrangements for ${site.subject.name}. ${scheduleSentence()}, `
+  + `at ${venue.name}, ${venue.city}. `
   + 'Please let the family know if you plan to attend.';
 
 export const metadata = {
@@ -112,7 +112,7 @@ export default function FuneralPage() {
           {/* venue */}
           <div className="venue">
             <div>
-              <h3>Venue &mdash; both services</h3>
+              <h3>Venue &mdash; all three</h3>
               <p className="v-name">{venue.name}</p>
               <address>
                 {venue.street}<br />
@@ -156,8 +156,7 @@ export default function FuneralPage() {
               </>
             }
             message={
-              `Funeral arrangements for ${site.subject.name}. Service of Song on Thursday `
-              + '15 October at 5:00 PM, and the Funeral Service on Friday 16 October at 10:00 AM, '
+              `Funeral arrangements for ${site.subject.name}. ${scheduleSentence()}, `
               + `at ${venue.name}, ${venue.street}, ${venue.city}. `
               + 'Details, livestream and RSVP:'
             }

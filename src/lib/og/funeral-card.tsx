@@ -34,7 +34,7 @@ export async function funeralCard({
   eyebrow, rows, footnote,
 }: { eyebrow: string; rows: CardRow[]; footnote: string }) {
   const [portraitBuf, semi, bold] = await Promise.all([
-    asset('portrait-og.png'),
+    asset('portrait-og-v2.png'),
     asset('fonts/CormorantGaramond-SemiBold.ttf'),
     asset('fonts/CormorantGaramond-Bold.ttf'),
   ]);
@@ -60,8 +60,8 @@ export async function funeralCard({
 
         {portrait && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={portrait} alt="" width={470} height={412}
-            style={{ position: 'absolute', top: 132, left: 700 }} />
+          <img src={portrait} alt="" width={430} height={553}
+            style={{ position: 'absolute', top: 77, left: 726 }} />
         )}
 
         <div style={{
