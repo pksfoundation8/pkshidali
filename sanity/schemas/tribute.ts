@@ -48,7 +48,12 @@ export const tribute = defineType({
     defineField({
       name: 'name', type: 'string', group: 'contributor',
       description: 'As it should appear publicly.',
-      validation: (r) => r.required(),
+      validation: (r) => r.required().custom((v) => {
+        if (v && /\p{Extended_Pictographic}|\p{Regional_Indicator}/u.test(v)) {
+          return 'Remove the emoji from the name — it breaks the initials shown on the homepage.';
+        }
+        return true;
+      }),
     }),
     defineField({
       name: 'email', type: 'string', group: 'contributor',

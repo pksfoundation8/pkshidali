@@ -45,12 +45,17 @@ type Fields = Record<string, string>;
 const str = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
 const bool = (v: unknown) => v === true || v === 'true' || v === 'on';
 
+// Matches the same rule enforced on the `name` field in sanity/schemas/tribute.ts.
+// Emoji split across UTF-16 surrogate pairs break the homepage initials.
+const EMOJI_RE = /\p{Extended_Pictographic}|\p{Regional_Indicator}/u;
+
 function validate(t: {
   name: string; email: string; relationship: string; body: string;
   permissionPublish: boolean; permissionArchive: boolean;
 }) {
   const errors: Record<string, string> = {};
   if (!t.name) errors.name = 'Name is required.';
+  else if (EMOJI_RE.test(t.name)) errors.name = 'Please enter your name without emoji.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t.email)) errors.email = 'A valid email is required.';
   if (!t.relationship) errors.relationship = 'Relationship is required.';
   if (t.body.length < 40) errors.body = 'Tribute must be at least 40 characters.';

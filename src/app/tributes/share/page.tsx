@@ -51,6 +51,9 @@ export default function ShareTributePage() {
   const validate = () => {
     const e: Record<string, string> = {};
     if (!f.name.trim()) e.name = 'Please give the name this tribute should be published under.';
+    else if (/\p{Extended_Pictographic}|\p{Regional_Indicator}/u.test(f.name)) {
+      e.name = 'Please enter your name without emoji.';
+    }
     if (!f.email.trim()) e.email = 'We need an email in case the family has a question. It is never published.';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = 'That does not look like a complete email address.';
     if (!f.relationship) e.relationship = 'Choose how you knew him.';
