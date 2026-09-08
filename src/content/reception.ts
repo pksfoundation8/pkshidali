@@ -9,7 +9,7 @@
 
 export const receptionHosts = [
   'Lami',
-  'Emanuel',
+  'Emmanuel',
   'Samuel',
   'Taiye',
   'Kehinde',
