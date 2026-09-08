@@ -96,16 +96,6 @@ export const venue = {
   },
 };
 
-/** Reception follows the funeral service. Venue not yet settled. */
-export const reception = {
-  title: 'Reception',
-  when: 'Friday, 16 October at 4:00 PM',
-  venue: null as string | null,   // set this and the page stops saying "to be confirmed"
-  note:
-    'The reception is by invitation. If a member of the family has invited you, register for '
-    + 'an admission code — the venue will be confirmed to registered guests before the date.',
-};
-
 /** Timezones the family and congregation are actually spread across. */
 export const watchZones: [string, string][] = [
   ['Ilorin / Lagos', 'Africa/Lagos'],

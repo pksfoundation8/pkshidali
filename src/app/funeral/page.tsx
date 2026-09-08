@@ -6,7 +6,7 @@ import { Icon } from '@/components/primitives/Icon';
 import { IconCircle } from '@/components/primitives/IconCircle';
 import { RsvpForm } from '@/components/funeral/RsvpForm';
 import { ShareInvite } from '@/components/tributes/ShareInvite';
-import { funeralEvents, venue, funeralIntro, reception, livestream, scheduleSentence } from '@/content/funeral';
+import { funeralEvents, venue, funeralIntro, livestream, scheduleSentence } from '@/content/funeral';
 import { site } from '@/config/site';
 
 const shareAsk =
@@ -126,17 +126,6 @@ export default function FuneralPage() {
             </div>
 
             <div className="v-side">
-              <div className="v-block">
-                <h3>{reception.title}</h3>
-                <p className="v-when">{reception.when}</p>
-                <p className="v-venue">{reception.venue ?? 'Venue to be confirmed'}</p>
-                <p className="v-note-sm">{reception.note}</p>
-                <Link href="/funeral/reception" className="btn btn-outline"
-                  style={{ marginTop: 12, padding: '10px 18px' }}>
-                  <Icon n="heart" s={15} />Reception invitation
-                </Link>
-              </div>
-
               <div className="v-block">
                 <h3>Watching from abroad</h3>
                 <p className="v-note-sm">{livestream.note}</p>
