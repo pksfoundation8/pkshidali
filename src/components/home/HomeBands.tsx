@@ -140,8 +140,18 @@ export async function QuoteStrip() {
 
 /* ── tributes + timeline ──────────────────────────────────────────── */
 function initials(name: string) {
-  const clean = name.replace(/\[.*?\]/g, '').trim().split(/\s+/).slice(0, 2);
-  return clean.map((w) => w[0] ?? '').join('').toUpperCase() || '\u2726';
+  const words = name
+    .replace(/\[.*?\]/g, '')
+    .trim()
+    .split(/\s+/)
+    .filter((w) => /\p{L}/u.test(w))
+    .slice(0, 2);
+  return (
+    words
+      .map((w) => [...w].find((ch) => /\p{L}/u.test(ch)) ?? '')
+      .join('')
+      .toUpperCase() || '\u2726'
+  );
 }
 
 export async function TributesAndTimeline() {
