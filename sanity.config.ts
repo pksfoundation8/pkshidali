@@ -65,6 +65,11 @@ export default defineConfig({
                     .filter('_type == "rsvp" && "funeral-service" in attending')
                     .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
                 ),
+                S.listItem().title('Interment — 16 October').child(
+                  S.documentList().title('Interment')
+                    .filter('_type == "rsvp" && "interment" in attending')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
               ])
             ),
             S.listItem().title('Reception Guests').child(

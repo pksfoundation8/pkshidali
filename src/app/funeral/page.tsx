@@ -44,7 +44,7 @@ function eventJsonLd() {
     '@graph': funeralEvents.map((e) => ({
       '@type': 'Event',
       name: `${e.title} — ${site.subject.name}`,
-      startDate: e.startsAt,
+      startDate: e.startsAt ?? e.date,
       eventAttendanceMode: livestream.url
         ? 'https://schema.org/MixedEventAttendanceMode'
         : 'https://schema.org/OfflineEventAttendanceMode',
@@ -102,7 +102,9 @@ export default function FuneralPage() {
                 <div>
                   <p className="ev-when">{e.dateLabel}</p>
                   <h2>{e.title}</h2>
-                  <p className="ev-time"><Icon n="info" s={14} />{e.timeLabel} (WAT)</p>
+                  <p className="ev-time">
+                    <Icon n="info" s={14} />{e.timeLabel}{e.startsAt ? ' (WAT)' : ''}
+                  </p>
                   <p className="ev-sum">{e.summary}</p>
                 </div>
               </li>
@@ -112,7 +114,7 @@ export default function FuneralPage() {
           {/* venue */}
           <div className="venue">
             <div>
-              <h3>Venue &mdash; all three</h3>
+              <h3>Venue &mdash; church gatherings</h3>
               <p className="v-name">{venue.name}</p>
               <address>
                 {venue.street}<br />

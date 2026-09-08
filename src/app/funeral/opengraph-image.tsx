@@ -12,8 +12,11 @@ export default async function Image() {
     eyebrow: 'Funeral Arrangements',
     rows: funeralEvents.map((e) => ({
       label: e.title,
-      // "Thursday, 15 October 2026" is too long beside a title at this size
-      detail: `${e.dateLabel.replace(/^(\w{3})\w*,/, '$1')} · ${e.timeLabel}`,
+      // "Thursday, 15 October 2026" is too long beside a title at this size,
+      // and an event with no hour is placed by what it follows instead
+      detail: e.startsAt
+        ? `${e.dateLabel.replace(/^(\w{3})\w*,/, '$1')} · ${e.timeLabel}`
+        : e.timeLabel,
     })),
     footnote: `${venue.name}, ${venue.street}, ${venue.city}`,
   });

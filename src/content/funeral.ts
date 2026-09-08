@@ -12,11 +12,13 @@ import type { IconName } from '@/components/primitives/Icon';
  */
 
 export type FuneralEvent = {
-  key: 'service-of-song' | 'lying-in-state' | 'funeral-service';
+  key: 'service-of-song' | 'lying-in-state' | 'funeral-service' | 'interment';
   title: string;
   date: string;
   dateLabel: string;
-  startsAt: string;        // ISO with offset — the real instant
+  /** ISO with offset — the real instant. Null when only the order in the day
+   *  is known and not the hour, which must not be guessed. */
+  startsAt: string | null;
   timeLabel: string;
   summary: string;
   icon: IconName;
@@ -61,12 +63,25 @@ export const funeralEvents: FuneralEvent[] = [
     icon: 'cross',
     streamed: true,
   },
+  {
+    key: 'interment',
+    title: 'Interment',
+    date: '2026-10-16',
+    dateLabel: 'Friday, 16 October 2026',
+    // No hour has been given, only that it follows the service.
+    startsAt: null,
+    timeLabel: 'Follows the Funeral Service',
+    summary: 'The burial, immediately following the funeral service.',
+    icon: 'seed',
+    streamed: false,
+  },
 ];
 
 /** "Thursday 15 October at 4:00 PM" — the year is dropped because every one of
  *  these is 2026 and the surrounding copy already says so. */
 export function shortWhen(e: FuneralEvent) {
-  return `${e.dateLabel.replace(/,/, '').replace(/ \d{4}$/, '')} at ${e.timeLabel}`;
+  const day = e.dateLabel.replace(/,/, '').replace(/ \d{4}$/, '');
+  return e.startsAt ? `${day} at ${e.timeLabel}` : `${day}, ${e.timeLabel.toLowerCase()}`;
 }
 
 /** The whole schedule in one sentence, for share text and meta descriptions.
@@ -75,12 +90,21 @@ export function shortWhen(e: FuneralEvent) {
 export function scheduleSentence(opts: { zone?: boolean; events?: FuneralEvent[] } = {}) {
   const z = opts.zone ? ' WAT' : '';
   return (opts.events ?? funeralEvents)
-    .map((e) => `${e.title}, ${e.dateLabel.replace(/,/, '').replace(/ \d{4}$/, '')} at ${e.timeLabel}${z}`)
+    .map((e) => {
+      const day = e.dateLabel.replace(/,/, '').replace(/ \d{4}$/, '');
+      // An event with no hour is placed by what it follows, not by a clock.
+      return e.startsAt
+        ? `${e.title}, ${day} at ${e.timeLabel}${z}`
+        : `${e.title}, ${e.timeLabel.toLowerCase()}`;
+    })
     .join('; ');
 }
 
-/** The two that are broadcast — the livestream page speaks only for these. */
-export const streamedEvents = funeralEvents.filter((e) => e.streamed);
+/** The ones that are broadcast — the livestream page speaks only for these.
+ *  Narrowed so a timeless event can never reach the timezone conversion. */
+export const streamedEvents = funeralEvents.filter(
+  (e): e is FuneralEvent & { startsAt: string } => e.streamed && e.startsAt !== null,
+);
 
 export const venue = {
   name: 'Apostolic Faith Church',
