@@ -20,9 +20,7 @@ export type FuneralEvent = {
   timeLabel: string;
   summary: string;
   icon: IconName;
-  /** Whether this one is carried on the livestream. The lying in state is a
-   *  viewing rather than a service, and nobody has said it will be broadcast,
-   *  so it is not claimed here. */
+  /** Whether this one is carried on the livestream. All three are. */
   streamed: boolean;
 };
 
@@ -49,7 +47,7 @@ export const funeralEvents: FuneralEvent[] = [
     summary:
       'An hour to pay respects before the service, for those who wish to come early.',
     icon: 'candle',
-    streamed: false,
+    streamed: true,
   },
   {
     key: 'funeral-service',
@@ -101,11 +99,11 @@ export const venue = {
 /** Reception follows the funeral service. Venue not yet settled. */
 export const reception = {
   title: 'Reception',
-  when: 'Following the Funeral Service on Friday, 16 October',
+  when: 'Friday, 16 October at 4:00 PM',
   venue: null as string | null,   // set this and the page stops saying "to be confirmed"
   note:
-    'The family will share the reception venue here once it is confirmed. If you are travelling '
-    + 'from outside Ilorin, please check this page again nearer the date.',
+    'The reception is by invitation. If a member of the family has invited you, register for '
+    + 'an admission code — the venue will be confirmed to registered guests before the date.',
 };
 
 /** Timezones the family and congregation are actually spread across. */
@@ -121,12 +119,12 @@ export const livestream = {
   url: null as string | null,
   platform: null as string | null,
   note:
-    'A link will be published on this page before the services begin. Both services are '
+    'A link will be published on this page before the services begin. All three are '
     + 'expected to be streamed for family and friends who cannot travel to Ilorin.',
   /** The funeral service falls at 5:00 am in North America, so the recording
    *  matters as much as the live stream for a family spread across Canada. */
   recordingNote:
-    'A recording of both services will be posted here afterwards, so anyone who cannot watch '
+    'A recording will be posted here afterwards, so anyone who cannot watch '
     + 'live — or for whom the hour is difficult — can still take part in their own time.',
   /** Set once the recording is up; the page then links it instead of promising it. */
   recordingUrl: null as string | null,

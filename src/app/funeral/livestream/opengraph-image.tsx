@@ -14,6 +14,6 @@ export default async function Image() {
       label: e.title,
       detail: `${e.dateLabel.replace(/^(\w{3})\w*,/, '$1')} · ${e.timeLabel} WAT`,
     })),
-    footnote: `Both services streamed live from ${venue.city}`,
+    footnote: `All three streamed live from ${venue.city}`,
   });
 }

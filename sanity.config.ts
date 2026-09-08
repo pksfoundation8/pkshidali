@@ -67,6 +67,25 @@ export default defineConfig({
                 ),
               ])
             ),
+            S.listItem().title('Reception Guests').child(
+              S.list().title('Reception Guests').items([
+                S.listItem().title('All guests — newest first').child(
+                  S.documentList().title('All reception guests')
+                    .filter('_type == "receptionGuest"')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+                S.listItem().title('By host').child(
+                  S.documentList().title('By host')
+                    .filter('_type == "receptionGuest"')
+                    .defaultOrdering([{ field: 'host', direction: 'asc' }])
+                ),
+                S.listItem().title('Code was not emailed').child(
+                  S.documentList().title('Code not emailed — tell these guests')
+                    .filter('_type == "receptionGuest" && emailed != true')
+                    .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
+                ),
+              ])
+            ),
             S.divider(),
             S.documentTypeListItem('pillar').title('Legacy Pillars'),
             S.documentTypeListItem('program').title('Programs'),

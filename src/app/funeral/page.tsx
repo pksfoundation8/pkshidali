@@ -94,7 +94,7 @@ export default function FuneralPage() {
             </div>
           </div>
 
-          {/* the two services */}
+          {/* the three gatherings */}
           <ul className="events">
             {funeralEvents.map((e) => (
               <li key={e.key} className="event">
@@ -131,6 +131,10 @@ export default function FuneralPage() {
                 <p className="v-when">{reception.when}</p>
                 <p className="v-venue">{reception.venue ?? 'Venue to be confirmed'}</p>
                 <p className="v-note-sm">{reception.note}</p>
+                <Link href="/funeral/reception" className="btn btn-outline"
+                  style={{ marginTop: 12, padding: '10px 18px' }}>
+                  <Icon n="heart" s={15} />Reception invitation
+                </Link>
               </div>
 
               <div className="v-block">

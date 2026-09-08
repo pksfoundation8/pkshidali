@@ -80,7 +80,7 @@ export default function LivestreamPage() {
         title="Watch From Anywhere"
         intro={
           'His family and the people he taught are spread across several countries. '
-          + 'Both services will be streamed so distance need not keep anyone away.'
+          + 'All three will be streamed so distance need not keep anyone away.'
         }
       />
 
@@ -103,7 +103,7 @@ export default function LivestreamPage() {
             {livestream.url ? (
               <>
                 <h2>The stream is available</h2>
-                <p>Both services will be broadcast here at the times below.</p>
+                <p>All three will be broadcast here at the times below.</p>
                 <a href={livestream.url} target="_blank" rel="noopener noreferrer"
                   className="btn btn-gold" style={{ marginTop: 18 }}>
                   <Icon n="video" s={16} />Open the livestream
