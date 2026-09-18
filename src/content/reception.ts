@@ -3,7 +3,7 @@
  *
  * Unlike the services, this one is by invitation: each guest comes at the
  * invitation of a member of the family, and is admitted on a code issued when
- * they register. The seven names below are the only valid hosts, so a
+ * they register. The eight names below are the only valid hosts, so a
  * registration cannot be filed against someone who is not hosting.
  */
 
@@ -15,6 +15,7 @@ export const receptionHosts = [
   'Kehinde',
   'Helen',
   'Gloria',
+  'David',
 ] as const;
 
 export type ReceptionHost = (typeof receptionHosts)[number];
