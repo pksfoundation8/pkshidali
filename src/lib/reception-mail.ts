@@ -20,7 +20,9 @@ export async function sendReceptionCode(
     return { delivered: false };
   }
 
-  const where = receptionEvent.venue ?? 'The venue will be confirmed before the date';
+  const where = receptionEvent.venue
+    ? `${receptionEvent.venue}, ${receptionEvent.venueNote}`
+    : 'The venue will be confirmed before the date';
   const text = [
     `Dear ${name},`,
     '',
@@ -32,8 +34,10 @@ export async function sendReceptionCode(
     `${receptionEvent.dateLabel}, ${receptionEvent.timeLabel}`,
     where,
     '',
-    'Please keep this code — you will be asked for it at the door. If the venue is',
-    `still to be confirmed, it will be published at ${site.url}/funeral/reception.`,
+    receptionEvent.venue
+      ? 'Please keep this code — you will be asked for it at the door.'
+      : 'Please keep this code — you will be asked for it at the door. If the venue is '
+        + `still to be confirmed, it will be published at ${site.url}/funeral/reception.`,
     '',
     'With thanks,',
     site.name,
