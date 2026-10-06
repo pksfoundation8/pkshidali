@@ -1956,3 +1956,36 @@
 @media(max-width:420px){
   .pks .adm-code{font-size:27px;letter-spacing:.1em;padding:14px 12px}
 }
+
+/* ══════════════ his-life: biography text, journey, closing ══════════════ */
+.pks .lifeopen p:first-child{margin-top:0;font-size:18px;color:var(--ink)}
+.pks .lifepattern{margin-bottom:34px}
+.pks .lifepattern .k{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-700)}
+.pks .lifepattern ol{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 0;font-size:clamp(1rem,1.8vw,1.15rem)}
+.pks .lifepattern li:not(:last-child)::after{content:'\2192';margin:0 .55em;color:var(--gold-500)}
+.pks .bstrong{margin-top:20px;font-family:var(--display);font-size:21px;font-weight:600;
+  line-height:1.4;color:var(--navy-800)}
+.pks .prose .blist{margin-top:14px;display:flex;flex-direction:column;gap:7px}
+.pks .prose .blist li{display:flex;gap:10px;font-size:16px;line-height:1.7;color:var(--ink-muted)}
+.pks .prose .blist li::before{content:'\2014';color:var(--gold-500);flex:none}
+.pks .bsteps{margin-top:18px;display:grid;grid-template-columns:1fr;gap:2px 0}
+.pks .bsteps dt{margin-top:16px;font-family:var(--display);font-size:19px;font-weight:600;color:var(--navy-800)}
+.pks .bsteps dd{margin:0;font-size:15.5px;line-height:1.75;color:var(--ink-muted)}
+.pks .jrn{max-width:760px;margin:36px auto 0;border-left:1px solid rgba(196,154,69,.45)}
+.pks .jrn li{position:relative;display:grid;gap:2px 22px;padding:12px 0 12px 26px}
+.pks .jrn li::before{content:'';position:absolute;left:-5px;top:21px;width:9px;height:9px;
+  border-radius:50%;background:var(--gold-500)}
+@media(min-width:640px){.pks .jrn li{grid-template-columns:190px 1fr}}
+.pks .jrn .when{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold-700);padding-top:3px}
+.pks .jrn .what{font-size:15.5px;line-height:1.7;color:var(--ink-muted)}
+.pks .jrn .what strong{color:var(--ink);font-weight:600}
+.pks .lifeclose{max-width:760px;margin:0 auto}
+.pks .lifeclose .title{text-align:center;margin-bottom:10px}
+.pks .lifeclose .prose p:first-child{margin-top:20px}
+.pks .lifeclose .prose .blist li{font-family:var(--display);font-size:20px;line-height:1.5;color:var(--navy-800)}
+.pks .benediction{margin-top:34px;padding:28px 30px;border-left:2px solid var(--gold-500);
+  background:rgba(196,154,69,.07);border-radius:var(--radius);display:flex;flex-direction:column;gap:2px;
+  font-family:var(--display);font-size:clamp(1.2rem,2.2vw,1.45rem);line-height:1.5;color:var(--navy-800)}
+.pks .benediction span:last-child{font-weight:600}

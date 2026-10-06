@@ -6,7 +6,8 @@ import { IconCircle } from '@/components/primitives/IconCircle';
 import { Icon } from '@/components/primitives/Icon';
 import { CelestialBackdrop, Hill, hasHeroSky } from '@/components/home/CelestialBackdrop';
 import { BiographyAccordion } from '@/components/life/BiographyAccordion';
-import { lifeSections, characterTraits, lifeIntro } from '@/content/life';
+import { Blocks, Inline } from '@/components/life/Blocks';
+import { lifeSections, characterTraits, lifeIntro, lifeJourney, lifeClosing } from '@/content/life';
 import { getMilestones } from '@/lib/content';
 import { site } from '@/config/site';
 
@@ -60,11 +61,42 @@ export default async function HisLifePage() {
       <section className="pad">
         <Container>
           <div style={{ maxWidth: 860 }}>
-            <div className="note">
-              <Icon n="info" s={18} />
-              <span>{lifeIntro.note}</span>
+            <div className="prose lifeopen">
+              {lifeIntro.opening.map((p) => <p key={p}>{p}</p>)}
+            </div>
+            <div className="pull lifepattern">
+              <p className="k">{lifeIntro.patternLead}</p>
+              <ol aria-label="The stages of his life">
+                {lifeIntro.pattern.map((s) => <li key={s}>{s}</li>)}
+              </ol>
             </div>
             <BiographyAccordion sections={lifeSections} />
+          </div>
+        </Container>
+      </section>
+
+      <section className="band paper">
+        <Container>
+          <SectionHeading center>Life Journey</SectionHeading>
+          <ol className="jrn">
+            {lifeJourney.map((e, i) => (
+              <li key={i}>
+                <span className="when">{e.when}</span>
+                <span className="what"><Inline text={e.what} /></span>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
+
+      <section className="band">
+        <Container>
+          <div className="lifeclose">
+            <h2 className="title">{lifeClosing.heading}</h2>
+            <Blocks blocks={lifeClosing.body} />
+            <p className="benediction">
+              {lifeClosing.benediction.map((l) => <span key={l}>{l}</span>)}
+            </p>
           </div>
         </Container>
       </section>

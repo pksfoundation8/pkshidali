@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Icon } from '@/components/primitives/Icon';
 import type { LifeSection } from '@/content/life';
+import { Blocks } from './Blocks';
 
 export function BiographyAccordion({ sections }: { sections: LifeSection[] }) {
   const [open, setOpen] = useState<string | null>(sections[0]?.slug ?? null);
@@ -22,7 +23,7 @@ export function BiographyAccordion({ sections }: { sections: LifeSection[] }) {
                   <span className="num">{String(i + 1).padStart(2, '0')}</span>
                   <span>
                     <span className="bt">{s.title}</span>
-                    <span className="bs">{s.standfirst}</span>
+                    {s.standfirst && <span className="bs">{s.standfirst}</span>}
                   </span>
                 </span>
                 <span className="right">
@@ -35,11 +36,11 @@ export function BiographyAccordion({ sections }: { sections: LifeSection[] }) {
             {isOpen && (
               <div className="bbody" id={`panel-${s.slug}`}>
                 {written ? (
-                  <div className="prose">{s.body!.map((p) => <p key={p}>{p}</p>)}</div>
+                  <Blocks blocks={s.body!} />
                 ) : (
                   <div className="prompt">
                     <span className="k">To write this section, gather</span>
-                    <ul>{s.prompts.map((q) => <li key={q}>{q}</li>)}</ul>
+                    <ul>{(s.prompts ?? []).map((q) => <li key={q}>{q}</li>)}</ul>
                   </div>
                 )}
               </div>
