@@ -139,6 +139,27 @@ export default function FuneralPage() {
             </div>
           </div>
 
+          {/* the printed order of service, as a file — the QR on the printed
+              copies and at the venue points straight at the PDF */}
+          <div className="cards-dl">
+            <div>
+              <h3>Funeral programme</h3>
+              <p>
+                The full order of service, his biography, tributes and photographs &mdash;
+                26 pages to read on your phone, print, or keep.
+              </p>
+            </div>
+            <div className="dl-links">
+              <a href="/funeral-programme.pdf"
+                download="Rev-Paul-Kadir-Shidali-Funeral-Programme.pdf">
+                <Icon n="doc" s={16} /><span>Download programme<small>PDF · 6.8 MB</small></span>
+              </a>
+              <a href="/funeral-programme-qr.png" download>
+                <Icon n="photo" s={16} /><span>QR code<small>For print &amp; screens</small></span>
+              </a>
+            </div>
+          </div>
+
           <ShareInvite
             url={`${site.url}/funeral`}
             subject={`Funeral arrangements — ${site.subject.name}`}
